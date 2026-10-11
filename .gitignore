@@ -18,3 +18,4 @@ venv/
 # Raw downloads are re-fetched by `python -m warcost fetch`; the CBS spending
 # table alone is several MB. Processed outputs are committed.
 data/raw/
+.streamlit/secrets.toml
