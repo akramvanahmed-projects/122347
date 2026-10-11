@@ -1,16 +1,13 @@
 Traceback (most recent call last):
-  File "/home/runner/work/122347/122347/src/fetch.py", line 245, in main
+  File "/home/runner/work/122347/122347/src/fetch.py", line 267, in main
     hh = fetch_households(cfg)
          ^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/122347/122347/src/fetch.py", line 117, in fetch_households
-    qcol, qmap = _quintile_rows(sh, cfg)
-                 ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/122347/122347/src/fetch.py", line 93, in _quintile_rows
-    qcol = _find_col(df, pats[0])
-           ^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/122347/122347/src/fetch.py", line 81, in _find_col
+  File "/home/runner/work/122347/122347/src/fetch.py", line 124, in fetch_households
+    catcol = _find_col(sh, c["category_patterns"]["food"])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/122347/122347/src/fetch.py", line 85, in _find_col
     raise KeyError(f"no column contains a label matching {pattern!r}")
-KeyError: "no column contains a label matching '1e 20%'"
+KeyError: "no column contains a label matching 'voedingsmiddelen en alcoholvrije'"
 Fetching Eurostat HICP …
   prices food         CP01            unit=I15 2017-01..2025-12
   prices home_energy  CP045           unit=I15 2017-01..2025-12

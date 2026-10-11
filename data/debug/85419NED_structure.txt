@@ -1,2 +1,111 @@
 85419NED: 2640 rows
 columns: ['ID', 'Bestedingscategorieen', 'KenmerkenHuishoudens', 'Perioden', 'GemiddeldBesteedBedrag_1']
+
+[Bestedingscategorieen] 15 unique
+   000000 Alle bestedingen
+   010000 Voedingsmidd. en alc.vrije drank
+   020000 Alcoholhoudende dranken en tabak
+   030000 Kleding en schoenen
+   040000 Huisvesting, water en energie
+   050000 Stoffering en huish. apparaten.
+   060000 Gezondheid
+   070000 Vervoer
+   080000 Communicatie
+   090000 Recreatie en cultuur
+   100000 Onderwijs
+   110000 Restaurants en hotels
+   120000 Diverse goederen en diensten
+   130000 Consumptiegebonden belastingen
+   150000 Goede doelen
+[KenmerkenHuishoudens] 88 unique
+   Particuliere huishoudens
+   Type: Eenpersoonshuishouden
+   Type: Alleenstaande man
+   Type: Alleenstaande man onder AOW-lft
+   Type: Alleenstaande man vanaf AOW-lft
+   Type: Alleenstaande vrouw
+   Type: Alleenstaande vrouw onder AOW-lft
+   Type: Alleenstaande vrouw vanaf AOW-lft
+   Type: Meerpersoonshuishouden
+   Type: Eenoudergezin
+   Type: Eenouder, alle kinderen < 18 jr
+   Type: Eenouder, minst. één kind >= 18 jr
+   Type: Paar, totaal
+   Type: Paar, met kind(eren)
+   Type: Paar, alle kinderen < 18 jr
+   Type: Paar, minstens één kind >= 18 jr
+   Type: Paar, zonder kind
+   Type: Paar, zonder kind, onder AOW-lft
+   Type: Paar, zonder kind, vanaf AOW-lft
+   Type: Meerpersoonshuishouden, overig
+   Huishoudensgrootte: 1 persoon
+   Huishoudensgrootte: 2 personen
+   Huishoudensgrootte: 3 personen
+   Huishoudensgrootte: 4 personen
+   Huishoudensgrootte: 5 of meer personen
+   Hoofdkostwinner: tot 25 jaar
+   Hoofdkostwinner: 25 tot 35 jaar
+   Hoofdkostwinner: 35 tot 45 jaar
+   Hoofdkostwinner: 45 tot 55 jaar
+   Hoofdkostwinner: 55 tot 65 jaar
+   Hoofdkostwinner: 65 tot 75 jaar
+   Hoofdkostwinner: 75 jaar of ouder
+   Hoofdkostwinner: 25 tot 45 jaar
+   Hoofdkostwinner: 45 tot 65 jaar
+   Hoofdkostwinner: 65 jaar of ouder
+   Herkomst: geb. in NL, ouders in NL
+   Herkomst: geb. in NL, ouder(s) buiten NL
+   Herkomst: geb. in NL, 1 ouder geboren NL
+   Herkomst: geb. in NL, 2 ouders buiten NL
+   Herkomst: geboren buiten Nederland
+   Bron: Inkomen als werknemer/zelfstandige
+   Bron: Inkomen als werknemer
+   Bron: Inkomen als zelfstandige (totaal)
+   Bron: Overdrachtsinkomen
+   Bron: Uitkering inkomensverzekering
+   Bron: Uitkering werkloosheid
+   Bron: Uitkering arbeidsongeschiktheid
+   Bron: Uitkering pensioen
+   Bron: Uitkering sociale voorziening
+   Bron: Uitkering bijstand
+   Bron: Uitk. sociale voorziening, overig
+   Bron: Studiefinanciering
+   Woningbezit: eigen woning
+   Woningbezit: huurwoning
+   Woningbezit: huurwoning met huurtoeslag
+   Woningbezit: huurwoning geen huurtoeslag
+   Besteedbaar inkomen: 1e 10%-groep
+   Besteedbaar inkomen: 2e 10%-groep
+   Besteedbaar inkomen: 3e 10%-groep
+   Besteedbaar inkomen: 4e 10%-groep
+   Besteedbaar inkomen: 5e 10%-groep
+   Besteedbaar inkomen: 6e 10%-groep
+   Besteedbaar inkomen: 7e 10%-groep
+   Besteedbaar inkomen: 8e 10%-groep
+   Besteedbaar inkomen: 9e 10%-groep
+   Besteedbaar inkomen: 10e 10%-groep
+   Besteedbaar inkomen: 1e 20%-groep
+   Besteedbaar inkomen: 2e 20%-groep
+   Besteedbaar inkomen: 3e 20%-groep
+   Besteedbaar inkomen: 4e 20%-groep
+   Besteedbaar inkomen: 5e 20%-groep
+   Gestandaardiseerd inkomen: 1e 10%-groep
+   Gestandaardiseerd inkomen: 2e 10%-groep
+   Gestandaardiseerd inkomen: 3e 10%-groep
+   Gestandaardiseerd inkomen: 4e 10%-groep
+   Gestandaardiseerd inkomen: 5e 10%-groep
+   Gestandaardiseerd inkomen: 6e 10%-groep
+   Gestandaardiseerd inkomen: 7e 10%-groep
+   Gestandaardiseerd inkomen: 8e 10%-groep
+   Gestandaardiseerd inkomen: 9e 10%-groep
+   Gestandaardiseerd inkomen: 10e 10%-groep
+   Gestandaardiseerd inkomen: 1e 20%-groep
+   Gestandaardiseerd inkomen: 2e 20%-groep
+   Gestandaardiseerd inkomen: 3e 20%-groep
+   Gestandaardiseerd inkomen: 4e 20%-groep
+   Gestandaardiseerd inkomen: 5e 20%-groep
+   Inkomen tot lage-inkomensgrens
+   Inkomen boven lage-inkomensgrens
+[Perioden] 2 unique
+   2015
+   2020
