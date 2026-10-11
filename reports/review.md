@@ -1,0 +1,52 @@
+# Referee report on version 0.1
+
+This review scores the project as it stood before the October 2026 revision (one Streamlit file, synthetic tests, data never fetched), then lists what the revision fixed and what it did not. Scores are out of 10.
+
+| Part | Method | Rigour | Argument | Clarity | Code | Reproducibility |
+|---|---|---|---|---|---|---|
+| Price-shock counterfactual | 5 | 4 | 4 | 6 | 6 | 3 |
+| Distribution by income fifth | 5 | 3 | 3 | 6 | 5 | 3 |
+| Compensation layer | 4 | 3 | 4 | 6 | 6 | 4 |
+| Human-cost layer | 3 | 2 | 2 | 5 | 6 | 4 |
+| Pipeline and code | – | – | – | 6 | 5 | 2 |
+| Dashboard and text | – | – | 4 | 6 | 5 | 3 |
+
+Reproducibility scores low throughout because version 0.1 had never run on real data. Its CBS parser matched Dutch labels that did not exist, its Eurostat dataset stopped in December 2025, and it would have crashed on pandas 3. Every number it displayed came from a synthetic fixture.
+
+## Five critical problems
+
+**1. The headline attributed all excess inflation to the war.** Version 0.1 counted "core" inflation (services, rents, durables) above a pre-war trend as war damage. In 2022 that channel was larger than food and energy combined: €2,532 per household against €1,872. Most of it reflects reopening after Covid, a record-tight labour market and rent indexation. The revision removes core from the headline and reports it only as a sensitivity row, with the reason stated.
+
+**2. The energy price series was wrong in a way the author did not check.** Until June 2023, Dutch energy prices in the HICP were measured from new contracts only. CBS has published how far that overstated 2022 and understated early 2023. Version 0.1 ignored this, and so did the first draft of the revision, which assumed the correction would lower the Ukraine bill. It raises it, because anchoring at February 2022 pushes the delayed pass-through of the autumn 2021 spike into the war window. The two series are biased in opposite directions. The revision uses their midpoint and reports both as bounds (poorest fifth, gross: 2.8% to 4.6% of income).
+
+**3. "The poor lost most" was an artefact of the denominator.** As a share of spending, the Ukraine loss is 2.7% to 3.1% for every fifth. As a share of income it runs from 1.25% to 3.7%, because the poorest fifth's survey spending is 1.34 times its registered income. Version 0.1 showed only the income version and wrote the conclusion into the dashboard caption. The revision reports both and explains the gap. It still cannot say how much of the 1.34 is dissaving and how much is income the register misses.
+
+**4. The human-cost layer converted correlation into causation and hid it in a slider.** The CBS income–longevity gap is cross-sectional. Applying it to a 22-month shock requires two scaling assumptions: the causal share and the exposure period. No data identifies either, and the result is linear in both. Version 0.1 also counted "households in hardship" by assigning every household in a fifth that fifth's average loss, an ecological fallacy that produced "8.3 million households in hardship" on test data. The revision drops the headcount, reports a range of 45 to 226 lifetimes rather than a point, names the equivalence as an equivalence in every chart, and cites counter-evidence (Ruhm, 2000). The layer is still the weakest part of the project and should be read as an order of magnitude.
+
+**5. The compensation result rests on one unsourced number.** Whether the poorest fifth gained or lost depends on energietoeslag take-up, which version 0.1 set at 55% without a source. The revision computes the break-even (32%) and plots the whole curve, which turns a hidden assumption into a visible one. It does not fix it. A published take-up rate by income group would settle the most quotable finding in the project.
+
+## Smaller issues fixed in the revision
+
+- Imputed rent (11–19% of spending in the upper four fifths) was in the spending base and was priced with core inflation. It is not a cash outlay and HICP has no price for it.
+- Prices started in 2017, so the 2015 survey could not be uprated. The model silently produced zeros. It now raises an error.
+- The pre-trend counterfactual was offered as an equal alternative. For energy in 2022 it extrapolates the 2021 run-up and concludes the war lowered energy costs. It stays available, but labelled as a stress test.
+- Persons per fifth were assumed equal (2.1 per household). CBS data gives 1.1 in the poorest fifth and 3.4 in the richest, which matters when converting per-person days into national totals.
+- The life-expectancy gradient used household income ratios. The CBS studies rank by standardised (equivalised) income, which the revision now uses.
+
+## Still open
+
+- No mortality channel for cold homes, the most plausible direct route from an energy shock to deaths.
+- Wage, benefit and pension indexation is not netted off, which overstates net losses for 2023.
+- Quintile averages. Household microdata (CBS remote access) would allow real headcounts.
+- The CBS energy research series is transcribed from an article. A StatLine source should replace it if one exists.
+
+## Figure design notes
+
+Each figure started from the question of what the data feels like, then took the strongest idea that kept axes honest.
+
+1. **Who paid.** Bold: losses hang below an "income line" like a wound, with grey showing the part support closed (chosen). Moderate: dumbbells from gross to net per fifth. Conservative: grouped bars, before and after.
+2. **Size over time.** Bold: Ukraine as a grey wave with Iran as a red ripple, aligned on months since the war began (chosen). Moderate: twin lines on a common axis. Conservative: small multiples, one per war.
+3. **The price gap.** Bold: actual against no-war path with the gap filled red, so the bill is literally the shaded area (chosen). Moderate: excess-percentage lines. Conservative: a table of peak gaps.
+4. **What drove it.** Bold: a relay, energy handing over to food, as stacked monthly bars with only food in red (chosen). Moderate: two lines crossing in January 2023. Conservative: annual totals by category.
+5. **Human cost.** Bold: one dot per 82-year lifetime, red for lost, open for prevented by support, the same dot size for both wars (chosen). Moderate: a range bar per war. Conservative: point estimates with error bars.
+6. **Support.** Bold: energy poverty with the "would have been" share hatched above the bars during the support years, beside the break-even curve (chosen). Moderate: a single line with the support period shaded. Conservative: a table.

@@ -39,6 +39,12 @@ jobs:
           python -m warcost fetch 2>&1 | tee data/processed/build_log.txt
           python -m warcost analyse 2>&1 | tee -a data/processed/build_log.txt
 
+      - name: Redraw figures
+        if: steps.build.outcome == 'success'
+        run: |
+          sudo apt-get install -y -qq fonts-inter > /dev/null
+          python -m warcost figures
+
       - name: Surface errors
         if: steps.build.outcome != 'success'
         run: |
@@ -50,7 +56,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898+github-actions[bot]@users.noreply.github.com"
-          git add data/processed
+          git add data/processed figures
           if [ -d reports ]; then git add reports; fi
           git diff --cached --quiet || git commit -m "refresh data [skip ci]"
           git pull --rebase
