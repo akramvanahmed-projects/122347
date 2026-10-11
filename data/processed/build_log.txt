@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/runner/work/122347/122347/src/warcost/__main__.py", line 35, in <module>
+    main()
+  File "/home/runner/work/122347/122347/src/warcost/__main__.py", line 25, in main
+    build_all(cfg)
+  File "/home/runner/work/122347/122347/src/warcost/sources.py", line 182, in build_all
+    build_prices(cfg).to_csv(PROCESSED / "prices.csv")
+    ^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/122347/122347/src/warcost/sources.py", line 62, in build_prices
+    columns[category] = fetch_hicp_series(spec["dataset"], spec["geo"], spec["unit"], code, spec["start"])
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/122347/122347/src/warcost/sources.py", line 51, in fetch_hicp_series
+    raise LookupError(f"{dataset}: no {unit} series for {code} in {geo}")
+LookupError: prc_hicp_minr: no I15 series for CP00 in NL
