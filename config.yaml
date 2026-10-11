@@ -1,117 +1,91 @@
-# ---------------------------------------------------------------------------
-# War Bill NL — configuration
-# Every number here is either a data-source pointer or an explicit modelling
-# assumption. Assumptions are marked ASSUMPTION; change them and the dashboard
-# shows the effect (that is the sensitivity analysis).
-# ---------------------------------------------------------------------------
+# Every number here is either a pointer to a data source or a modelling
+# assumption. Assumptions are marked ASSUMPTION and have a stated range where
+# the results are sensitive to them.
 
 episodes:
   ukraine:
     label: "Russia–Ukraine war"
-    shock_start: "2022-02"     # invasion 24 Feb 2022; first affected month = Mar 2022
-    window_end: "2023-12"      # ASSUMPTION: end of the energy-price shock window
+    shock_month: "2022-02"   # invasion on 24 Feb; first affected month is March
+    end_month: "2023-12"     # ASSUMPTION: TTF gas was back near pre-war levels by late 2023
   iran:
     label: "Iran war"
-    shock_start: "2026-02"     # US/Israel strikes late Feb 2026; first CPI month = Mar 2026
-    window_end: null           # null = latest available month
+    shock_month: "2026-02"   # strikes began late February 2026
+    end_month: null          # latest month available
 
-# How "no-war" prices are built for each spending group after shock_start.
 counterfactual:
-  method: "pre_trend"          # "pre_trend" | "target"
-  pre_trend_months: 24         # pre_trend: average annual growth over N months before the shock
-  target_rate: 0.02            # target: every group grows at this annual rate (ECB target)
-  floor_rate: 0.0              # ASSUMPTION: never assume falling no-war prices
+  # "target": prices keep growing from their shock-month level at target_rate.
+  # "pre_trend": each category keeps its own average growth over the
+  # pre_trend_months before the shock (floored at 0).
+  method: "target"
+  target_rate: 0.02
+  pre_trend_months: 24
 
-# Price data: Eurostat HICP, monthly index, Netherlands.
-# Eurostat moved to COICOP 2018 and a 2025=100 base in 2026; the fetcher
-# accepts whichever index unit is present and rebases internally.
+# The headline counts only the categories a war shock hits directly.
+# Excess "core" inflation (wages, services, rents) has too many other causes
+# in 2022 (post-Covid reopening, a tight labour market) to attribute to the war.
+direct_channels: ["food", "home_energy", "motor_fuel"]
+
+# Before June 2023 the Dutch energy price index used new contracts only, which
+# overstated what households paid in 2022 and understated early 2023.
+# "cbs_research" corrects the energy channel with CBS's own back-calculation.
+energy_method: "cbs_research"     # or "published"
+energy_research_series: "data/external/cbs_cpi_energy_method_research_series.csv"
+
 prices:
-  source: "eurostat"
-  dataset: "prc_hicp_midx"
+  dataset: "prc_hicp_minr"   # Eurostat HICP, ECOICOP 2, monthly
   geo: "NL"
+  unit: "I15"                # 2015=100, continuous through 2026
   start: "2017-01"
-  groups:                       # spending group -> Eurostat COICOP code
-    food: "CP01"                # food & non-alcoholic beverages
-    home_energy: "CP045"        # electricity, gas, other fuels, district heat
-    motor_fuel: "CP0722"        # fuels for personal transport
-    core: "TOT_X_NRG_FOOD"      # everything except energy & food (incl. rent)
+  coicop:                    # category -> ECOICOP 2 code
+    food: "CP01"
+    home_energy: "CP045"
+    motor_fuel: "CP0722"
+    core: "TOT_X_NRG_FOOD"
     all_items: "CP00"
 
-# Spending patterns and income by income quintile (CBS StatLine, OData).
 cbs:
-  spending_shares_table: "85420NED"   # Bestedingspatroon van huishoudens; bestedingsaandelen (2015, 2020)
-  spending_euros_table: "85419NED"    # Bestedingen huishoudens; hoofdgroepen (2015, 2020)
-  income_table: "83932NED"            # Inkomen van huishoudens; verify ID, set null to skip
-  survey_year: "2020"
-  # Regexes used to find the right rows in CBS labels (Dutch).
-  quintile_patterns: ["1e 20%", "2e 20%", "3e 20%", "4e 20%", "5e 20%"]
-  category_patterns:
-    food: "voedingsmiddelen en alcoholvrije"
-    home_energy: "elektriciteit, gas"
-    motor_fuel: "brandstof"
+  shares_table: "85420NED"     # spending shares by household group, 2015 and 2020
+  spending_table: "85419NED"   # average spending in €1000 by household group
+  income_table: "83932NED"     # disposable income by decile, 2011-2024
+  survey_year: "2020"          # 2015 is available as a sensitivity check
+  # Category rows are matched on the COICOP code that prefixes each CBS label.
+  categories:
+    total: "000000"
+    food: "010000"
+    home_energy: "045000"
+    motor_fuel: "072200"
+    imputed_rent: "042000"
+  quintile_label: "Besteedbaar inkomen: {n}e 20%-groep"
+  all_households_label: "Particuliere huishoudens"
+  income_concept: "Besteedbaar inkomen"
+  income_decile_label: "Inkomen: {n}e 10%-groep"
 
-# Manual override: if the CBS label matching fails on your machine, fill this
-# CSV (template is written by `python -m src.fetch --templates`).
-manual:
-  household_csv: "data/manual/household_budget.csv"
-
-# Government compensation that is NOT inside the price index.
-# (Price caps such as the 2023 energy price ceiling are already inside CPI/HICP.)
-# eur_per_household: per income quintile Q1..Q5, for the whole episode.
+# Transfers that do not show up in the price index. The 2023 price ceiling is
+# inside CPI and HICP; the Nov–Dec 2022 discount is not (CBS, 2022).
 compensation:
-  - name: "Energy bill discount Nov–Dec 2022 (€190/month)"
+  - name: "Energy discount Nov–Dec 2022"
     episode: ukraine
     eur_per_household: [380, 380, 380, 380, 380]
-    source: "Rijksoverheid — tijdelijke tegemoetkoming energiekosten"
-  - name: "Energietoeslag 2022 (€1,300, ≤120% social minimum)"
+  - name: "Energietoeslag 2022"
     episode: ukraine
     amount: 1300
-    take_up_by_quintile: [0.55, 0.10, 0.0, 0.0, 0.0]   # ASSUMPTION: eligible & claimed share
-    source: "Rijksoverheid — energietoeslag lage inkomens"
-  - name: "Energietoeslag 2023 (€1,300, ≤120% social minimum)"
+    take_up_by_quintile: [0.55, 0.10, 0.0, 0.0, 0.0]   # ASSUMPTION [citation needed]
+  - name: "Energietoeslag 2023"
     episode: ukraine
     amount: 1300
-    take_up_by_quintile: [0.55, 0.10, 0.0, 0.0, 0.0]   # ASSUMPTION
-    source: "Rijksoverheid — energietoeslag 2023"
-  - name: "Higher untaxed commuting allowance 2026 (€0.23→€0.25/km)"
+    take_up_by_quintile: [0.55, 0.10, 0.0, 0.0, 0.0]   # ASSUMPTION [citation needed]
+  - name: "Commuting allowance €0.23→€0.25/km, 2026"
     episode: iran
-    eur_per_household: [10, 25, 40, 55, 60]            # ASSUMPTION: rough, refine with CBS commuting data
-    source: "Kabinet voorjaarspakket april 2026"
+    eur_per_household: [10, 25, 40, 55, 60]            # ASSUMPTION [citation needed]
 
-# ---------------------------------------------------------------------------
-# Human cost layer. Translates income loss into life-years using the Dutch
-# income–longevity gradient, scaled for a TEMPORARY shock. Every number is a
-# published figure (source given) or an explicit ASSUMPTION with a range.
-# ---------------------------------------------------------------------------
 human_cost:
-  households_total: 8258900      # CBS 83932NED, private households 2024
-  persons_per_household: 2.1     # CBS 83932NED, 2024
-  life_expectancy: 82.0          # NL period life expectancy at birth (CBS); divisor for "full lifetimes"
-  # Gap between lowest and highest income quintile (CBS):
-  le_gap_years: 8.5              # life expectancy: ~9 yrs men, ~8 yrs women
-  hle_gap_years: 18.0            # healthy life expectancy, income-only CBS study
-  income_ratio_q5_q1: null       # null = take from household income data (fallback 4.5)
-  # The gradient builds up over a lifetime; a shock lasting d years gets
-  # d / exposure_years of it.  ASSUMPTION
-  exposure_years: 60
-  # Share of the cross-sectional gradient that is causal (rest is reverse
-  # causation and selection). Literature range is wide.  ASSUMPTION
-  causal_share: {low: 0.10, central: 0.25, high: 0.50}
-  # "Hardship" threshold: household's net war loss exceeds this many months
-  # of its own food budget.  ASSUMPTION
-  hardship_food_months: 1.0
+  life_expectancy: 82.0          # NL at birth, CBS [citation needed: exact year]
+  le_gap_years: 8.5              # Q5 vs Q1, men ~9, women ~8 (CBS, 2022)
+  hle_gap_years: 18.0            # healthy life expectancy, income only (CBS, ~2012) [citation needed]
+  exposure_years: 60             # ASSUMPTION: adult years over which the gradient builds
+  causal_share: {low: 0.10, central: 0.25, high: 0.50}   # ASSUMPTION [citation needed]
 
-# Measured indicators (shown as-is, not modelled).
 indicators:
-  energy_poverty_pct:            # CBS/TNO Monitor energiearmoede (2023+ preliminary)
-    "2019": 9.9
-    "2020": 6.9
-    "2021": 6.8
-    "2022": 4.1
-    "2023": 3.7
-    "2024": 6.0
-    "2025": 6.0
-  saved_by_compensation_pct:     # households kept out of energy poverty by support
-    "2022": 1.8
-    "2023": 4.3
-  source: "CBS, 'Afname energiearmoede stagneert in 2025' (2026)"
+  source: "CBS/TNO, 'Afname energiearmoede stagneert in 2025' (2026). 2023–2025 preliminary."
+  energy_poverty_pct: {"2019": 9.9, "2020": 6.9, "2021": 6.8, "2022": 4.1, "2023": 3.7, "2024": 6.0, "2025": 6.0}
+  kept_out_by_support_pct: {"2022": 1.8, "2023": 4.3}

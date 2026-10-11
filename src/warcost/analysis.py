@@ -1,0 +1,120 @@
+"""Run both episodes, the sensitivity grid, and the human-cost layer."""
+from __future__ import annotations
+
+import itertools
+import json
+
+import numpy as np
+import pandas as pd
+
+from .config import PROCESSED, QUINTILES, ROOT
+from .exposure import EpisodeResult, run_episode
+from .health import grocery_months_lost, life_cost, totals
+from .sources import load_processed
+
+EPISODES = ("ukraine", "iran")
+
+
+def load_inputs(cfg: dict) -> dict:
+    prices, households, income = load_processed()
+    research = pd.read_csv(ROOT / cfg["energy_research_series"], index_col="month")
+    return {"prices": prices, "households": households, "income": income, "research_series": research}
+
+
+def population(income: pd.DataFrame) -> pd.DataFrame:
+    latest = income.index.get_level_values("year").max()
+    return income.loc[latest].loc[QUINTILES, ["households", "persons"]]
+
+
+def standardised_income_ratio(income: pd.DataFrame) -> float:
+    latest = income.loc[income.index.get_level_values("year").max()]
+    return float(latest.at["Q5", "standardised_income_eur"] / latest.at["Q1", "standardised_income_eur"])
+
+
+def run_all(cfg: dict, inputs: dict, **overrides) -> dict[str, EpisodeResult]:
+    return {episode: run_episode(cfg, episode, **inputs, **overrides) for episode in EPISODES}
+
+
+def human_cost(cfg: dict, inputs: dict, results: dict[str, EpisodeResult]) -> dict[str, pd.DataFrame]:
+    people = population(inputs["income"])
+    ratio = standardised_income_ratio(inputs["income"])
+    return {
+        episode: life_cost(result.summary, people, cfg["human_cost"], ratio)
+        for episode, result in results.items()
+    }
+
+
+def sensitivity(cfg: dict, inputs: dict) -> pd.DataFrame:
+    """Net loss for Q1 and Q5 (% of income) under every combination of the contested choices."""
+    grid = itertools.product(("target", "pre_trend"), ("cbs_research", "published"), ("2020", "2015"))
+    rows = []
+    for method, energy, survey in grid:
+        for episode, result in run_all(cfg, inputs, method=method, energy_method=energy,
+                                       survey_year=survey).items():
+            s = result.summary
+            rows.append({
+                "episode": episode, "counterfactual": method, "energy_method": energy, "survey_year": survey,
+                "q1_net_pct": s.at["Q1", "net_pct_income"], "q5_net_pct": s.at["Q5", "net_pct_income"],
+                "q1_with_core_pct": s.at["Q1", "net_pct_income"] + s.at["Q1", "core_pct_income"],
+                "q5_with_core_pct": s.at["Q5", "net_pct_income"] + s.at["Q5", "core_pct_income"],
+            })
+    return pd.DataFrame(rows)
+
+
+def key_numbers(cfg: dict, inputs: dict, results: dict[str, EpisodeResult],
+                lives: dict[str, pd.DataFrame]) -> dict:
+    """The figures the README and report quote, so prose and data cannot drift apart."""
+    out = {"latest_price_month": str(inputs["prices"].index.max())}
+    for episode, result in results.items():
+        s = result.summary
+        t = totals(lives[episode])
+        people = population(inputs["income"])
+        households_total = people["households"].sum()
+        uprate = (inputs["prices"].loc[result.gap.index, "all_items"].mean()
+                  / inputs["prices"].loc[inputs["prices"].index.year == int(cfg["cbs"]["survey_year"]),
+                                         "all_items"].mean())
+        groceries = grocery_months_lost(s, inputs["households"], cfg["cbs"]["survey_year"], uprate)
+        out[episode] = {
+            "months": int(s["months"].iloc[0]),
+            "first_month": str(result.gap.index.min()),
+            "last_month": str(result.gap.index.max()),
+            "gross_pct_income": s["gross_pct_income"].round(2).to_dict(),
+            "net_pct_income": s["net_pct_income"].round(2).to_dict(),
+            "core_pct_income": s["core_pct_income"].round(2).to_dict(),
+            "gross_eur": s["gross_eur"].round(0).to_dict(),
+            "net_eur": s["net_eur"].round(0).to_dict(),
+            "compensation_eur": s["compensation_eur"].round(0).to_dict(),
+            "national_gross_eur_bn": float((s["gross_eur"] * people["households"]).sum() / 1e9),
+            "national_compensation_eur_bn": float((s["compensation_eur"] * people["households"]).sum() / 1e9),
+            "grocery_months": groceries.round(2).to_dict(),
+            "lifetimes": {f"{sc}_{b}": float(t.at[(sc, b), "lifetimes"])
+                          for sc in ("low", "central", "high") for b in ("gross", "net")},
+            "life_years_central_net": float(t.at[("central", "net"), "life_years"]),
+            "healthy_life_years_central_net": float(t.at[("central", "net"), "healthy_life_years"]),
+            "days_per_person_central_net": float(t.at[("central", "net"), "days_per_person"]),
+            "households_total": float(households_total),
+            "peak_energy_gap_pct": float(result.gap["home_energy"].max() * 100),
+            "peak_energy_gap_month": str(result.gap["home_energy"].idxmax()),
+        }
+    out["standardised_income_ratio_q5_q1"] = standardised_income_ratio(inputs["income"])
+    return out
+
+
+def write_outputs(cfg: dict) -> dict:
+    inputs = load_inputs(cfg)
+    results = run_all(cfg, inputs)
+    lives = human_cost(cfg, inputs, results)
+    for episode, result in results.items():
+        result.summary.to_csv(PROCESSED / f"summary_{episode}.csv")
+        lives[episode].to_csv(PROCESSED / f"human_cost_{episode}.csv", index=False)
+    sensitivity(cfg, inputs).round(3).to_csv(PROCESSED / "sensitivity.csv", index=False)
+    numbers = key_numbers(cfg, inputs, results, lives)
+    (ROOT / "reports").mkdir(exist_ok=True)
+    (ROOT / "reports" / "key_numbers.json").write_text(json.dumps(numbers, indent=2, default=_jsonable))
+    return numbers
+
+
+def _jsonable(value):
+    if isinstance(value, (np.floating, np.integer)):
+        return value.item()
+    raise TypeError(type(value))
