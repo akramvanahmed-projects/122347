@@ -64,19 +64,25 @@ def available_codes(dataset: str, geo: str) -> str:
     observations = parse_jsonstat(response.json())
     dim = "coicop18" if "coicop18" in observations else "coicop"
     units = sorted(observations["unit"].unique())
-    return f"units={units} codes={' '.join(sorted(observations[dim].unique()))}"
+    aggregates = [c for c in sorted(observations[dim].unique()) if not c.startswith("CP")]
+    return f"units={units} non-COICOP aggregates={' '.join(aggregates)}"
 
 
 def build_prices(cfg: dict) -> pd.DataFrame:
     spec = cfg["prices"]
     columns = {}
-    for category, code in spec["coicop"].items():
-        try:
-            columns[category] = fetch_hicp_series(spec["dataset"], spec["geo"], spec["unit"], code, spec["start"])
-        except LookupError:
+    for category, candidates in spec["coicop"].items():
+        for code in candidates:
+            try:
+                columns[category] = fetch_hicp_series(spec["dataset"], spec["geo"], spec["unit"], code, spec["start"])
+                log.info("%s <- %s", category, code)
+                break
+            except LookupError as missing:
+                error = missing
+        else:
             if category != "core":
-                raise
-            log.warning("core index %s unavailable; core sensitivity disabled", code)
+                raise error
+            log.warning("no core index among %s; core sensitivity disabled", candidates)
     prices = pd.DataFrame(columns).dropna()
     prices.index.name = "month"
     return prices

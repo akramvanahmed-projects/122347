@@ -36,12 +36,12 @@ prices:
   geo: "NL"
   unit: "I15"                # 2015=100, continuous through 2026
   start: "2014-01"           # covers both CBS survey years
-  coicop:                    # category -> ECOICOP 2 code
-    food: "CP01"
-    home_energy: "CP045"
-    motor_fuel: "CP0722"
-    core: "TOT_X_NRG_FOOD"
-    all_items: "CP00"
+  coicop:                    # category -> ECOICOP 2 code(s), first match wins
+    food: ["CP01"]
+    home_energy: ["CP045"]
+    motor_fuel: ["CP0722"]
+    core: ["TOT_X_NRG_FOOD", "TOTAL_X_NRG_FOOD"]
+    all_items: ["CP00", "TOTAL", "TOT"]
 
 cbs:
   shares_table: "85420NED"     # spending shares by household group, 2015 and 2020
