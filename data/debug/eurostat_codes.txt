@@ -1,0 +1,9 @@
+CP01: OK units=['I05', 'I15', 'I96'] last=2025-12
+CP045: OK units=['I05', 'I15', 'I96'] last=2025-12
+CP0722: OK units=['I05', 'I15', 'I96'] last=2025-12
+TOT_X_NRG_FOOD: OK units=['I05', 'I15'] last=2025-12
+CP00: OK units=['I05', 'I15', 'I96'] last=2025-12
+CP0451: OK units=['I05', 'I15', 'I96'] last=2025-12
+CP0452: OK units=['I05', 'I15', 'I96'] last=2025-12
+CP045_0451: OK units=[] last=nan
+CP07221: OK units=['I15'] last=2025-12

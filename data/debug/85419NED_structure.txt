@@ -1,0 +1,2 @@
+85419NED: 2640 rows
+columns: ['ID', 'Bestedingscategorieen', 'KenmerkenHuishoudens', 'Perioden', 'GemiddeldBesteedBedrag_1']

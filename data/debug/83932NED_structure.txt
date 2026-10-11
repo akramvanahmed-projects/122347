@@ -1,0 +1,2 @@
+83932NED: 54264 rows
+columns: ['ID', 'Inkomensbegrippen', 'Inkomensklassen', 'KenmerkenVanHuishoudens', 'Perioden', 'ParticuliereHuishoudens_1', 'PersonenPerHuishouden_2', 'PersonenMetInkomenPerHuishouden_3', 'GemiddeldInkomen_4', 'MediaanInkomen_5']
