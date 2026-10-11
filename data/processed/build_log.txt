@@ -1,16 +1,45 @@
-Traceback (most recent call last):
-  File "<frozen runpy>", line 198, in _run_module_as_main
-  File "<frozen runpy>", line 88, in _run_code
-  File "/home/runner/work/122347/122347/src/warcost/__main__.py", line 35, in <module>
-    main()
-  File "/home/runner/work/122347/122347/src/warcost/__main__.py", line 25, in main
-    build_all(cfg)
-  File "/home/runner/work/122347/122347/src/warcost/sources.py", line 195, in build_all
-    build_prices(cfg).to_csv(PROCESSED / "prices.csv")
-    ^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/122347/122347/src/warcost/sources.py", line 75, in build_prices
-    columns[category] = fetch_hicp_series(spec["dataset"], spec["geo"], spec["unit"], code, spec["start"])
-                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/122347/122347/src/warcost/sources.py", line 51, in fetch_hicp_series
-    raise LookupError(f"{dataset}: no {unit} series for {code} in {geo}; "
-LookupError: prc_hicp_minr: no I15 series for CP00 in NL; available: units=['I15', 'I25', 'RCH_A', 'RCH_M', 'RCH_MV12MAVR'] codes=AP APF APM AP_NRG AP_NRG_FOOD AP_X_NRG AP_X_NRG_FOOD CP01 CP011 CP0111 CP01111 CP01112 CP01113 CP01114 CP01115 CP01119 CP0112 CP01122 CP011221 CP011222 CP011224 CP01123 CP01125 CP0113 CP01131 CP01133 CP01134 CP01135 CP0114 CP01141 CP01142 CP01143 CP01144 CP01145 CP01146 CP01147 CP01148 CP01149 CP0115 CP01151 CP01152 CP01153 CP0116 CP01161 CP01162 CP01163 CP01164 CP01165 CP01168 CP01169 CP0117 CP01171 CP01172 CP01173 CP01174 CP01175 CP01176 CP01178 CP01179 CP0118 CP01181 CP01183 CP01184 CP01185 CP01186 CP01189 CP0119 CP01191 CP01192 CP01193 CP01194 CP01199 CP012 CP0121 CP01210 CP0122 CP01220 CP0123 CP01230 CP0125 CP01250 CP0126 CP01260 CP0129 CP01290 CP02 CP021 CP0211 CP02110 CP0212 CP02121 CP0213 CP02130 CP023 CP0230 CP02301 CP02302 CP02309 CP03 CP031 CP0312 CP03121 CP03122 CP03123 CP0313 CP03131 CP0314 CP03141 CP032 CP0321 CP03211 CP03212 CP03213 CP04 CP041 CP0411 CP04110 CP043 CP0431 CP04311 CP044 CP0441 CP04411 CP0442 CP04420 CP0443 CP04431 CP0444 CP04441 CP045 CP0451 CP04510 CP0452 CP04521 CP0455 CP04550 CP05 CP051 CP0511 CP05111 CP05112 CP05113 CP05114 CP052 CP0521 CP05211 CP05212 CP053 CP0531 CP05311 CP05312 CP05313 CP05314 CP0532 CP05321 CP05322 CP054 CP0540 CP05401 CP05402 CP05403 CP055 CP0551 CP05510 CP0552 CP05521 CP05522 CP056 CP0561 CP05611 CP05619 CP0562 CP05621 CP06 CP061 CP0611 CP06111 CP06112 CP0612 CP06123 CP0613 CP06131 CP06132 CP062 CP0622 CP06221 CP06229 CP0623 CP06231 CP07 CP071 CP0711 CP07111 CP07112 CP0712 CP07120 CP0713 CP07130 CP072 CP0721 CP07211 CP07212 CP07213 CP0722 CP07221 CP07222 CP07223 CP0723 CP07230 CP0724 CP07241 CP07243 CP07244 CP073 CP0731 CP07311 CP07312 CP0732 CP07321 CP07322 CP0733 CP07332 CP0734 CP07340 CP074 CP0741 CP07411 CP07412 CP0749 CP07491 CP07492 CP08 CP081 CP0812 CP08120 CP0813 CP08131 CP08132 CP0814 CP08140 CP0819 CP08191 CP08192 CP082 CP0820 CP08200 CP083 CP0832 CP08320 CP0833 CP08330 CP0834 CP08340 CP0835 CP08350 CP0839 CP08392 CP09 CP091 CP0911 CP09111 CP0912 CP09121 CP09123 CP092 CP0921 CP09211 CP09212 CP0922 CP09221 CP09222 CP093 CP0931 CP09311 CP09312 CP0932 CP09322 CP094 CP0942 CP09421 CP0943 CP09431 CP0945 CP09450 CP0946 CP09461 CP09462 CP09463 CP0947 CP09470 CP095 CP0951 CP09510 CP096 CP0961 CP09610 CP0962 CP09620 CP0963 CP09630 CP097 CP0971 CP09711 CP09719 CP0972 CP09721 CP09722 CP0973 CP09730 CP0974 CP09740 CP098 CP0980 CP09800 CP10 CP102 CP1020 CP10200 CP103 CP1030 CP10300 CP104 CP1040 CP10400 CP105 CP1050 CP10501 CP10509 CP11 CP111 CP1111 CP11111 CP11112 CP1112 CP11129 CP112 CP1120 CP11201 CP11202 CP12 CP121 CP1212 CP12120 CP1213 CP12130 CP1214 CP12141 CP12142 CP1219 CP12190 CP122 CP1222 CP12220 CP13 CP131 CP1311 CP13111 CP1312 CP13120 CP1313 CP13131 CP13132 CP132 CP1321 CP13211 CP1329 CP13291 CP133 CP1330 CP13301 CP13302 CP13303 CP139 CP1390 CP13909 EDUC_HLTH_SPR ELC_GAS FOOD FOOD_NP FOOD_P FOOD_P_X_ALC_TBC FOOD_P_X_TBC FOOD_S FUEL GD IGD IGD_NNRG IGD_NNRG_D IGD_NNRG_ND IGD_NNRG_SD NRG NRG_FOOD_NP NRG_FOOD_S SERV SERV_COM SERV_HOUS SERV_MSC SERV_REC SERV_REC_HOA SERV_REC_X_HOA SERV_TRA TOTAL TOT_X_ALC_TBC TOT_X_AP TOT_X_APF TOT_X_APM TOT_X_EDUC_HLTH_SPR TOT_X_FOOD_S TOT_X_FUEL TOT_X_HOUS TOT_X_NRG TOT_X_NRG_FOOD TOT_X_NRG_FOOD_NP TOT_X_NRG_FOOD_S TOT_X_TBC
+INFO warcost.sources: food <- CP01
+INFO warcost.sources: home_energy <- CP045
+INFO warcost.sources: motor_fuel <- CP0722
+INFO warcost.sources: core <- TOT_X_NRG_FOOD
+INFO warcost.sources: all_items <- TOTAL
+INFO root: Setting 'use_https' changed from 'undefined' to 'True'.
+INFO root: Setting 'api_version' changed from 'undefined' to '3'.
+INFO root: Setting 'requests' changed from 'undefined' to '{'proxies': {'http': None, 'https': None}}'.
+INFO root: Download https://opendata.cbs.nl/ODataFeed/odata/85420NED/?%24format=json
+INFO root: Download https://opendata.cbs.nl/ODataFeed/odata/85420NED/TableInfos?%24format=json
+INFO root: Download https://opendata.cbs.nl/ODataFeed/odata/85420NED/TypedDataSet?%24format=json
+INFO root: Download https://opendata.cbs.nl/ODataFeed/odata/85420NED/TypedDataSet?$format=json&$skip=10000
+INFO root: Download https://opendata.cbs.nl/ODataFeed/odata/85420NED/TypedDataSet?$format=json&$skip=20000
+INFO root: Download https://opendata.cbs.nl/ODataFeed/odata/85420NED/TypedDataSet?$format=json&$skip=30000
+INFO root: Download https://opendata.cbs.nl/ODataFeed/odata/85420NED/TypedDataSet?$format=json&$skip=40000
+INFO root: Download https://opendata.cbs.nl/ODataFeed/odata/85420NED/TypedDataSet?$format=json&$skip=50000
+INFO root: Download https://opendata.cbs.nl/ODataFeed/odata/85420NED/TypedDataSet?$format=json&$skip=60000
+INFO root: Download https://opendata.cbs.nl/ODataFeed/odata/85420NED/TypedDataSet?$format=json&$skip=70000
+INFO root: Download https://opendata.cbs.nl/ODataFeed/odata/85420NED/DataProperties?%24format=json
+INFO root: Download https://opendata.cbs.nl/ODataFeed/odata/85420NED/CategoryGroups?%24format=json
+INFO root: Download https://opendata.cbs.nl/ODataFeed/odata/85420NED/Bestedingscategorieen?%24format=json
+INFO root: Download https://opendata.cbs.nl/ODataFeed/odata/85420NED/KenmerkenHuishoudens?%24format=json
+INFO root: Download https://opendata.cbs.nl/ODataFeed/odata/85420NED/Perioden?%24format=json
+INFO root: Download https://opendata.cbs.nl/ODataFeed/odata/85419NED/?%24format=json
+INFO root: Download https://opendata.cbs.nl/ODataFeed/odata/85419NED/TableInfos?%24format=json
+INFO root: Download https://opendata.cbs.nl/ODataFeed/odata/85419NED/TypedDataSet?%24format=json
+INFO root: Download https://opendata.cbs.nl/ODataFeed/odata/85419NED/DataProperties?%24format=json
+INFO root: Download https://opendata.cbs.nl/ODataFeed/odata/85419NED/CategoryGroups?%24format=json
+INFO root: Download https://opendata.cbs.nl/ODataFeed/odata/85419NED/Bestedingscategorieen?%24format=json
+INFO root: Download https://opendata.cbs.nl/ODataFeed/odata/85419NED/KenmerkenHuishoudens?%24format=json
+INFO root: Download https://opendata.cbs.nl/ODataFeed/odata/85419NED/Perioden?%24format=json
+INFO root: Download https://opendata.cbs.nl/ODataFeed/odata/83932NED/?%24format=json
+INFO root: Download https://opendata.cbs.nl/ODataFeed/odata/83932NED/TableInfos?%24format=json
+INFO root: Download https://opendata.cbs.nl/ODataFeed/odata/83932NED/TypedDataSet?%24format=json
+INFO root: Download https://opendata.cbs.nl/ODataFeed/odata/83932NED/TypedDataSet?$format=json&$skip=10000
+INFO root: Download https://opendata.cbs.nl/ODataFeed/odata/83932NED/TypedDataSet?$format=json&$skip=20000
+INFO root: Download https://opendata.cbs.nl/ODataFeed/odata/83932NED/TypedDataSet?$format=json&$skip=30000
+INFO root: Download https://opendata.cbs.nl/ODataFeed/odata/83932NED/TypedDataSet?$format=json&$skip=40000
+INFO root: Download https://opendata.cbs.nl/ODataFeed/odata/83932NED/TypedDataSet?$format=json&$skip=50000
+INFO root: Download https://opendata.cbs.nl/ODataFeed/odata/83932NED/DataProperties?%24format=json
+INFO root: Download https://opendata.cbs.nl/ODataFeed/odata/83932NED/CategoryGroups?%24format=json
+INFO root: Download https://opendata.cbs.nl/ODataFeed/odata/83932NED/Inkomensbegrippen?%24format=json
+INFO root: Download https://opendata.cbs.nl/ODataFeed/odata/83932NED/Inkomensklassen?%24format=json
+INFO root: Download https://opendata.cbs.nl/ODataFeed/odata/83932NED/KenmerkenVanHuishoudens?%24format=json
+INFO root: Download https://opendata.cbs.nl/ODataFeed/odata/83932NED/Perioden?%24format=json

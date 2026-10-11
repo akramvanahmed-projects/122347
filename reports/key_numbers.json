@@ -1,0 +1,144 @@
+{
+  "latest_price_month": "2026-08",
+  "ukraine": {
+    "months": 22,
+    "first_month": "2022-03",
+    "last_month": "2023-12",
+    "gross_pct_income": {
+      "Q1": 4.62,
+      "Q2": 3.19,
+      "Q3": 2.68,
+      "Q4": 2.34,
+      "Q5": 1.5
+    },
+    "net_pct_income": {
+      "Q1": -0.96,
+      "Q2": 2.05,
+      "Q3": 2.21,
+      "Q4": 2.01,
+      "Q5": 1.33
+    },
+    "core_pct_income": {
+      "Q1": 5.18,
+      "Q2": 3.53,
+      "Q3": 2.77,
+      "Q4": 2.47,
+      "Q5": 1.81
+    },
+    "gross_eur": {
+      "Q1": 1498.0,
+      "Q2": 1791.0,
+      "Q3": 2149.0,
+      "Q4": 2680.0,
+      "Q5": 3272.0
+    },
+    "net_eur": {
+      "Q1": -312.0,
+      "Q2": 1151.0,
+      "Q3": 1769.0,
+      "Q4": 2300.0,
+      "Q5": 2892.0
+    },
+    "compensation_eur": {
+      "Q1": 1810.0,
+      "Q2": 640.0,
+      "Q3": 380.0,
+      "Q4": 380.0,
+      "Q5": 380.0
+    },
+    "national_gross_eur_bn": 18.81231860714975,
+    "national_compensation_eur_bn": 5.929962,
+    "grocery_months": {
+      "Q1": -1.24,
+      "Q2": 3.57,
+      "Q3": 4.31,
+      "Q4": 4.38,
+      "Q5": 4.23
+    },
+    "lifetimes": {
+      "low_gross": 90.27936890579164,
+      "low_net": 57.99345227153867,
+      "central_gross": 225.6984222644791,
+      "central_net": 144.98363067884665,
+      "high_gross": 451.3968445289582,
+      "high_net": 289.9672613576933
+    },
+    "life_years_central_net": 11888.657715665426,
+    "healthy_life_years_central_net": 25175.981044938548,
+    "days_per_person_central_net": 0.24800459136898093,
+    "households_total": 8259000.0,
+    "peak_energy_gap_pct": 96.0688604460848,
+    "peak_energy_gap_month": "2022-10"
+  },
+  "iran": {
+    "months": 6,
+    "first_month": "2026-03",
+    "last_month": "2026-08",
+    "gross_pct_income": {
+      "Q1": 0.24,
+      "Q2": 0.27,
+      "Q3": 0.32,
+      "Q4": 0.28,
+      "Q5": 0.19
+    },
+    "net_pct_income": {
+      "Q1": 0.14,
+      "Q2": 0.13,
+      "Q3": 0.16,
+      "Q4": 0.13,
+      "Q5": 0.11
+    },
+    "core_pct_income": {
+      "Q1": 1.73,
+      "Q2": 1.15,
+      "Q3": 0.9,
+      "Q4": 0.8,
+      "Q5": 0.58
+    },
+    "gross_eur": {
+      "Q1": 24.0,
+      "Q2": 48.0,
+      "Q3": 81.0,
+      "Q4": 104.0,
+      "Q5": 135.0
+    },
+    "net_eur": {
+      "Q1": 14.0,
+      "Q2": 23.0,
+      "Q3": 41.0,
+      "Q4": 49.0,
+      "Q5": 75.0
+    },
+    "compensation_eur": {
+      "Q1": 10.0,
+      "Q2": 25.0,
+      "Q3": 40.0,
+      "Q4": 55.0,
+      "Q5": 60.0
+    },
+    "national_gross_eur_bn": 0.6471188121107855,
+    "national_compensation_eur_bn": 0.313842,
+    "grocery_months": {
+      "Q1": 0.05,
+      "Q2": 0.06,
+      "Q3": 0.09,
+      "Q4": 0.08,
+      "Q5": 0.1
+    },
+    "lifetimes": {
+      "low_gross": 2.474172811405291,
+      "low_net": 1.265816843954465,
+      "central_gross": 6.185432028513228,
+      "central_net": 3.164542109886163,
+      "high_gross": 12.370864057026456,
+      "high_net": 6.329084219772326
+    },
+    "life_years_central_net": 259.4924530106654,
+    "healthy_life_years_central_net": 549.5134299049383,
+    "days_per_person_central_net": 0.005413169536157556,
+    "households_total": 8259000.0,
+    "peak_energy_gap_pct": 2.623119509103211,
+    "peak_energy_gap_month": "2026-08"
+  },
+  "standardised_income_ratio_q5_q1": 4.760932944606414
+}
