@@ -92,3 +92,35 @@ indicators:
   source: "CBS/TNO, 'Afname energiearmoede stagneert in 2025' (2026). 2023–2025 preliminary."
   energy_poverty_pct: {"2019": 9.9, "2020": 6.9, "2021": 6.8, "2022": 4.1, "2023": 3.7, "2024": 6.0, "2025": 6.0}
   kept_out_by_support_pct: {"2022": 1.8, "2023": 4.3}
+
+# ---------------------------------------------------------------------------
+# Casualty ledger: dead, wounded and lost time. Every parameter carries its
+# source; values marked ASSUMPTION have a low/central/high range.
+# ---------------------------------------------------------------------------
+casualties:
+  cold:
+    # Elasticity of all-cause mortality to the winter heating price.
+    # Chirakijja, Jayachandran & Ong (2023), Economic Journal 134(657): 0.032 (SE 0.014).
+    elasticity: {low: 0.0046, central: 0.032, high: 0.059}      # central +/- 1.96 SE
+    heating_season: ["2022-10", "2023-03"]
+    # Expected deaths in that season, from CBS weekly expected deaths
+    # (about 3,050-3,460 a week in Dec 2022 - Jan 2023): 26 weeks x ~3,150.
+    expected_deaths: 82000
+    observed_excess_dec_jan: 4800     # CBS weekly table, weeks 48/2022-4/2023 (own sum)
+  wounded:
+    # Disability weights. GBD mild anxiety = 0.030 is used as the upper bound for
+    # financial worry, which is not itself a GBD health state. ASSUMPTION
+    worry_weight: {low: 0.005, central: 0.010, high: 0.030}
+    hardship_weight: {low: 0.030, central: 0.060, high: 0.133}  # up to GBD moderate anxiety
+    adults: 14200000
+    money_worry_rise_pct: 7            # CBS: 23% (2021) -> almost 30%
+    money_worry_years: 1.5
+    war_worry_pct: 39                  # NCTV, 10 Mar 2022: worry "a lot"
+    war_worry_years: 0.1667            # about two months at that intensity. ASSUMPTION
+    food_aid_2021: 147500              # Voedselbanken Nederland, people helped during the year
+    food_aid_2022: 197000
+    food_aid_years: 1.0
+    missed_support_years: 1.83         # 22-month shock window
+    holiday_population: 15000000       # people aged 15+, approximate
+    holiday_rise_pct: 1.7              # no-holiday share 2022 (20.2%) vs 2019 (18.5%), upper bound
+    cold_home_households: 5100000      # 7 in 10 of ~7.3m gas-heated homes lowered the thermostat. ASSUMPTION on base

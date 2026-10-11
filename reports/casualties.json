@@ -1,0 +1,133 @@
+{
+  "cold": {
+    "season_price_gap_pct": 45.78433417549695,
+    "deaths": {
+      "low": 172.69850850997452,
+      "central": 1201.38092876504,
+      "high": 2215.0460874105424
+    },
+    "observed_excess_dec_jan": 4800
+  },
+  "wounded": [
+    {
+      "group": "Needed food aid",
+      "severity": "serious",
+      "people": 49500,
+      "years": 1.0,
+      "weight": {
+        "low": 0.03,
+        "central": 0.06,
+        "high": 0.133
+      },
+      "healthy_years": {
+        "low": 1485.0,
+        "central": 2970.0,
+        "high": 6583.5
+      },
+      "blame": "partly"
+    },
+    {
+      "group": "Poorest fifth without the \u20ac1,300 payment",
+      "severity": "serious",
+      "people": 854806,
+      "years": 1.83,
+      "weight": {
+        "low": 0.005,
+        "central": 0.01,
+        "high": 0.03
+      },
+      "healthy_years": {
+        "low": 7821.479474999999,
+        "central": 15642.958949999998,
+        "high": 46928.876849999986
+      },
+      "blame": "yes"
+    },
+    {
+      "group": "New money worries",
+      "severity": "light",
+      "people": 994000,
+      "years": 1.5,
+      "weight": {
+        "low": 0.005,
+        "central": 0.01,
+        "high": 0.03
+      },
+      "healthy_years": {
+        "low": 7455.0,
+        "central": 14910.0,
+        "high": 44730.0
+      },
+      "blame": "partly"
+    },
+    {
+      "group": "Worried a lot about the war",
+      "severity": "light",
+      "people": 5538000,
+      "years": 0.1667,
+      "weight": {
+        "low": 0.005,
+        "central": 0.01,
+        "high": 0.03
+      },
+      "healthy_years": {
+        "low": 4615.923,
+        "central": 9231.846,
+        "high": 27695.537999999997
+      },
+      "blame": "yes"
+    },
+    {
+      "group": "Skipped a holiday",
+      "severity": "light",
+      "people": 255000,
+      "years": 1.0,
+      "weight": {
+        "low": 0.0025,
+        "central": 0.005,
+        "high": 0.015
+      },
+      "healthy_years": {
+        "low": 637.5,
+        "central": 1275.0,
+        "high": 3825.0
+      },
+      "blame": "can't tell"
+    },
+    {
+      "group": "Lived in a colder home",
+      "severity": "light",
+      "people": 10710000,
+      "years": 0.5,
+      "weight": {
+        "low": 0.0,
+        "central": 0.0,
+        "high": 0.0
+      },
+      "healthy_years": {
+        "low": 0.0,
+        "central": 0.0,
+        "high": 0.0
+      },
+      "blame": "yes"
+    }
+  ],
+  "income_lifetimes": {
+    "low": 45.16342515918556,
+    "central": 112.90856289796386,
+    "high": 225.81712579592772
+  },
+  "wound_lifetimes": {
+    "low": 268.4744204268293,
+    "central": 536.9488408536586,
+    "high": 1582.4745713414632
+  },
+  "total_lives": {
+    "low": 486.33635409598935,
+    "central": 1851.2383325166625,
+    "high": 4023.3377845479336
+  },
+  "attention_lifetimes": 1179.4366955476537,
+  "serious_wounded": 904306,
+  "light_wounded": 17497000
+}

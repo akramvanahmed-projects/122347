@@ -75,6 +75,7 @@ def story_data(cfg: dict) -> dict:
             "energyGapLast": round(float(iran.gap["home_energy"].iloc[-1] * 100), 1),
             "lifetimes": round(numbers["iran"]["lifetimes"]["central_net"]),
         },
+        "casualties": json.loads((ROOT / "reports" / "casualties.json").read_text()),
         "phantom": _phantom_inflation(inputs["research_series"]),
         "energyPoverty": cfg["indicators"]["energy_poverty_pct"],
         "keptOut": cfg["indicators"]["kept_out_by_support_pct"],

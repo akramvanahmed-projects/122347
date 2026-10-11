@@ -7,6 +7,7 @@ import json
 import numpy as np
 import pandas as pd
 
+from .casualties import attention_lifetimes, ledger
 from .config import PROCESSED, QUINTILES, ROOT
 from .exposure import EpisodeResult, run_episode
 from .health import grocery_months_lost, life_cost, totals
@@ -138,6 +139,9 @@ def write_outputs(cfg: dict) -> dict:
     sensitivity(cfg, inputs).round(3).to_csv(PROCESSED / "sensitivity.csv", index=False)
     numbers = key_numbers(cfg, inputs, results, lives)
     numbers["energy_bounds"] = bounds(cfg, inputs)
+    facts = json.loads((ROOT / "data" / "external" / "story_facts.json").read_text())
+    casualty_ledger = ledger(cfg, inputs, results, lives["ukraine"], attention_lifetimes(facts))
+    (ROOT / "reports" / "casualties.json").write_text(json.dumps(casualty_ledger, indent=2, default=_jsonable))
     (ROOT / "reports").mkdir(exist_ok=True)
     (ROOT / "reports" / "key_numbers.json").write_text(json.dumps(numbers, indent=2, default=_jsonable))
     return numbers
