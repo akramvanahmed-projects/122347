@@ -161,7 +161,29 @@ blockquote p { font-family: var(--font-display); font-size: clamp(2rem, 4.6vw, 3
 blockquote.second p { font-size: clamp(1.5rem, 3vw, 2.3rem); color: var(--signal); max-width: 28ch; }
 blockquote cite { font-family: var(--font-data); font-size: var(--step--1); font-style: normal; color: var(--ink-2); }
 
+.tally { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; padding-block: 96px 64px; border-bottom: 1px solid var(--rule); }
+.tally .index { grid-column: 1 / span 3; }
+.tally .body { grid-column: 4 / -1; display: grid; gap: 18px; min-width: 0; }
+.tally h2 { font-size: var(--step-3); font-weight: 900; letter-spacing: -0.03em; line-height: 1; max-width: 18ch; }
+.tally-lede { font-size: var(--step-1); line-height: 1.4; max-width: 44ch; color: var(--ink-2); }
+.chart .t-big { font-family: var(--font-display); font-size: 26px; font-weight: 900; letter-spacing: -0.02em; fill: var(--ink); }
+.chart .t-big.red { fill: var(--signal); }
+.chart .t-head { font-family: var(--font-display); font-size: 15px; font-weight: 700; fill: var(--ink); }
+
+.method h2.mh { font-size: var(--step-2); font-weight: 800; letter-spacing: -0.02em; }
+table.methods { min-width: 640px; }
+table.methods td { font-size: var(--step--1); line-height: 1.45; }
+table.methods td.refs { font-family: var(--font-data); white-space: nowrap; }
+table.methods td.refs a, .reflist a { color: var(--ink-2); }
+.reflist { margin: 0; padding-left: 2em; display: grid; gap: 8px; font-size: var(--step--1); line-height: 1.5; }
+.reflist li { padding-left: 4px; word-break: break-word; }
+.reflist a { font-family: var(--font-data); font-size: 0.72rem; }
+.reflist li:target { background: var(--signal-soft); }
+.disclaimer p { font-size: var(--step--1); color: var(--ink-2); }
+.disclaimer p strong { color: var(--ink); }
+
 @media (max-width: 760px) {
+  .tally .index, .tally .body { grid-column: 1 / -1; }
   .hero .figures.five { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .hero .figures.five div:nth-child(odd) { border-left: none; padding-left: 0; }
   .hero .figures.five div:nth-child(even) { border-left: 1px solid var(--rule); padding-left: 16px; }
@@ -465,6 +487,15 @@ blockquote cite { font-family: var(--font-data); font-size: var(--step--1); font
     </div>
   </section>
 
+  <section class="tally" id="tally" aria-labelledby="tally-title">
+    <div class="index"><span class="label">The running count</span></div>
+    <div class="body">
+      <h2 id="tally-title">Chapter by chapter, the count adds up.</h2>
+      <p class="tally-lede">Follow the line. Each stop is a chapter that added casualties. The line thickens as lives are lost, and loops where the dead begin.</p>
+      <figure class="chart" id="chart-tally" aria-label="Winding line through each casualty chapter with the running totals"></figure>
+    </div>
+  </section>
+
   <section class="ledger" id="ledger" aria-labelledby="ledger-title">
     <div class="index"><span class="label">The casualty ledger</span></div>
     <div class="body">
@@ -506,15 +537,93 @@ blockquote cite { font-family: var(--font-data); font-size: var(--step--1); font
   </section>
 
   <section class="method" id="method">
-    <div class="index"><span class="label">Method</span></div>
+    <div class="index"><span class="label">Methods</span></div>
     <div class="body">
-      <p>Excess prices are actual Eurostat HICP prices for the Netherlands minus a path that grows 2% a year from the month each war began. Only food, home energy and motor fuel count. Wider "core" inflation would double the bill, but it had too many other causes to pin on a war. Each income fifth's spending pattern comes from the CBS budget survey; income from CBS household income tables. The energy channel uses the midpoint of the published and recomputed CBS energy series. Compensation not visible in prices (the €380 discount, the €1,300 energietoeslag) is subtracted per fifth.</p>
-      <p>Code, data and a referee-style critique of every assumption: <a href="https://github.com/akramvanahmed-projects/war-casualties-nl" target="_blank" rel="noopener">github.com/akramvanahmed-projects/war-casualties-nl</a>.</p>
+      <h2 class="mh">How every number was calculated</h2>
+      <p>Each estimate below names its formula, the sources it rests on (numbers refer to the list that follows) and the assumption it is most sensitive to. Code, data and a referee-style critique: <a href="https://github.com/akramvanahmed-projects/war-casualties-nl" target="_blank" rel="noopener">github.com/akramvanahmed-projects/war-casualties-nl</a>.</p>
+      <div class="table-wrap">
+        <table class="methods">
+          <thead><tr><th scope="col">Number</th><th scope="col">Calculation</th><th scope="col">Sources</th><th scope="col">Key assumption</th></tr></thead>
+          <tbody>
+            <tr><td>Excess price</td><td>actual price ÷ (price in the war's first month × 1.02<sup>years</sup>) − 1, per category</td><td class="refs"><a href="#ref-1">1</a></td><td>2% path</td></tr>
+            <tr><td>Energy price correction</td><td>midpoint of published CPI and CBS recomputation with existing contracts</td><td class="refs"><a href="#ref-5">5</a></td><td>midpoint</td></tr>
+            <tr><td>Household loss</td><td>Σ budget share × excess price × monthly cash spending, imputed rent removed</td><td class="refs"><a href="#ref-1">1</a>, <a href="#ref-2">2</a>, <a href="#ref-3">3</a></td><td></td></tr>
+            <tr><td>Share of income</td><td>loss ÷ disposable income of each income fifth</td><td class="refs"><a href="#ref-4">4</a></td><td></td></tr>
+            <tr><td>Support</td><td>€380 for every household; €1,300 × take-up in the poorest fifth (reach 86–90% of eligible)</td><td class="refs"><a href="#ref-6">6</a>, <a href="#ref-7">7</a></td><td>55% take-up</td></tr>
+            <tr><td>Energy poverty</td><td>reported as published, with households kept out by support</td><td class="refs"><a href="#ref-8">8</a></td><td></td></tr>
+            <tr><td>Life expectancy lost</td><td>8.5-year rich–poor gap ÷ ln(4.8) × 25% causal × 22 months ÷ 60 years × income share lost</td><td class="refs"><a href="#ref-4">4</a>, <a href="#ref-24">24</a>, <a href="#ref-32">32</a>, <a href="#ref-33">33</a></td><td>causal share 10–50%</td></tr>
+            <tr><td>Deaths from the cold</td><td>elasticity 0.032 × 46% heating-price gap × 82,000 expected deaths, Oct 2022–Mar 2023</td><td class="refs"><a href="#ref-13">13</a>, <a href="#ref-14">14</a>, <a href="#ref-15">15</a></td><td>US elasticity</td></tr>
+            <tr><td>Serious wounded</td><td>food-aid users 2022 − 2021; poorest-fifth residents without the €1,300 payment</td><td class="refs"><a href="#ref-16">16</a>, <a href="#ref-4">4</a>, <a href="#ref-7">7</a></td><td>55% take-up</td></tr>
+            <tr><td>Light wounded</td><td>colder homes (7 in 10 gas-heated homes × 2.1 people); worried a lot (39% of adults); new money worries (+7 points); no holiday (+1.7 points vs 2019)</td><td class="refs"><a href="#ref-9">9</a>, <a href="#ref-10">10</a>, <a href="#ref-18">18</a>, <a href="#ref-23">23</a>, <a href="#ref-27">27</a></td><td>household base, holiday share</td></tr>
+            <tr><td>Healthy years lost</td><td>people × disability weight × years; weights anchored to GBD mild (0.030) and moderate (0.133) anxiety</td><td class="refs"><a href="#ref-25">25</a></td><td>weights</td></tr>
+            <tr><td>Attention</td><td>87% of 14.2m adults × (15 min × 92 days + 5 min × 273 days) ÷ (82 years × 365.25 × 16 waking hours)</td><td class="refs"><a href="#ref-26">26</a>, <a href="#ref-27">27</a>, <a href="#ref-28">28</a></td><td>minutes per day</td></tr>
+            <tr><td>Iran outlook</td><td>same price model from March 2026; CPB scenarios as published</td><td class="refs"><a href="#ref-1">1</a>, <a href="#ref-29">29</a>, <a href="#ref-30">30</a></td><td></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="method" id="sources">
+    <div class="index"><span class="label">Sources</span></div>
+    <div class="body">
+      <h2 class="mh">Sources</h2>
+      <ol class="reflist">
+          <li id="ref-1">Eurostat. HICP, ECOICOP version 2, monthly indices (prc_hicp_minr). <a href="https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_minr/default/table" target="_blank" rel="noopener">ec.europa.eu/eurostat/databrowser/view/prc_hicp_minr/default…</a></li>
+          <li id="ref-2">CBS StatLine 85420NED. Bestedingspatroon van huishoudens; bestedingsaandelen. <a href="https://www.cbs.nl/nl-nl/cijfers/detail/85420NED" target="_blank" rel="noopener">www.cbs.nl/nl-nl/cijfers/detail/85420NED</a></li>
+          <li id="ref-3">CBS StatLine 85419NED. Bestedingen huishoudens; hoofdgroepen bestedingscategorieën. <a href="https://www.cbs.nl/nl-nl/cijfers/detail/85419NED" target="_blank" rel="noopener">www.cbs.nl/nl-nl/cijfers/detail/85419NED</a></li>
+          <li id="ref-4">CBS StatLine 83932NED. Inkomen van huishoudens; inkomensklassen. <a href="https://www.cbs.nl/nl-nl/cijfers/detail/83932NED" target="_blank" rel="noopener">www.cbs.nl/nl-nl/cijfers/detail/83932NED</a></li>
+          <li id="ref-5">CBS (2023). CBS stapt over op nieuwe methode voor energieprijzen in de CPI. <a href="https://www.cbs.nl/nl-nl/achtergrond/2023/26/cbs-stapt-over-op-nieuwe-methode-voor-energieprijzen-in-de-cpi" target="_blank" rel="noopener">www.cbs.nl/nl-nl/achtergrond/2023/26/cbs-stapt-over-op-nieuw…</a></li>
+          <li id="ref-6">CBS (2022). Uitwerking van energiemaatregelen in de CPI. <a href="https://www.cbs.nl/nl-nl/achtergrond/2022/48/uitwerking-van-energiemaatregelen-in-de-cpi" target="_blank" rel="noopener">www.cbs.nl/nl-nl/achtergrond/2022/48/uitwerking-van-energiem…</a></li>
+          <li id="ref-7">SZW (2024). Beslisnota bij Monitor uitvoering energietoeslag, meting 2 (Bureau Bartels). <a href="https://berthub.eu/tkconv/getraw/2024D26690" target="_blank" rel="noopener">berthub.eu/tkconv/getraw/2024D26690</a></li>
+          <li id="ref-8">CBS (2026). Afname energiearmoede stagneert in 2025. <a href="https://www.cbs.nl/nl-nl/nieuws/2026/30/afname-energiearmoede-stagneert-in-2025" target="_blank" rel="noopener">www.cbs.nl/nl-nl/nieuws/2026/30/afname-energiearmoede-stagne…</a></li>
+          <li id="ref-9">CBS via NOS (2023, 13 Feb). Laagste gasverbruik in 50 jaar. <a href="https://nos.nl/l/2463617" target="_blank" rel="noopener">nos.nl/l/2463617</a></li>
+          <li id="ref-10">Milieu Centraal and tado, via Wynia's Week (2023, 1 Apr). Nederlandse huizen zijn een stuk killer geworden. <a href="https://www.wyniasweek.nl/nederlandse-huizen-zijn-een-stuk-killer-geworden/" target="_blank" rel="noopener">www.wyniasweek.nl/nederlandse-huizen-zijn-een-stuk-killer-ge…</a></li>
+          <li id="ref-11">CBS via ANP (2022, 9 Dec). Afgelopen maand 10 procent meer sterfgevallen dan verwacht. <a href="https://nieuws.nl/algemeen/cbs-afgelopen-maand-10-procent-meer-sterfgevallen-dan-verwacht" target="_blank" rel="noopener">nieuws.nl/algemeen/cbs-afgelopen-maand-10-procent-meer-sterf…</a></li>
+          <li id="ref-12">CBS via ANP (2023, 25 Jan). Nog steeds veel oversterfte in 2022, vooral door griep en covid. <a href="https://nieuws.nl/algemeen/nog-steeds-veel-oversterfte-in-2022-vooral-door-griep-en-covid" target="_blank" rel="noopener">nieuws.nl/algemeen/nog-steeds-veel-oversterfte-in-2022-voora…</a></li>
+          <li id="ref-13">CBS (2023). Eind januari geen oversterfte meer (weekly deaths and expected deaths). <a href="https://www.cbs.nl/nl-nl/nieuws/2023/05/eind-januari-geen-oversterfte-meer" target="_blank" rel="noopener">www.cbs.nl/nl-nl/nieuws/2023/05/eind-januari-geen-oversterft…</a></li>
+          <li id="ref-14">Chirakijja, J., Jayachandran, S. and Ong, P. (2023). The mortality effects of winter heating prices. Economic Journal 134(657), 402–417. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10702363/" target="_blank" rel="noopener">pmc.ncbi.nlm.nih.gov/articles/PMC10702363/</a></li>
+          <li id="ref-15">The Economist (2023, 10 May), as reported by American Experiment. Higher energy prices may have killed more Europeans last winter than Covid-19. <a href="https://www.americanexperiment.org/the-economist-higher-energy-prices-may-have-killed-more-europeans-last-winter-than-covid-19/" target="_blank" rel="noopener">www.americanexperiment.org/the-economist-higher-energy-price…</a></li>
+          <li id="ref-16">Voedselbanken Nederland (2023). Feiten en cijfers per 31-12-2022. <a href="https://voedselbankennederland.nl/wp-content/uploads/2023/12/Feiten-en-Cijfers-per-31-12-2022-versie-29-12-2023.pdf" target="_blank" rel="noopener">voedselbankennederland.nl/wp-content/uploads/2023/12/Feiten-…</a></li>
+          <li id="ref-17">Voedselbanken Nederland via NOS (2026, 2 Jun). Na daling nu weer meer mensen naar voedselbank. <a href="https://nos.nl/l/2616784" target="_blank" rel="noopener">nos.nl/l/2616784</a></li>
+          <li id="ref-18">CBS (2024). 1 op de 5 Nederlanders ging in 2023 niet op vakantie. <a href="https://www.cbs.nl/nl-nl/nieuws/2024/28/1-op-de-5-nederlanders-ging-in-2023-niet-op-vakantie" target="_blank" rel="noopener">www.cbs.nl/nl-nl/nieuws/2024/28/1-op-de-5-nederlanders-ging-…</a></li>
+          <li id="ref-19">NL Times (2026, 16 Apr). KLM scraps 160 flights in key holiday amid soaring fuel prices. <a href="https://nltimes.nl/2026/04/16/klm-scraps-160-flights-key-holiday-amid-soaring-fuel-prices-middle-east-tension" target="_blank" rel="noopener">nltimes.nl/2026/04/16/klm-scraps-160-flights-key-holiday-ami…</a></li>
+          <li id="ref-20">CBS (2022). Consumentenvertrouwen verandert niet. <a href="https://www.cbs.nl/nl-nl/nieuws/2022/42/consumentenvertrouwen-verandert-niet" target="_blank" rel="noopener">www.cbs.nl/nl-nl/nieuws/2022/42/consumentenvertrouwen-verand…</a></li>
+          <li id="ref-21">CBS (2026). Consumentenvertrouwen daalt verder in mei. <a href="https://www.cbs.nl/nl-nl/nieuws/2026/21/consumentenvertrouwen-daalt-verder-in-mei" target="_blank" rel="noopener">www.cbs.nl/nl-nl/nieuws/2026/21/consumentenvertrouwen-daalt-…</a></li>
+          <li id="ref-22">Nibud via NL Times (2022, 15 Sep). Netherlands heading for debt crisis, budget institute warns. <a href="https://nltimes.nl/2022/09/15/netherlands-heading-debt-crisis-budget-institute-warns" target="_blank" rel="noopener">nltimes.nl/2022/09/15/netherlands-heading-debt-crisis-budget…</a></li>
+          <li id="ref-23">CBS via ANP (2023, 8 Jun). Steeds meer Nederlanders maken zich zorgen over hun financiële situatie. <a href="https://www.hartvannederland.nl/algemeen-nieuws/artikelen/steeds-meer-nederlanders-maken-zich-zorgen-over-hun-financiele-situatie" target="_blank" rel="noopener">www.hartvannederland.nl/algemeen-nieuws/artikelen/steeds-mee…</a></li>
+          <li id="ref-24">CBS via ANP (2022, 21 Dec). Rijkste Nederlanders kwarteeuw langer gezond dan armste. <a href="https://nieuws.nl/algemeen/rijkste-nederlanders-kwarteeuw-langer-gezond-dan-armste" target="_blank" rel="noopener">nieuws.nl/algemeen/rijkste-nederlanders-kwarteeuw-langer-gez…</a></li>
+          <li id="ref-25">ScotPHO. Scottish Burden of Disease: anxiety disorders (GBD disability weights). <a href="https://www.scotpho.org.uk/media/1778/sbod2016-anxiety2.pdf" target="_blank" rel="noopener">www.scotpho.org.uk/media/1778/sbod2016-anxiety2.pdf</a></li>
+          <li id="ref-26">I&O Research for NOS (2022, 8 Mar), via Binnenlands Bestuur. Nederlanders maken zich grote zorgen om oorlog Oekraïne. <a href="https://www.binnenlandsbestuur.nl/bestuur-en-organisatie/io-research/nederlanders-maken-zich-grote-zorgen-om-oorlog-oekraine" target="_blank" rel="noopener">www.binnenlandsbestuur.nl/bestuur-en-organisatie/io-research…</a></li>
+          <li id="ref-27">NCTV (2022, 14 Mar). Flitspeiling Oekraïne 2. <a href="https://www.nctv.nl/binaries/nctv/documenten/rapporten/2022/03/15/flitspeiling-oekraine-2-10-3-2022-over-zorgen-gevolgen-voor-nl--informatievoorziening/Flitspeiling_oekra%C3%AFne+2_.pdf" target="_blank" rel="noopener">www.nctv.nl/binaries/nctv/documenten/rapporten/2022/03/15/fl…</a></li>
+          <li id="ref-28">TV Gids (2022, 8 Mar). Kijkcijfers: Giro555, Oekraïne-journaals. <a href="https://www.tvgids.nl/nieuws/televisie/de-tv-van-gisteren-kijkcijfers-giro555-oekraine-journaals-hunted-into-the-wild" target="_blank" rel="noopener">www.tvgids.nl/nieuws/televisie/de-tv-van-gisteren-kijkcijfer…</a></li>
+          <li id="ref-29">CPB via NOS (2026, 16 Apr). Huishoudens gaan erop achteruit door oorlog Midden-Oosten. <a href="https://nos.nl/l/2610684" target="_blank" rel="noopener">nos.nl/l/2610684</a></li>
+          <li id="ref-30">NL Times (2026, 31 Mar). High energy and fuel prices push Dutch inflation to 2.7% in March. <a href="https://nltimes.nl/node/87720" target="_blank" rel="noopener">nltimes.nl/node/87720</a></li>
+          <li id="ref-31">Tweede Kamer (2022). Kamervoorzitter: '2022 was jaar van grote gebeurtenissen en emoties'. <a href="https://www.tweedekamer.nl/nieuws/kamernieuws/kamervoorzitter-2022-was-jaar-van-grote-gebeurtenissen-en-emoties" target="_blank" rel="noopener">www.tweedekamer.nl/nieuws/kamernieuws/kamervoorzitter-2022-w…</a></li>
+          <li id="ref-32">Ruhm, C. J. (2000). Are recessions good for your health? Quarterly Journal of Economics 115(2).</li>
+          <li id="ref-33">Chetty, R. et al. (2016). The association between income and life expectancy in the United States, 2001–2014. JAMA 315(16).</li>
+          <li id="ref-34">King, M. L. Jr. (1963). Letter from Birmingham Jail.</li>
+          <li id="ref-35">Mandela, N. (2005, 3 Feb). Speech for the Make Poverty History campaign, Trafalgar Square, London.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="method disclaimer" id="disclaimer">
+    <div class="index"><span class="label">Disclaimer</span></div>
+    <div class="body">
+      <h2 class="mh">About this project</h2>
+      <p><strong>Independent analysis.</strong> This is an independent, non-commercial data project. It is not affiliated with, endorsed by or produced on behalf of Statistics Netherlands (CBS), Eurostat, the CPB, any ministry, news organisation, author or institution named on this page. Names are used only to identify sources.</p>
+      <p><strong>Estimates, not records.</strong> The casualty figures are model estimates built from published data and stated assumptions. They are not official statistics, not a count of identified deaths or injuries, and do not describe any individual. Where uncertainty is large, ranges are given; the central values should not be quoted without them.</p>
+      <p><strong>No advice.</strong> Nothing on this page is medical, financial, legal or policy advice. Anyone affected by energy costs, debt or health problems should contact a qualified professional or the relevant authority.</p>
+      <p><strong>No warranty, no liability.</strong> The page, data and code are provided "as is", without warranty of any kind, express or implied, including accuracy, completeness or fitness for a particular purpose. To the fullest extent permitted by law, the authors accept no liability for any loss or damage arising from use of, or reliance on, this material.</p>
+      <p><strong>Sources and rights.</strong> CBS and Eurostat data are reused under the Creative Commons Attribution 4.0 licence. Other material is cited and linked and remains the property of its owners. Short quotations are used for commentary and criticism. The code is released under the MIT licence.</p>
+      <p><strong>AI assistance.</strong> This project was made with the help of Claude, an AI model developed by Anthropic, which assisted with research, data analysis, code, charts and writing. Figures were checked against the cited sources, but errors are possible and responsibility for the published content rests with the project's author.</p>
+      <p><strong>Corrections.</strong> Errors can be reported through the issue tracker of the GitHub repository. Corrections are applied to the code and data, and the page is rebuilt.</p>
     </div>
   </section>
 
   <footer>
-    <span class="label">Data: CBS and Eurostat, CC BY 4.0. Results are model estimates, not official statistics.</span>
+    <span class="label">Data: CBS and Eurostat, CC BY 4.0. Model estimates, not official statistics. Made with the assistance of Claude (Anthropic). <a href="#disclaimer">Disclaimer</a></span>
     <span class="label" id="foot-asof"></span>
   </footer>
 </div>
@@ -1052,6 +1161,91 @@ function justice() {
   text(s, 0, H - 2, narrow(W) ? "Black: highest income. Red: lowest." : "Black: highest income group. Red: lowest. Groups are quarters for holidays, fifths otherwise.", {});
 }
 
+/* The running count: a winding line, one stop per casualty chapter */
+function tally() {
+  const c = DATA.casualties;
+  const g = Object.fromEntries(c.wounded.map((x) => [x.group, x]));
+  const life = c.cold.deaths.central + c.income_lifetimes.central + c.wound_lifetimes.central;
+  const stops = [
+    { ch: "05", title: "The cold homes", add: people(g["Lived in a colder home"].people) + " light wounds", light: g["Lived in a colder home"].people },
+    { ch: "06", title: "The nerves", add: people(g["Worried a lot about the war"].people + g["New money worries"].people) + " light wounds", light: g["Worried a lot about the war"].people + g["New money worries"].people },
+    { ch: "07", title: "The holiday", add: people(g["Skipped a holiday"].people) + " light wounds", light: g["Skipped a holiday"].people },
+    { ch: "08", title: "The serious wounded", add: people(c.serious_wounded) + " serious wounds", serious: c.serious_wounded },
+    { ch: "09", title: "The cold, again", add: "≈" + num(Math.round(c.cold.deaths.central / 100) * 100) + " deaths", lives: c.cold.deaths.central, dead: true },
+    { ch: "10", title: "The count", add: num(c.income_lifetimes.central) + " lifetimes of life expectancy", lives: c.income_lifetimes.central },
+    { ch: "11", title: "The worn-down years", add: "≈" + num(Math.round(c.wound_lifetimes.central / 10) * 10) + " lifetimes of healthy years", lives: c.wound_lifetimes.central },
+    { ch: "12", title: "The attention", add: "≈" + num(Math.round(c.attention_lifetimes / 10) * 10) + " waking lifetimes", hours: c.attention_lifetimes },
+  ];
+  let L = 0, S = 0, Lt = 0, H = 0;
+  for (const st of stops) {
+    L += st.lives || 0; S += st.serious || 0; Lt += st.light || 0; H += st.hours || 0;
+    st.cum = { lives: L, serious: S, light: Lt, hours: H };
+  }
+  const W = widthOf("chart-tally", 900), phone = narrow(W);
+  const gapY = phone ? 150 : 170, top = 30;
+  const xs = phone ? [22, 22] : [W * 0.42, W * 0.58];
+  const nodes = stops.map((st, k) => ({ ...st, x: phone ? 22 : xs[k % 2], y: top + k * gapY }));
+  const endY = top + stops.length * gapY + 40;
+  const Hgt = endY + (phone ? 190 : 150);
+  const s = svg($("chart-tally"), W, Hgt);
+  const width = (lives) => 2 + 14 * lives / life;
+
+  // Winding segments; a full loop where the dead begin (before chapter 09).
+  for (let k = 0; k < nodes.length; k++) {
+    const a = k === 0 ? { x: nodes[0].x, y: 0 } : nodes[k - 1], b = nodes[k];
+    const lives = k === 0 ? 0 : nodes[k - 1].cum.lives;
+    let d;
+    if (phone) {
+      const wob = k % 2 ? 14 : -14;
+      d = `M${a.x},${a.y} C${a.x + wob},${a.y + gapY * 0.4} ${b.x - wob},${b.y - gapY * 0.4} ${b.x},${b.y}`;
+    } else if (b.dead) {
+      // a single loop, drawn as one continuous stroke, where the dead begin
+      const dir = Math.sign(b.x - a.x) || 1, mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2 + 10, r = 26;
+      d = `M${a.x},${a.y} C${a.x},${a.y + 50} ${mx - dir * 50},${my} ${mx},${my}` +
+          ` A${r},${r} 0 1 ${dir > 0 ? 0 : 1} ${mx + dir * 0.1},${my}` +
+          ` C${mx + dir * 50},${my} ${b.x},${b.y - 50} ${b.x},${b.y}`;
+    } else {
+      d = `M${a.x},${a.y} C${a.x},${a.y + gapY * 0.55} ${b.x},${b.y - gapY * 0.55} ${b.x},${b.y}`;
+    }
+    const red = lives > 0 || b.dead;
+    el("path", { d, class: "f-none " + (red ? "s-signal" : "s-grey"), "stroke-width": width(lives), "stroke-linecap": "round", opacity: red ? 1 : 0.55 }, s);
+  }
+  // final run to the total
+  const last = nodes[nodes.length - 1];
+  const endX = phone ? 22 : W / 2;
+  el("path", { d: `M${last.x},${last.y} C${last.x},${last.y + 50} ${endX},${endY - 50} ${endX},${endY}`, class: "f-none s-signal", "stroke-width": width(life), "stroke-linecap": "round" }, s);
+
+  nodes.forEach((n, k) => {
+    const r = n.dead ? 11 : 8;
+    el("circle", { cx: n.x, cy: n.y, r: r + 4, style: "fill:var(--paper)" }, s);
+    el("circle", { cx: n.x, cy: n.y, r, class: n.lives ? "f-signal" : n.hours ? "f-ink" : "f-none s-ink", "stroke-width": 2 }, s);
+    const left = !phone && k % 2 === 0;
+    const tx = phone ? 46 : left ? n.x - 26 : n.x + 26;
+    const anchor = left ? "end" : "start";
+    text(s, tx, n.y - 26, n.ch + "  " + n.title.toUpperCase(), { "text-anchor": anchor });
+    text(s, tx, n.y + 2, "+ " + n.add, { "text-anchor": anchor, class: n.lives ? "t-head t-signal" : "t-head" });
+    const cum = n.cum;
+    const line1 = "lives " + num(cum.lives) + "  ·  serious " + people(cum.serious);
+    const line2 = "light wounds " + (cum.light / 1e6).toFixed(1) + "m" + (cum.hours ? "  ·  waking lifetimes " + num(cum.hours) : "");
+    text(s, tx, n.y + 24, "so far: " + line1, { "text-anchor": anchor });
+    text(s, tx, n.y + 40, line2, { "text-anchor": anchor });
+  });
+
+  // the total
+  el("circle", { cx: endX, cy: endY, r: 16, class: "f-signal" }, s);
+  const ta = phone ? "start" : "middle", tx = phone ? 48 : endX;
+  const ty = phone ? endY - 6 : endY + 52;
+  text(s, tx, ty, "≈" + num(Math.round(c.total_lives.central / 50) * 50) + " lives", { "text-anchor": ta, class: "t-big red" });
+  text(s, tx, ty + 26, phone ? people(c.serious_wounded) + " seriously wounded" : people(c.serious_wounded) + " seriously wounded · " + (c.light_wounded / 1e6).toFixed(1) + "m light wounds", { "text-anchor": ta, class: "t-ink" });
+  if (phone) {
+    text(s, tx, ty + 44, "+ ≈" + num(Math.round(c.attention_lifetimes / 10) * 10) + " waking lifetimes,", { "text-anchor": ta });
+    text(s, tx, ty + 62, "counted apart as time", { "text-anchor": ta });
+    text(s, tx, ty + 84, "Lives = deaths + life-year equivalents.", { "text-anchor": ta });
+  } else {
+    text(s, tx, ty + 44, "and ≈" + num(Math.round(c.attention_lifetimes / 10) * 10) + " waking lifetimes of attention, counted apart", { "text-anchor": ta });
+  }
+}
+
 fillText();
 ledgerTable();
 seismograph();
@@ -1067,6 +1261,7 @@ attention();
 seriousChart();
 deathsChart();
 yldChart();
+tally();
 wall();
 hundred();
 justice();
@@ -1078,7 +1273,7 @@ window.addEventListener("resize", () => {
   clearTimeout(resizeTimer);
   resizeTimer = setTimeout(() => {
     seismograph(); phantom(); thermometer(); holidays(); nerves(); waterline(); umbrella();
-    seriousChart(); deathsChart(); yldChart(); wall(); hundred(); justice();
+    seriousChart(); deathsChart(); yldChart(); tally(); wall(); hundred(); justice();
     $("receipt").innerHTML = ""; receipt();
     $("causal").dispatchEvent(new Event("input")); $("intense").dispatchEvent(new Event("input"));
   }, 150);
