@@ -7,7 +7,7 @@ import pytest
 
 from warcost.config import QUINTILES, ROOT, load_config
 
-MONTHS = pd.period_range("2018-01", "2026-09", freq="M")
+MONTHS = pd.period_range("2014-01", "2026-09", freq="M")
 GROUPS = [*QUINTILES, "all"]
 
 

@@ -69,7 +69,10 @@ def monthly_losses(gap: pd.DataFrame, weights: pd.DataFrame, spending_eur: pd.Se
         )
         share["home_energy"] += adjustment
 
-    survey_level = prices.loc[prices.index.year == int(survey_year), "all_items"].mean()
+    survey_prices = prices.loc[prices.index.year == int(survey_year), "all_items"]
+    if survey_prices.empty:
+        raise ValueError(f"price data must cover the survey year {survey_year}")
+    survey_level = survey_prices.mean()
     uprate = prices["all_items"].reindex(gap.index) / survey_level
     monthly_spend = pd.concat(
         {q: uprate * spending_eur[q] / 12 for q in QUINTILES}, names=["quintile", "month"]

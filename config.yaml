@@ -35,7 +35,7 @@ prices:
   dataset: "prc_hicp_minr"   # Eurostat HICP, ECOICOP 2, monthly
   geo: "NL"
   unit: "I15"                # 2015=100, continuous through 2026
-  start: "2017-01"
+  start: "2014-01"           # covers both CBS survey years
   coicop:                    # category -> ECOICOP 2 code
     food: "CP01"
     home_energy: "CP045"

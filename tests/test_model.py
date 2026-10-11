@@ -63,3 +63,8 @@ def test_income_after_last_cbs_year_is_uprated(cfg, prices, households, income):
     result = run_episode(cfg, "iran", prices, households, income)
     months = result.gap.index
     assert result.summary.at["Q1", "income_eur"] > 20000 / 12 * len(months)
+
+
+def test_missing_survey_year_prices_fail_loudly(cfg, prices, households, income):
+    with pytest.raises(ValueError, match="survey year"):
+        run_episode(cfg, "ukraine", prices.loc["2017-01":], households, income, survey_year="2015")
