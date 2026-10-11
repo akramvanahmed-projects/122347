@@ -2,11 +2,25 @@
 # assumption. Assumptions are marked ASSUMPTION and have a stated range where
 # the results are sensitive to them.
 
+# One window for every number: from the invasion to the latest month with price
+# data. Channels without measurements for part of the window count zero there.
+window:
+  start: "2022-03"
+  end: null                  # latest month available
+
 episodes:
   ukraine:
     label: "Russia–Ukraine war"
     shock_month: "2022-02"   # invasion on 24 Feb; first affected month is March
-    end_month: "2023-12"     # ASSUMPTION: TTF gas was back near pre-war levels by late 2023
+    end_month: null          # runs to the end of the window
+    # After the acute shock (Mar 2022 - Dec 2023) the price level the war left
+    # behind is still counted, but no later inflation is attributed to it: each
+    # category's excess is capped at its Oct-Dec 2023 average (and follows prices
+    # down if they fall). ASSUMPTION
+    acute_end: "2023-12"
+    # From the Iran shock on, the Ukraine excess is frozen at its Feb 2026 value,
+    # so the two wars never claim the same price rise.
+    freeze_from: "2026-02"
   iran:
     label: "Iran war"
     shock_month: "2026-02"   # strikes began late February 2026
@@ -102,9 +116,12 @@ casualties:
     # Elasticity of all-cause mortality to the winter heating price.
     # Chirakijja, Jayachandran & Ong (2023), Economic Journal 134(657): 0.032 (SE 0.014).
     elasticity: {low: 0.0046, central: 0.032, high: 0.059}      # central +/- 1.96 SE
-    heating_season: ["2022-10", "2023-03"]
-    # Expected deaths in that season, from CBS weekly expected deaths
+    # Every heating season in the window. A season whose heating price was at or
+    # below the no-war path counts zero (no lives "saved" are credited).
+    heating_seasons: [["2022-10", "2023-03"], ["2023-10", "2024-03"], ["2024-10", "2025-03"], ["2025-10", "2026-03"]]
+    # Expected deaths per season, from CBS weekly expected deaths
     # (about 3,050-3,460 a week in Dec 2022 - Jan 2023): 26 weeks x ~3,150.
+    # Held at that level for later seasons. ASSUMPTION (deaths drift up ~1% a year)
     expected_deaths: 82000
     observed_excess_dec_jan: 4800     # CBS weekly table, weeks 48/2022-4/2023 (own sum)
   wounded:
@@ -113,14 +130,20 @@ casualties:
     worry_weight: {low: 0.005, central: 0.010, high: 0.030}
     hardship_weight: {low: 0.030, central: 0.060, high: 0.133}  # up to GBD moderate anxiety
     adults: 14200000
-    money_worry_rise_pct: 7            # CBS: 23% (2021) -> almost 30%
-    money_worry_years: 1.5
+    # CBS, share of adults with many worries about their financial future
+    # (Meer mensen tevreden over financiën in 2024, 2025). Later years not yet published: counted 0.
+    money_worry_base_pct: 22.5         # 2021
+    money_worry_pct: {"2022": 28.6, "2023": 28.7, "2024": 26.1}
     war_worry_pct: 39                  # NCTV, 10 Mar 2022: worry "a lot"
     war_worry_years: 0.1667            # about two months at that intensity. ASSUMPTION
-    food_aid_2021: 147500              # Voedselbanken Nederland, people helped during the year
-    food_aid_2022: 197000
-    food_aid_years: 1.0
-    missed_support_years: 1.83         # 22-month shock window
+    # Voedselbanken Nederland, people helped during the year. 2023: Feiten en cijfers
+    # per 31-12-2023. 2025: NOS, 2 Jun 2026 ("ruim 155.000", 11,000 more than 2024).
+    food_aid_base: 147500              # 2021
+    food_aid: {"2022": 197000, "2023": 180579, "2024": 144000, "2025": 155000}
+    missed_support_years: 1.83         # the support years, Mar 2022 - Dec 2023 (22 months)
     holiday_population: 15000000       # people aged 15+, approximate
-    holiday_rise_pct: 1.7              # no-holiday share 2022 (20.2%) vs 2019 (18.5%), upper bound
+    # CBS no-holiday share, people 15+: 2019 18.5%, 2022 20.2%, 2023 19.2%. Upper bound.
+    # 2024 onwards not in our sources: counted 0.
+    holiday_base_pct: 18.5
+    no_holiday_pct: {"2022": 20.2, "2023": 19.2}
     cold_home_households: 5100000      # 7 in 10 of ~7.3m gas-heated homes lowered the thermostat. ASSUMPTION on base

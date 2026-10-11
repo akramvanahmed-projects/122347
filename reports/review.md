@@ -68,3 +68,10 @@ The story page and the "Beyond the household budget" section widen the project f
 - **Adding deaths and life-year equivalents is a convention, not a fact.** The ledger adds them because the question was asked in those terms, and labels the sum "dead + equivalents". Attention is kept in a separate unit and never added.
 - **Wounds overlap.** The 17.5 million light wounds exceed the adult population because people appear in several groups. The page says so next to the number.
 - **The serious-wounded count leans on the take-up assumption.** About 855,000 of the 904,000 serious wounds are poorest-fifth residents without the €1,300 payment, which rests on the 55% take-up used throughout.
+
+## Review of the common time frame
+
+- **Every number now covers one period**, March 2022 to the latest month with price data, for both wars. This was the right call: the earlier version mixed a 22-month bill, one winter of deaths, one year of attention and single-year survey changes, and readers could not tell what to add to what.
+- **The aftermath rule is the new judgement call.** After December 2023 each category's excess is held at its Oct–Dec 2023 level. That counts the price level the war left behind but no later inflation. It still ignores wage and benefit indexation, which by 2024 had largely caught up, so the post-2023 bill is an upper bound.
+- **The energy correction now carries more weight.** The level gap between the published and recomputed CBS energy series carries into every later month. On the published index, home energy after 2023 is a saving and the three later winters add zero deaths; on the recomputation, both are larger. The midpoint is kept, and the spread is reported.
+- **Unmeasured years count zero.** Money worries after 2024, holidays after 2023 and thermostat behaviour after the first winter are not yet published. That understates the later part of the period; it does not overstate it.

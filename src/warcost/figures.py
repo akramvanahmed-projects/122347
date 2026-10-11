@@ -14,7 +14,7 @@ import pandas as pd
 from matplotlib import font_manager
 from matplotlib.patches import Circle, Rectangle
 
-from .analysis import load_inputs, run_all
+from .analysis import load_inputs, run_all, support_years
 from .config import FIGURES, QUINTILES, ROOT
 from .exposure import EpisodeResult
 from .health import totals
@@ -122,12 +122,12 @@ def bleeding_income(result: EpisodeResult, numbers: dict) -> None:
 
     _titles(
         fig,
-        "Support erased the poorest fifth's war loss.\nEveryone else still paid.",
+        "Support carried the poorest fifth while it lasted.\nOver the whole period, every fifth paid.",
         "Excess spending on food, home energy and motor fuel during the Russia–Ukraine price shock,\n"
         f"{_month_name(numbers['first_month'])} to {_month_name(numbers['last_month'])}, as a share of each "
         "income fifth's disposable income.",
-        "* Assumes 55% of the poorest fifth claimed the €1,300 energietoeslag in both years; break-even is "
-        f"{numbers['q1_break_even_take_up']:.0%}.\n"
+        "Support (€380 for all, €1,300 energietoeslag in 2022 and 2023) assumes 55% take-up in the poorest fifth.\n"
+        "After 2023 the war's price level is held at its late-2023 excess.\n"
         "Source: Eurostat HICP (prc_hicp_minr); CBS 85420NED, 85419NED, 83932NED. Midpoint CBS energy-method correction.",
     )
     _save(fig, "01_bleeding_income")
@@ -159,7 +159,8 @@ def wave_and_ripple(results: dict[str, EpisodeResult], channels: list[str]) -> N
 
     ax.set_xlim(0.5, len(ukraine) + 0.5)
     ax.set_ylim(0, ukraine.max() * 1.18)
-    ax.set_xticks([1, 6, 12, 18, len(ukraine)], ["1", "6", "12", "18", str(len(ukraine))], fontsize=8.5)
+    ticks = [1, 12, 24, 36, 48, len(ukraine)]
+    ax.set_xticks(ticks, [str(t) for t in ticks], fontsize=8.5)
     ax.set_xlabel("months after the war began", fontsize=9)
     ax.set_yticks([0, 1, 2, 3, 4, 5], ["0", "1%", "2%", "3%", "4%", "5%"], fontsize=8.5)
     ax.yaxis.grid(True, color=GREY_LIGHT, lw=0.6)
@@ -265,13 +266,14 @@ def lifetimes(lives: dict[str, pd.DataFrame], cfg: dict) -> None:
     fig = plt.figure(figsize=(9, 6.6))
     _titles(
         fig,
-        "The Ukraine shock cost the Netherlands about 110 lifetimes.\nSupport prevented 70 more.",
+        f"The Ukraine shock cost the Netherlands about {round(totals(lives['ukraine']).at[('central', 'net'), 'lifetimes'], -1):.0f} lifetimes.\n"
+        f"Support prevented about {round(totals(lives['ukraine']).at[('central', 'gross'), 'lifetimes'] - totals(lives['ukraine']).at[('central', 'net'), 'lifetimes'], -1):.0f} more.",
         f"Each dot is one full {life_expectancy:.0f}-year life: life-years lost to lower income, summed over 18 million people\n"
         "and divided by life expectancy. An equivalence, not a death count.",
         "Method: CBS income–longevity gradient (8.5 years between richest and poorest fifth), 25% assumed causal\n"
-        "(range 10–50%), scaled to the length of the shock. Central estimate after support.",
+        "(range 10–50%), scaled to the period, March 2022 to the latest month. Central estimate after support.",
     )
-    columns, width_frac, fig_w, fig_h = 25, 0.66, 9, 6.6
+    columns, width_frac, fig_w, fig_h = 50, 0.66, 9, 6.6
     row_frac = width_frac * fig_w / columns / fig_h       # one dot cell, same size in both panels
     for row, (episode, label) in enumerate([("ukraine", "Russia–Ukraine war"), ("iran", "Iran war, to date")]):
         t = totals(lives[episode])
@@ -303,6 +305,7 @@ def lifetimes(lives: dict[str, pd.DataFrame], cfg: dict) -> None:
 # Figure 6 ----------------------------------------------------------------------
 
 def support_while_it_lasted(cfg: dict, ukraine: EpisodeResult, break_even: float) -> None:
+    """`ukraine` is the support-years result (Mar 2022 - Dec 2023)."""
     indicators = cfg["indicators"]
     poverty = pd.Series(indicators["energy_poverty_pct"], dtype=float)
     kept_out = pd.Series(indicators["kept_out_by_support_pct"], dtype=float).reindex(poverty.index).fillna(0)
@@ -345,7 +348,7 @@ def support_while_it_lasted(cfg: dict, ukraine: EpisodeResult, break_even: float
     right.set_xticks([0, 25, 50, 75, 100], ["0", "25%", "50%", "75%", "100%"], fontsize=8.5)
     right.yaxis.grid(True, color=GREY_LIGHT, lw=0.6)
     right.set_axisbelow(True)
-    right.set_title("Poorest fifth: net war cost per household", loc="left", fontsize=10, fontweight="bold",
+    right.set_title("Poorest fifth, support years (Mar 2022 – Dec 2023):\nnet war cost per household", loc="left", fontsize=10, fontweight="bold",
                     color=INK)
 
     _titles(
@@ -371,4 +374,4 @@ def draw_all(cfg: dict) -> None:
     the_gap_is_the_bill(results, inputs["prices"], cfg)
     what_drove_it(results["ukraine"])
     lifetimes(lives, cfg)
-    support_while_it_lasted(cfg, results["ukraine"], numbers["ukraine"]["q1_break_even_take_up"])
+    support_while_it_lasted(cfg, support_years(cfg, inputs), numbers["ukraine"]["support_years"]["q1_break_even_take_up"])

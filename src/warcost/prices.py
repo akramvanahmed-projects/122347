@@ -41,6 +41,27 @@ def excess_gap(prices: pd.DataFrame, no_war: pd.DataFrame, shock_month: str,
     return (prices / no_war - 1).loc[start:end]
 
 
+def persistent_gap(gap: pd.DataFrame, acute_end: str | None, freeze_from: str | None) -> pd.DataFrame:
+    """Keep the war's price level after the acute shock without attributing new inflation to it.
+
+    After `acute_end`, each category's excess is capped at its average over the
+    last three acute months, so it can only stay or fall. From `freeze_from` on
+    (a later shock), it is frozen at its value in that month.
+    """
+    out = gap.copy()
+    if acute_end:
+        end = pd.Period(acute_end, freq="M")
+        cap = gap.loc[end - 2:end].mean()
+        after = out.index > end
+        out.loc[after] = out.loc[after].clip(upper=cap, axis=1)
+    if freeze_from:
+        freeze = pd.Period(freeze_from, freq="M")
+        if freeze in out.index:
+            later = out.index > freeze
+            out.loc[later] = out.loc[freeze].to_numpy()
+    return out
+
+
 def energy_method_correction(research_series: pd.DataFrame, months: pd.PeriodIndex,
                              shock_month: str) -> pd.Series:
     """Correction to the all-items price level from CBS's 2023 energy method change.

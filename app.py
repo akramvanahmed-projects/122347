@@ -66,7 +66,7 @@ def explorer() -> None:
 
     st.title("Model explorer")
     st.caption("Change the contested choices and watch the numbers move. "
-               f"Prices to {inputs['prices'].index.max()}.")
+               f"Every number covers one period: March 2022 to {inputs['prices'].index.max().strftime('%B %Y')}.")
 
     controls, view = st.columns([1, 3], gap="large")
     with controls:

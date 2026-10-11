@@ -6,7 +6,7 @@
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2026-10-11T02:42:53.279330</dc:date>
+    <dc:date>2026-10-11T13:25:25.614873</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -38,44 +38,44 @@ z
 " style="fill: #ffffff"/>
    </g>
    <g id="patch_3">
-    <path d="M 108.340364 360.710748 
-L 158.190545 360.710748 
-L 158.190545 233.763039 
-L 108.340364 233.763039 
+    <path d="M 108.340364 331.338082 
+L 158.190545 331.338082 
+L 158.190545 179.5392 
+L 108.340364 179.5392 
 z
-" clip-path="url(#p2535a34280)" style="fill: #dcdcdc"/>
+" clip-path="url(#p7a176e1214)" style="fill: #dcdcdc"/>
    </g>
    <g id="patch_4">
-    <path d="M 197.358545 322.055949 
-L 247.208727 322.055949 
-L 247.208727 233.763039 
-L 197.358545 233.763039 
+    <path d="M 197.358545 283.548918 
+L 247.208727 283.548918 
+L 247.208727 179.5392 
+L 197.358545 179.5392 
 z
-" clip-path="url(#p2535a34280)" style="fill: #dcdcdc"/>
+" clip-path="url(#p7a176e1214)" style="fill: #dcdcdc"/>
    </g>
    <g id="patch_5">
-    <path d="M 286.376727 308.66753 
-L 336.226909 308.66753 
-L 336.226909 233.763039 
-L 286.376727 233.763039 
+    <path d="M 286.376727 267.712267 
+L 336.226909 267.712267 
+L 336.226909 179.5392 
+L 286.376727 179.5392 
 z
-" clip-path="url(#p2535a34280)" style="fill: #dcdcdc"/>
+" clip-path="url(#p7a176e1214)" style="fill: #dcdcdc"/>
    </g>
    <g id="patch_6">
-    <path d="M 375.394909 299.318347 
-L 425.245091 299.318347 
-L 425.245091 233.763039 
-L 375.394909 233.763039 
+    <path d="M 375.394909 256.978571 
+L 425.245091 256.978571 
+L 425.245091 179.5392 
+L 375.394909 179.5392 
 z
-" clip-path="url(#p2535a34280)" style="fill: #dcdcdc"/>
+" clip-path="url(#p7a176e1214)" style="fill: #dcdcdc"/>
    </g>
    <g id="patch_7">
-    <path d="M 464.413091 276.283049 
-L 514.263273 276.283049 
-L 514.263273 233.763039 
-L 464.413091 233.763039 
+    <path d="M 464.413091 230.251815 
+L 514.263273 230.251815 
+L 514.263273 179.5392 
+L 464.413091 179.5392 
 z
-" clip-path="url(#p2535a34280)" style="fill: #dcdcdc"/>
+" clip-path="url(#p7a176e1214)" style="fill: #dcdcdc"/>
    </g>
    <g id="matplotlib.axis_1">
     <g id="xtick_1">
@@ -115,132 +115,133 @@ z
     <g id="ytick_1">
      <g id="line2d_6"/>
      <g id="text_6">
-      <text style="font-size: 8.5px; font-family: 'Inter'; text-anchor: end; fill: #555555" x="54.1" y="374.063446" transform="rotate(-0 54.1 374.063446)">4%</text>
+      <text style="font-size: 8.5px; font-family: 'Inter'; text-anchor: end; fill: #555555" x="54.1" y="370.280388" transform="rotate(-0 54.1 370.280388)">4%</text>
      </g>
     </g>
     <g id="ytick_2">
      <g id="line2d_7"/>
      <g id="text_7">
-      <text style="font-size: 8.5px; font-family: 'Inter'; text-anchor: end; fill: #555555" x="54.1" y="340.017641" transform="rotate(-0 54.1 340.017641)">3%</text>
+      <text style="font-size: 8.5px; font-family: 'Inter'; text-anchor: end; fill: #555555" x="54.1" y="323.624388" transform="rotate(-0 54.1 323.624388)">3%</text>
      </g>
     </g>
     <g id="ytick_3">
      <g id="line2d_8"/>
      <g id="text_8">
-      <text style="font-size: 8.5px; font-family: 'Inter'; text-anchor: end; fill: #555555" x="54.1" y="305.971836" transform="rotate(-0 54.1 305.971836)">2%</text>
+      <text style="font-size: 8.5px; font-family: 'Inter'; text-anchor: end; fill: #555555" x="54.1" y="276.968388" transform="rotate(-0 54.1 276.968388)">2%</text>
      </g>
     </g>
     <g id="ytick_4">
      <g id="line2d_9"/>
      <g id="text_9">
-      <text style="font-size: 8.5px; font-family: 'Inter'; text-anchor: end; fill: #555555" x="54.1" y="271.926032" transform="rotate(-0 54.1 271.926032)">1%</text>
+      <text style="font-size: 8.5px; font-family: 'Inter'; text-anchor: end; fill: #555555" x="54.1" y="230.312387" transform="rotate(-0 54.1 230.312387)">1%</text>
      </g>
     </g>
    </g>
    <g id="patch_8">
-    <path d="M 108.340364 233.763039 
-L 158.190545 233.763039 
-L 158.190545 170.712063 
-L 108.340364 170.712063 
+    <path d="M 108.340364 230.722218 
+L 158.190545 230.722218 
+L 158.190545 179.5392 
+L 108.340364 179.5392 
 z
-" clip-path="url(#p2535a34280)" style="fill: #555555"/>
+" clip-path="url(#p7a176e1214)" style="fill: #a50f15"/>
    </g>
    <g id="patch_9">
-    <path d="M 197.358545 283.284925 
-L 247.208727 283.284925 
-L 247.208727 233.763039 
-L 197.358545 233.763039 
+    <path d="M 197.358545 263.353796 
+L 247.208727 263.353796 
+L 247.208727 179.5392 
+L 197.358545 179.5392 
 z
-" clip-path="url(#p2535a34280)" style="fill: #a50f15"/>
+" clip-path="url(#p7a176e1214)" style="fill: #a50f15"/>
    </g>
    <g id="patch_10">
-    <path d="M 286.376727 292.514282 
-L 336.226909 292.514282 
-L 336.226909 233.763039 
-L 286.376727 233.763039 
+    <path d="M 286.376727 259.307843 
+L 336.226909 259.307843 
+L 336.226909 179.5392 
+L 286.376727 179.5392 
 z
-" clip-path="url(#p2535a34280)" style="fill: #a50f15"/>
+" clip-path="url(#p7a176e1214)" style="fill: #a50f15"/>
    </g>
    <g id="patch_11">
-    <path d="M 375.394909 288.032445 
-L 425.245091 288.032445 
-L 425.245091 233.763039 
-L 375.394909 233.763039 
+    <path d="M 375.394909 251.119415 
+L 425.245091 251.119415 
+L 425.245091 179.5392 
+L 375.394909 179.5392 
 z
-" clip-path="url(#p2535a34280)" style="fill: #a50f15"/>
+" clip-path="url(#p7a176e1214)" style="fill: #a50f15"/>
    </g>
    <g id="patch_12">
-    <path d="M 464.413091 270.355031 
-L 514.263273 270.355031 
-L 514.263273 233.763039 
-L 464.413091 233.763039 
+    <path d="M 464.413091 227.189735 
+L 514.263273 227.189735 
+L 514.263273 179.5392 
+L 464.413091 179.5392 
 z
-" clip-path="url(#p2535a34280)" style="fill: #a50f15"/>
+" clip-path="url(#p7a176e1214)" style="fill: #a50f15"/>
    </g>
    <g id="line2d_10">
-    <path d="M 57.6 233.763039 
-L 547.2 233.763039 
-" clip-path="url(#p2535a34280)" style="fill: none; stroke: #1f1f1f; stroke-width: 1.4; stroke-linecap: square"/>
+    <path d="M 57.6 179.5392 
+L 547.2 179.5392 
+" clip-path="url(#p7a176e1214)" style="fill: none; stroke: #1f1f1f; stroke-width: 1.4; stroke-linecap: square"/>
    </g>
    <g id="text_10">
-    <text style="font-size: 8.5px; font-family: 'Inter'; text-anchor: start; fill: #9a9a9a" x="160.861091" y="363.802789" transform="rotate(-0 160.861091 363.802789)">3.7%</text>
+    <text style="font-size: 8.5px; font-family: 'Inter'; text-anchor: start; fill: #9a9a9a" x="160.861091" y="334.430123" transform="rotate(-0 160.861091 334.430123)">3.3%</text>
    </g>
    <g id="text_11">
-    <text style="font-weight: 700; font-size: 10px; font-family: 'Inter'; text-anchor: middle; fill: #555555" x="133.265455" y="164.895374" transform="rotate(-0 133.265455 164.895374)">1.9% ahead*</text>
+    <text style="font-size: 8.5px; font-family: 'Inter'; text-anchor: start; fill: #9a9a9a" x="249.879273" y="286.640959" transform="rotate(-0 249.879273 286.640959)">2.2%</text>
    </g>
    <g id="text_12">
-    <text style="font-size: 8.5px; font-family: 'Inter'; text-anchor: start; fill: #9a9a9a" x="249.879273" y="325.14799" transform="rotate(-0 249.879273 325.14799)">2.6%</text>
+    <text style="font-size: 8.5px; font-family: 'Inter'; text-anchor: start; fill: #9a9a9a" x="338.897455" y="270.804308" transform="rotate(-0 338.897455 270.804308)">1.9%</text>
    </g>
    <g id="text_13">
-    <text style="font-size: 8.5px; font-family: 'Inter'; text-anchor: start; fill: #9a9a9a" x="338.897455" y="311.759571" transform="rotate(-0 338.897455 311.759571)">2.2%</text>
+    <text style="font-size: 8.5px; font-family: 'Inter'; text-anchor: start; fill: #9a9a9a" x="427.915636" y="260.070612" transform="rotate(-0 427.915636 260.070612)">1.7%</text>
    </g>
    <g id="text_14">
-    <text style="font-size: 8.5px; font-family: 'Inter'; text-anchor: start; fill: #9a9a9a" x="427.915636" y="302.410388" transform="rotate(-0 427.915636 302.410388)">1.9%</text>
+    <text style="font-size: 8.5px; font-family: 'Inter'; text-anchor: start; fill: #9a9a9a" x="516.933818" y="233.343856" transform="rotate(-0 516.933818 233.343856)">1.1%</text>
    </g>
    <g id="text_15">
-    <text style="font-size: 8.5px; font-family: 'Inter'; text-anchor: start; fill: #9a9a9a" x="516.933818" y="279.37509" transform="rotate(-0 516.933818 279.37509)">1.2%</text>
+    <text style="font-size: 8.5px; font-family: 'Inter'; text-anchor: start; fill: #9a9a9a" x="160.861091" y="347.493803" transform="rotate(-0 160.861091 347.493803)">before support</text>
    </g>
    <g id="text_16">
-    <text style="font-size: 8.5px; font-family: 'Inter'; text-anchor: start; fill: #9a9a9a" x="160.861091" y="373.335614" transform="rotate(-0 160.861091 373.335614)">before support</text>
+    <text style="font-size: 8.5px; font-family: 'Inter'; fill: #a50f15" transform="translate(175.315631 219.396205)">after</text>
+    <text style="font-size: 8.5px; font-family: 'Inter'; fill: #a50f15" transform="translate(162.66524 229.680873)">support</text>
    </g>
    <g id="text_17">
-    <text style="font-size: 8.5px; font-family: 'Inter'; fill: #a50f15" transform="translate(175.315631 256.473689)">after</text>
-    <text style="font-size: 8.5px; font-family: 'Inter'; fill: #a50f15" transform="translate(162.66524 266.758357)">support</text>
+    <text style="font-size: 8px; font-family: 'Inter'; text-anchor: start; fill: #555555" x="60.270545" y="172.010792" transform="rotate(-0 60.270545 172.010792)">gained</text>
    </g>
    <g id="text_18">
-    <text style="font-size: 8px; font-family: 'Inter'; text-anchor: start; fill: #555555" x="60.270545" y="227.747855" transform="rotate(-0 60.270545 227.747855)">gained</text>
+    <text style="font-size: 8px; font-family: 'Inter'; text-anchor: start; fill: #a50f15" x="60.270545" y="192.88792" transform="rotate(-0 60.270545 192.88792)">lost</text>
    </g>
    <g id="text_19">
-    <text style="font-size: 8px; font-family: 'Inter'; text-anchor: start; fill: #a50f15" x="60.270545" y="245.598536" transform="rotate(-0 60.270545 245.598536)">lost</text>
+    <text style="font-weight: 700; font-size: 11px; font-family: 'Inter'; text-anchor: middle; fill: #ffffff" x="133.265455" y="209.132174" transform="rotate(-0 133.265455 209.132174)">1.1%</text>
    </g>
    <g id="text_20">
-    <text style="font-weight: 700; font-size: 11px; font-family: 'Inter'; text-anchor: middle; fill: #ffffff" x="222.283636" y="262.525447" transform="rotate(-0 222.283636 262.525447)">1.5%</text>
+    <text style="font-weight: 700; font-size: 11px; font-family: 'Inter'; text-anchor: middle; fill: #ffffff" x="222.283636" y="225.447963" transform="rotate(-0 222.283636 225.447963)">1.8%</text>
    </g>
    <g id="text_21">
-    <text style="font-weight: 700; font-size: 11px; font-family: 'Inter'; text-anchor: middle; fill: #ffffff" x="311.301818" y="267.140125" transform="rotate(-0 311.301818 267.140125)">1.7%</text>
+    <text style="font-weight: 700; font-size: 11px; font-family: 'Inter'; text-anchor: middle; fill: #ffffff" x="311.301818" y="223.424986" transform="rotate(-0 311.301818 223.424986)">1.7%</text>
    </g>
    <g id="text_22">
-    <text style="font-weight: 700; font-size: 11px; font-family: 'Inter'; text-anchor: middle; fill: #ffffff" x="400.32" y="264.899207" transform="rotate(-0 400.32 264.899207)">1.6%</text>
+    <text style="font-weight: 700; font-size: 11px; font-family: 'Inter'; text-anchor: middle; fill: #ffffff" x="400.32" y="219.330773" transform="rotate(-0 400.32 219.330773)">1.5%</text>
    </g>
    <g id="text_23">
-    <text style="font-weight: 700; font-size: 11px; font-family: 'Inter'; text-anchor: middle; fill: #ffffff" x="489.338182" y="256.0605" transform="rotate(-0 489.338182 256.0605)">1.1%</text>
+    <text style="font-weight: 700; font-size: 11px; font-family: 'Inter'; text-anchor: middle; fill: #ffffff" x="489.338182" y="207.365932" transform="rotate(-0 489.338182 207.365932)">1.0%</text>
    </g>
   </g>
   <g id="text_24">
-   <text style="font-weight: 700; font-size: 14px; font-family: 'Inter'; fill: #1f1f1f" transform="translate(11.52 25.332314)">Support erased the poorest fifth's war loss.</text>
-   <text style="font-weight: 700; font-size: 14px; font-family: 'Inter'; fill: #1f1f1f" transform="translate(11.52 46.479287)">Everyone else still paid.</text>
+   <text style="font-weight: 700; font-size: 14px; font-family: 'Inter'; fill: #1f1f1f" transform="translate(11.52 25.332314)">Support carried the poorest fifth while it lasted.</text>
+   <text style="font-weight: 700; font-size: 14px; font-family: 'Inter'; fill: #1f1f1f" transform="translate(11.52 46.479287)">Over the whole period, every fifth paid.</text>
   </g>
   <g id="text_25">
    <text style="font-size: 9.5px; font-family: 'Inter'; fill: #555555" transform="translate(11.52 74.588076)">Excess spending on food, home energy and motor fuel during the Russia–Ukraine price shock,</text>
-   <text style="font-size: 9.5px; font-family: 'Inter'; fill: #555555" transform="translate(11.52 90.736221)">March 2022 to December 2023, as a share of each income fifth's disposable income.</text>
+   <text style="font-size: 9.5px; font-family: 'Inter'; fill: #555555" transform="translate(11.52 90.680557)">March 2022 to August 2026, as a share of each income fifth's disposable income.</text>
   </g>
   <g id="text_26">
-   <text style="font-size: 7.5px; font-family: 'Inter'; fill: #9a9a9a" transform="translate(11.52 408.510381)">* Assumes 55% of the poorest fifth claimed the €1,300 energietoeslag in both years; break-even is 32%.</text>
+   <text style="font-size: 7.5px; font-family: 'Inter'; fill: #9a9a9a" transform="translate(11.52 396.016143)">Support (€380 for all, €1,300 energietoeslag in 2022 and 2023) assumes 55% take-up in the poorest fifth.</text>
+   <text style="font-size: 7.5px; font-family: 'Inter'; fill: #9a9a9a" transform="translate(11.52 408.554326)">After 2023 the war's price level is held at its late-2023 excess.</text>
    <text style="font-size: 7.5px; font-family: 'Inter'; fill: #9a9a9a" transform="translate(11.52 421.253643)">Source: Eurostat HICP (prc_hicp_minr); CBS 85420NED, 85419NED, 83932NED. Midpoint CBS energy-method correction.</text>
   </g>
  </g>
  <defs>
-  <clipPath id="p2535a34280">
+  <clipPath id="p7a176e1214">
    <rect x="57.6" y="146.88" width="489.6" height="233.28"/>
   </clipPath>
  </defs>

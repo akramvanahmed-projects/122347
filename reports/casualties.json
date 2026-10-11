@@ -1,10 +1,52 @@
 {
   "cold": {
     "season_price_gap_pct": 45.78433417549695,
+    "seasons": [
+      {
+        "season": "2022\u201323",
+        "months": 6,
+        "price_gap_pct": 45.78433417549695,
+        "deaths": {
+          "low": 172.69850850997452,
+          "central": 1201.38092876504,
+          "high": 2215.0460874105424
+        }
+      },
+      {
+        "season": "2023\u201324",
+        "months": 6,
+        "price_gap_pct": 11.44546924898354,
+        "deaths": {
+          "low": 43.17231000716592,
+          "central": 300.32911309332815,
+          "high": 553.7318022658237
+        }
+      },
+      {
+        "season": "2024\u201325",
+        "months": 6,
+        "price_gap_pct": 11.191639318486622,
+        "deaths": {
+          "low": 42.21486350933154,
+          "central": 293.668615717089,
+          "high": 541.4515102283827
+        }
+      },
+      {
+        "season": "2025\u201326",
+        "months": 6,
+        "price_gap_pct": 10.446910252429142,
+        "deaths": {
+          "low": 39.40574547216272,
+          "central": 274.12692502374074,
+          "high": 505.42151801252186
+        }
+      }
+    ],
     "deaths": {
-      "low": 172.69850850997452,
-      "central": 1201.38092876504,
-      "high": 2215.0460874105424
+      "low": 297.4914274986347,
+      "central": 2069.5055825991976,
+      "high": 3815.650917917271
     },
     "observed_excess_dec_jan": 4800
   },
@@ -13,16 +55,18 @@
       "group": "Needed food aid",
       "severity": "serious",
       "people": 49500,
-      "years": 1.0,
+      "years": 1.8197777777777777,
+      "person_years": 90079.0,
+      "period": "years with more people at food banks than in 2021: 2022, 2023, 2025",
       "weight": {
         "low": 0.03,
         "central": 0.06,
         "high": 0.133
       },
       "healthy_years": {
-        "low": 1485.0,
-        "central": 2970.0,
-        "high": 6583.5
+        "low": 2702.37,
+        "central": 5404.74,
+        "high": 11980.507000000001
       },
       "blame": "partly"
     },
@@ -31,14 +75,16 @@
       "severity": "serious",
       "people": 854806,
       "years": 1.83,
+      "person_years": 1564295.8949999996,
+      "period": "Mar 2022 \u2013 Dec 2023, the support years",
       "weight": {
         "low": 0.005,
         "central": 0.01,
         "high": 0.03
       },
       "healthy_years": {
-        "low": 7821.479474999999,
-        "central": 15642.958949999998,
+        "low": 7821.479474999998,
+        "central": 15642.958949999997,
         "high": 46928.876849999986
       },
       "blame": "yes"
@@ -46,17 +92,19 @@
     {
       "group": "New money worries",
       "severity": "light",
-      "people": 994000,
-      "years": 1.5,
+      "people": 880400,
+      "years": 2.564516129032259,
+      "person_years": 2257800.0000000005,
+      "period": "2022\u20132024, compared with 2021",
       "weight": {
         "low": 0.005,
         "central": 0.01,
         "high": 0.03
       },
       "healthy_years": {
-        "low": 7455.0,
-        "central": 14910.0,
-        "high": 44730.0
+        "low": 11289.000000000002,
+        "central": 22578.000000000004,
+        "high": 67734.00000000001
       },
       "blame": "partly"
     },
@@ -65,6 +113,8 @@
       "severity": "light",
       "people": 5538000,
       "years": 0.1667,
+      "person_years": 923184.6,
+      "period": "Mar \u2013 Apr 2022",
       "weight": {
         "low": 0.005,
         "central": 0.01,
@@ -81,16 +131,18 @@
       "group": "Skipped a holiday",
       "severity": "light",
       "people": 255000,
-      "years": 1.0,
+      "years": 1.4117647058823526,
+      "person_years": 359999.99999999977,
+      "period": "2022\u20132023, compared with 2019",
       "weight": {
         "low": 0.0025,
         "central": 0.005,
         "high": 0.015
       },
       "healthy_years": {
-        "low": 637.5,
-        "central": 1275.0,
-        "high": 3825.0
+        "low": 899.9999999999994,
+        "central": 1799.9999999999989,
+        "high": 5399.999999999996
       },
       "blame": "can't tell"
     },
@@ -99,6 +151,8 @@
       "severity": "light",
       "people": 10710000,
       "years": 0.5,
+      "person_years": 5355000.0,
+      "period": "winter 2022\u201323",
       "weight": {
         "low": 0.0,
         "central": 0.0,
@@ -113,21 +167,37 @@
     }
   ],
   "income_lifetimes": {
-    "low": 45.16342515918554,
-    "central": 112.90856289796383,
-    "high": 225.81712579592767
+    "low": 123.77627064343051,
+    "central": 309.44067660857627,
+    "high": 618.8813532171525
+  },
+  "income_lifetimes_by_war": {
+    "ukraine": {
+      "low": 122.51045379947604,
+      "central": 306.2761344986901,
+      "high": 612.5522689973802
+    },
+    "iran": {
+      "low": 1.265816843954465,
+      "central": 3.1645421098861624,
+      "high": 6.329084219772325
+    }
+  },
+  "window": {
+    "start": "2022-03",
+    "end": "2026-08"
   },
   "wound_lifetimes": {
-    "low": 268.4744204268293,
-    "central": 536.9488408536586,
-    "high": 1582.4745713414632
+    "low": 333.2777131097561,
+    "central": 666.5554262195122,
+    "high": 1948.035632317073
   },
   "total_lives": {
-    "low": 486.33635409598935,
-    "central": 1851.2383325166622,
-    "high": 4023.337784547933
+    "low": 754.5454112518214,
+    "central": 3045.5016854272862,
+    "high": 6382.567903451496
   },
-  "attention_lifetimes": 1179.4366955476537,
+  "attention_lifetimes": 2279.384943490092,
   "serious_wounded": 904306,
-  "light_wounded": 17497000
+  "light_wounded": 17383400
 }

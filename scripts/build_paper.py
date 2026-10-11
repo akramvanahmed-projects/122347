@@ -22,10 +22,10 @@ OUT = ROOT / "reports" / "working_paper.pdf"
 # Figure placed after the paragraph that starts with this text.
 FIGURES = [
     ("The shock arrived in two waves.", "02_wave_and_ripple", "Excess monthly cost of food, home energy and motor fuel for the average household, months after each war began."),
-    ("Over 22 months, food cost", "04_what_drove_it", "Excess monthly cost by category, Russia–Ukraine shock, share of monthly spending."),
-    ("Support changes the picture", "01_bleeding_income", "Net war cost after support as a share of disposable income, by income fifth."),
+    ("Over the 54 months, food cost", "04_what_drove_it", "Excess monthly cost by category, Russia–Ukraine shock, share of monthly spending."),
+    ("Support changed the picture", "01_bleeding_income", "Net war cost after support as a share of disposable income, by income fifth, March 2022 to August 2026."),
     ("The CBS/TNO energy-poverty monitor", "06_support_while_it_lasted", "Energy poverty 2019–2025 and the poorest fifth's net cost by energietoeslag take-up."),
-    ("The result for Ukraine, after support", "05_lifetimes", "Life-years lost to lower income, expressed as full 82-year lifetimes."),
+    ("The result for Ukraine over the period", "05_lifetimes", "Life-years lost to lower income, expressed as full 82-year lifetimes."),
     ("A war shock raises some prices", "03_the_gap_is_the_bill", "Actual prices against the no-war path. The shaded gap is the excess households paid."),
 ]
 
@@ -109,34 +109,41 @@ def cover_html(numbers: dict) -> str:
     dead, lives = c["cold"]["deaths"], c["total_lives"]
     household = sum(u["gross_eur"].values()) / 5
     days = u["days_per_person_central_net"]
+    window_end = pd_month(c["window"]["end"])
     r = lambda v, to: f"{round(v / to) * to:,}"
     return f"""
 <section class="cover">
-  <div class="top"><span>Working paper No. 1</span><span>October 2026 · prices to {numbers['latest_price_month']}</span></div>
+  <div class="top"><span>Working paper No. 1</span><span>October 2026 · all figures Mar 2022 – {window_end}</span></div>
   <div>
     <h1>Hidden<br>casualties<span>.</span></h1>
     <p class="sub">A casualty count for two wars that were fought elsewhere: what the Russia–Ukraine and Iran price shocks cost the Netherlands in money, warmth, health, life and time.</p>
   </div>
   <div class="keys">
-    <div><b>≈{r(dead['central'], 100)}</b><span>estimated deaths from the cold, winter 2022–23 ({r(dead['low'], 10)}–{r(dead['high'], 100)})</span></div>
-    <div><b>≈{r(lives['central'], 50)}</b><span>lives in total, deaths plus life-year equivalents ({r(lives['low'], 10)}–{r(lives['high'], 100)})</span></div>
+    <div><b>≈{r(dead['central'], 100)}</b><span>estimated deaths from the cold, four winters 2022–23 to 2025–26 ({r(dead['low'], 10)}–{r(dead['high'], 100)})</span></div>
+    <div><b>≈{r(lives['central'], 50)}</b><span>lives in total, both wars, deaths plus life-year equivalents ({r(lives['low'], 10)}–{r(lives['high'], 100)})</span></div>
     <div><b>{c['serious_wounded'] / 1000:,.0f}k</b><span>seriously wounded: food aid, or no support for the poorest</span></div>
-    <div><b>≈{r(c['attention_lifetimes'], 10)}</b><span>waking lifetimes spent following the war (assumed minutes)</span></div>
+    <div><b>≈{r(c['attention_lifetimes'], 10)}</b><span>waking lifetimes spent following the wars (assumed minutes)</span></div>
   </div>
   <div class="foot">war-casualties-nl · github.com/akramvanahmed-projects/war-casualties-nl · Data: CBS and Eurostat (CC BY 4.0).<br>Independent analysis, not affiliated with CBS, Eurostat or any government body. Model estimates, not official statistics and not advice; provided as is, without warranty.<br>Made with the assistance of Claude, an AI model by Anthropic. See the disclaimer at the end of the report.</div>
 </section>
 <section class="summary">
   <h2>Key findings</h2>
   <ol>
-    <li><strong>The war left measurable casualties in a country it never touched.</strong> About {r(dead['central'], 100)} deaths from the cold (range {r(dead['low'], 10)}–{r(dead['high'], 100)}), more than 900,000 people seriously wounded in their finances or health, light wounds on almost everyone, and about {r(lives['central'], 50)} lives once life-expectancy equivalents are added.</li>
-    <li><strong>Food, not energy, was the lasting cost.</strong> Energy prices peaked 96% above their no-war path in October 2022 and fell below it under the 2023 price ceiling. Food never came back down: still 14% above its path at the end of 2023, €1,073 per household in total, €{household:,.0f} across food, energy and fuel.</li>
+    <li><strong>One period for every number.</strong> All figures cover March 2022 to {window_end}, from the invasion of Ukraine to the latest month with price data, and both wars. Unmeasured parts of the period count zero.</li>
+    <li><strong>The wars left measurable casualties in a country they never touched.</strong> About {r(dead['central'], 100)} deaths from the cold over four winters (range {r(dead['low'], 10)}–{r(dead['high'], 100)}), more than 900,000 people seriously wounded in their finances or health, light wounds on almost everyone, and about {r(lives['central'], 50)} lives once life-expectancy equivalents are added.</li>
+    <li><strong>Food, not energy, was the lasting cost.</strong> Energy prices peaked 96% above their no-war path in October 2022 and fell below it under the 2023 price ceiling. Food never came back down: still 14% above its path at the end of 2023 and held there since, €{u['channel_eur_mean_household']['food']:,.0f} per household over the period, €{household:,.0f} across food, energy and fuel.</li>
     <li><strong>The official inflation figure mistimed the shock.</strong> In September 2022 published inflation was 14.5%; recomputed with the contracts households actually held, it was 7.8%. By January 2023 the order had reversed: 7.6% published, 11.6% paid.</li>
-    <li><strong>Support rescued the poorest fifth on average and left the middle exposed.</strong> After support the poorest fifth came out 1.9% of income ahead (break-even at 32% take-up; municipalities report 86–90% reach). The middle three fifths lost 1.5–1.7% of income. Poorest-fifth households without the €1,300 payment lost about €830 each.</li>
-    <li><strong>The wounds followed the income line.</strong> The poorest were five times as likely to skip a holiday and twice as likely to worry about money. Life expectancy lost per resident is {days * 24:.1f} hours on average, concentrated where incomes are lowest.</li>
+    <li><strong>Support rescued the poorest fifth while it lasted.</strong> In the support years, March 2022 to December 2023, the poorest fifth came out 1.9% of income ahead (break-even at 32% take-up; municipalities report 86–90% reach), while households without the €1,300 payment lost about €830 each. Support ended; the prices stayed. Over the whole period the poorest fifth lost {u['net_pct_income']['Q1']:.1f}% of income and the middle three fifths {min(u['net_pct_income'][q] for q in ('Q2','Q3','Q4')):.1f}–{max(u['net_pct_income'][q] for q in ('Q2','Q3','Q4')):.1f}%.</li>
+    <li><strong>The wounds followed the income line.</strong> The poorest were five times as likely to skip a holiday and twice as likely to worry about money. Life expectancy lost per resident over the period is {days * 24:.1f} hours on average, concentrated where incomes are lowest.</li>
     <li><strong>Iran is landing on an uncushioned country.</strong> €{sum(i['gross_eur'].values()) / 5:,.0f} per household so far, almost all motor fuel. Energy poverty is back at 6%, higher than at any point during the Ukraine shock.</li>
   </ol>
 </section>
 """
+
+
+def pd_month(month: str) -> str:
+    year, m = month.split("-")
+    return ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][int(m) - 1] + " " + year
 
 
 def build() -> None:

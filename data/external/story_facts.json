@@ -31,7 +31,9 @@
     "y2022": 200000,
     "y2025": 155000,
     "source": "Voedselbanken Nederland via NOS, 2 Jun 2026",
-    "url": "https://nos.nl/l/2616784"
+    "url": "https://nos.nl/l/2616784",
+    "y2023": 180579,
+    "url2023": "https://voedselbankennederland.nl/wp-content/uploads/2024/09/Feiten-en-Cijfers-per-31-12-2023.pdf"
   },
   "holidays": {
     "noHolidayPct": {
@@ -91,7 +93,15 @@
     "lowestIncome": 40,
     "highestIncome": 20,
     "source": "CBS via ANP, 8 Jun 2023",
-    "url": "https://www.hartvannederland.nl/algemeen-nieuws/artikelen/steeds-meer-nederlanders-maken-zich-zorgen-over-hun-financiele-situatie"
+    "url": "https://www.hartvannederland.nl/algemeen-nieuws/artikelen/steeds-meer-nederlanders-maken-zich-zorgen-over-hun-financiele-situatie",
+    "byYear": {
+      "2021": 22.5,
+      "2022": 28.6,
+      "2023": 28.7,
+      "2024": 26.1
+    },
+    "sourceByYear": "CBS, Meer mensen tevreden over financiën in 2024, zorgen minder groot (Sep 2025)",
+    "urlByYear": "https://www.cbs.nl/nl-nl/nieuws/2025/37/meer-mensen-tevreden-over-financien-in-2024-zorgen-minder-groot"
   },
   "nibud": {
     "makeEndsMeet": "1 in 3",
@@ -139,6 +149,8 @@
     "backgroundDays": 273,
     "intenseMinutesDefault": 15,
     "backgroundMinutesDefault": 5,
-    "wakingHoursPerDay": 16
+    "wakingHoursPerDay": 16,
+    "laterMinutesDefault": 2,
+    "laterNote": "From March 2023 to the latest month, 2 minutes a day on average (both wars). ASSUMPTION"
   }
 }

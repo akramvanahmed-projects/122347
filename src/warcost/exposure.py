@@ -6,7 +6,7 @@ from dataclasses import dataclass
 import pandas as pd
 
 from .config import QUINTILES
-from .prices import counterfactual, energy_method_correction, excess_gap
+from .prices import counterfactual, energy_method_correction, excess_gap, persistent_gap
 
 CHANNELS = ["food", "home_energy", "motor_fuel", "core"]
 
@@ -134,6 +134,7 @@ def run_episode(cfg: dict, episode: str, prices: pd.DataFrame, households: pd.Da
     no_war = counterfactual(prices[columns], spec["shock_month"], method or cf_spec["method"],
                             cf_spec["target_rate"], cf_spec["pre_trend_months"])
     gap = excess_gap(prices[columns], no_war, spec["shock_month"], spec["end_month"])
+    gap = persistent_gap(gap, spec.get("acute_end"), spec.get("freeze_from"))
     if "core" not in gap:
         gap["core"] = 0.0
 
