@@ -42,8 +42,9 @@ jobs:
       - name: Surface errors
         if: steps.build.outcome != 'success'
         run: |
-          grep -E "Error|error|Traceback|File \"|raise|^\s+\^" data/processed/build_log.txt | tail -25 |
-            while IFS= read -r line; do echo "::error::${line}"; done
+          # GitHub keeps at most 10 annotations per step, so send one.
+          msg=$(tail -n 4 data/processed/build_log.txt | cut -c1-3000 | sed ':a;N;$!ba;s/\n/%0A/g')
+          echo "::error title=build failed::${msg}"
 
       - name: Commit outputs
         run: |

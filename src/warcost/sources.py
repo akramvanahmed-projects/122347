@@ -48,10 +48,23 @@ def fetch_hicp_series(dataset: str, geo: str, unit: str, code: str, start: str) 
             if not observations.empty:
                 break
     else:
-        raise LookupError(f"{dataset}: no {unit} series for {code} in {geo}")
+        raise LookupError(f"{dataset}: no {unit} series for {code} in {geo}; "
+                          f"available: {available_codes(dataset, geo)}")
     series = observations.set_index("time")["value"].astype(float)
     series.index = pd.PeriodIndex(series.index, freq="M")
     return series.sort_index()
+
+
+def available_codes(dataset: str, geo: str) -> str:
+    response = requests.get(EUROSTAT_API.format(dataset=dataset),
+                            params={"geo": geo, "sinceTimePeriod": "2026-01", "untilTimePeriod": "2026-01"},
+                            timeout=120)
+    if not response.ok:
+        return f"HTTP {response.status_code}"
+    observations = parse_jsonstat(response.json())
+    dim = "coicop18" if "coicop18" in observations else "coicop"
+    units = sorted(observations["unit"].unique())
+    return f"units={units} codes={' '.join(sorted(observations[dim].unique()))}"
 
 
 def build_prices(cfg: dict) -> pd.DataFrame:
