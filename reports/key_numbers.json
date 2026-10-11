@@ -46,7 +46,7 @@
       "Q4": 380.0,
       "Q5": 380.0
     },
-    "national_gross_eur_bn": 15.463862035988717,
+    "national_gross_eur_bn": 15.463862035988715,
     "national_compensation_eur_bn": 5.929962,
     "grocery_months": {
       "Q1": -2.38,
@@ -56,16 +56,16 @@
       "Q5": 3.43
     },
     "lifetimes": {
-      "low_gross": 73.80145010307913,
-      "low_net": 45.16342515918556,
-      "central_gross": 184.5036252576978,
-      "central_net": 112.90856289796386,
-      "high_gross": 369.0072505153956,
-      "high_net": 225.81712579592772
+      "low_gross": 73.80145010307912,
+      "low_net": 45.16342515918554,
+      "central_gross": 184.50362525769776,
+      "central_net": 112.90856289796383,
+      "high_gross": 369.0072505153955,
+      "high_net": 225.81712579592767
     },
-    "life_years_central_net": 9258.502157633036,
+    "life_years_central_net": 9258.502157633035,
     "healthy_life_years_central_net": 19606.2398632229,
-    "days_per_person_central_net": 0.19313795545371126,
+    "days_per_person_central_net": 0.19313795545371124,
     "households_total": 8259000.0,
     "gross_pct_spending": {
       "Q1": 2.94,
@@ -80,7 +80,7 @@
       "home_energy": 862.0,
       "motor_fuel": -62.0
     },
-    "q1_break_even_take_up": 0.31898166716580956,
+    "q1_break_even_take_up": 0.3189816671658095,
     "peak_energy_gap_pct": 96.0688604460848,
     "peak_energy_gap_month": "2022-10"
   },
