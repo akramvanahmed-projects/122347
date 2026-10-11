@@ -1,0 +1,790 @@
+<title>No Bombs Fell</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Swiss grid: narrow index column (chapter number, label) beside a wide content column; one signal red, everything else ink and grey. */
+:root {
+  --paper: #fbfbf9;
+  --ink: #111214;
+  --ink-2: #5a5d63;
+  --rule: #d9dadd;
+  --signal: #dc1c13;
+  --signal-soft: #f5ccc8;
+  --wash: #f0f0ee;
+  --font-display: "Schibsted Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-body: "Schibsted Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-data: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --step--1: 0.8125rem;
+  --step-0: 1.0625rem;
+  --step-1: 1.375rem;
+  --step-2: 2rem;
+  --step-3: clamp(2.4rem, 5vw, 3.6rem);
+  --step-4: clamp(4.5rem, 13vw, 10rem);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0f1012; --ink: #f1f1ef; --ink-2: #9b9ea4; --rule: #2b2d31;
+    --signal: #ff4b3e; --signal-soft: #4b1915; --wash: #18191c; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0f1012; --ink: #f1f1ef; --ink-2: #9b9ea4; --rule: #2b2d31;
+  --signal: #ff4b3e; --signal-soft: #4b1915; --wash: #18191c; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+figure { margin: 0; }
+body {
+  background: var(--paper); color: var(--ink);
+  font-family: var(--font-body); font-size: var(--step-0); line-height: 1.55;
+  padding-inline: clamp(16px, 4vw, 56px); padding-block: 0;
+  -webkit-font-smoothing: antialiased;
+}
+.page { max-width: 1180px; margin-inline: auto; }
+a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { color: var(--signal); }
+a:focus-visible, input:focus-visible { outline: 2px solid var(--signal); outline-offset: 3px; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; }
+p { margin: 0; max-width: 62ch; }
+.mono { font-family: var(--font-data); font-variant-numeric: tabular-nums; }
+.label { font-family: var(--font-data); font-size: var(--step--1); letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-2); }
+
+/* Masthead */
+.mast { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  border-bottom: 2px solid var(--ink); padding-block: 20px 12px; }
+
+/* Hero */
+.hero { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; padding-block: 48px 56px;
+  border-bottom: 1px solid var(--rule); }
+.hero h1 { grid-column: 1 / -1; font-size: var(--step-3); font-weight: 900; line-height: 1.02; letter-spacing: -0.03em; max-width: 18ch; }
+.hero .answer { grid-column: 1 / span 7; font-size: var(--step-1); line-height: 1.4; font-weight: 500; }
+.hero .answer em { font-style: normal; color: var(--signal); }
+.hero .figures { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border-top: 2px solid var(--ink); margin-top: 16px; }
+.hero .figures div { padding: 14px 16px 0 0; display: grid; gap: 4px; }
+.hero .figures div + div { border-left: 1px solid var(--rule); padding-left: 16px; }
+.hero .figures strong { font-family: var(--font-display); font-size: var(--step-2); font-weight: 800; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.hero .figures span { font-size: var(--step--1); color: var(--ink-2); line-height: 1.35; }
+
+/* Chapters */
+.chapter { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; padding-block: 64px; border-bottom: 1px solid var(--rule); }
+.chapter .index { grid-column: 1 / span 3; display: grid; align-content: start; gap: 6px; }
+.chapter .index b { font-family: var(--font-display); font-size: 3rem; font-weight: 400; line-height: 1; letter-spacing: -0.04em; }
+.chapter .body { grid-column: 4 / -1; display: grid; gap: 22px; min-width: 0; }
+.big { font-family: var(--font-display); font-size: var(--step-4); font-weight: 900; line-height: 0.85; letter-spacing: -0.05em; font-variant-numeric: tabular-nums; }
+.big.signal { color: var(--signal); }
+.big small { font-size: 0.32em; letter-spacing: -0.01em; font-weight: 700; margin-left: 0.15em; }
+.chapter h2 { font-size: var(--step-2); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; max-width: 24ch; }
+.prose { display: grid; gap: 14px; }
+.prose p strong { font-weight: 700; }
+.chart { width: 100%; min-width: 0; }
+.chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+.chart text { font-family: var(--font-data); font-size: 11px; fill: var(--ink-2); }
+.chart .t-ink { fill: var(--ink); }
+.chart .t-signal { fill: var(--signal); font-weight: 500; }
+.f-signal { fill: var(--signal); } .f-soft { fill: var(--signal-soft); } .f-ink { fill: var(--ink); }
+.f-grey { fill: var(--rule); } .f-wash { fill: var(--wash); } .f-none { fill: none; }
+.s-ink { stroke: var(--ink); } .s-grey { stroke: var(--ink-2); } .s-rule { stroke: var(--rule); } .s-signal { stroke: var(--signal); }
+
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0; border-top: 2px solid var(--ink); }
+.facts div { padding: 12px 16px 12px 0; display: grid; gap: 2px; align-content: start; }
+.facts div + div { border-left: 1px solid var(--rule); padding-left: 16px; }
+.facts strong { font-family: var(--font-display); font-size: var(--step-1); font-weight: 800; font-variant-numeric: tabular-nums; }
+.facts span { font-size: var(--step--1); color: var(--ink-2); line-height: 1.4; }
+
+/* Verdict: can we blame the war? */
+.verdict { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; border-top: 1px solid var(--rule); padding-top: 14px; }
+.verdict .scale { display: inline-flex; border: 1px solid var(--ink); }
+.verdict .scale span { font-family: var(--font-data); font-size: var(--step--1); padding: 4px 10px; color: var(--ink-2); }
+.verdict .scale span + span { border-left: 1px solid var(--ink); }
+.verdict .scale span.on { background: var(--ink); color: var(--paper); }
+.verdict .why { font-size: var(--step--1); color: var(--ink-2); flex: 1 1 260px; min-width: 0; }
+.sources { font-family: var(--font-data); font-size: 0.75rem; color: var(--ink-2); line-height: 1.6; }
+.sources a { color: var(--ink-2); }
+
+/* Receipt */
+.receipt-wrap { display: grid; grid-template-columns: minmax(0, 320px) minmax(0, 1fr); gap: 32px; align-items: start; }
+.receipt { font-family: var(--font-data); font-size: 0.78rem; background: var(--wash); padding: 18px 18px 26px; line-height: 1.45;
+  --tooth: 8px;
+  mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / calc(2 * var(--tooth)) 100%;
+  -webkit-mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / calc(2 * var(--tooth)) 100%; }
+.receipt header { text-align: center; text-transform: uppercase; letter-spacing: 0.08em; padding-bottom: 8px; border-bottom: 1px dashed var(--ink-2); margin-bottom: 8px; }
+.receipt .row { display: flex; justify-content: space-between; gap: 12px; }
+.receipt .row .war { color: var(--signal); }
+.receipt .total { border-top: 1px dashed var(--ink-2); margin-top: 8px; padding-top: 8px; font-weight: 500; font-size: 0.9rem; }
+.receipt .total .war { font-weight: 500; }
+
+/* Slider */
+.dial { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; align-items: center; }
+.dial .controls { display: grid; gap: 14px; }
+.dial label { font-weight: 700; }
+.dial input[type=range] { width: 100%; accent-color: var(--signal); }
+.dial output { font-family: var(--font-display); font-weight: 800; font-size: var(--step-2); font-variant-numeric: tabular-nums; }
+.dial .readout { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 2px solid var(--ink); }
+.dial .readout div { padding: 12px 16px 0 0; display: grid; gap: 2px; }
+.dial .readout div + div { border-left: 1px solid var(--rule); padding-left: 16px; }
+
+.method { padding-block: 56px 72px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; }
+.method .index { grid-column: 1 / span 3; }
+.method .body { grid-column: 4 / -1; display: grid; gap: 14px; min-width: 0; }
+.method ol { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; font-size: var(--step--1); }
+footer { border-top: 2px solid var(--ink); padding-block: 14px 40px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+
+.ledger { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; padding-block: 64px; border-bottom: 2px solid var(--ink); }
+.ledger .index { grid-column: 1 / span 3; }
+.ledger .body { grid-column: 4 / -1; display: grid; gap: 18px; min-width: 0; }
+.ledger h2 { font-size: var(--step-3); font-weight: 900; letter-spacing: -0.03em; line-height: 1; }
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: var(--step--1); min-width: 520px; }
+th { text-align: left; font-family: var(--font-data); font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-2); border-bottom: 2px solid var(--ink); padding: 8px 12px 8px 0; }
+td { border-bottom: 1px solid var(--rule); padding: 10px 12px 10px 0; vertical-align: top; }
+td.num, th.num { text-align: right; font-family: var(--font-data); font-variant-numeric: tabular-nums; }
+td.num strong { font-family: var(--font-display); font-size: 1.15rem; font-weight: 800; }
+td .tag { font-family: var(--font-data); font-size: 0.72rem; border: 1px solid var(--ink); padding: 1px 6px; white-space: nowrap; }
+td .tag.yes { background: var(--ink); color: var(--paper); }
+.dial .controls label + input { margin-bottom: 6px; }
+
+@media (max-width: 760px) {
+  .ledger .index, .ledger .body { grid-column: 1 / -1; }
+  .hero .answer { grid-column: 1 / -1; }
+  .hero .figures { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hero .figures div:nth-child(3) { border-left: none; padding-left: 0; }
+  .chapter .index, .chapter .body, .method .index, .method .body { grid-column: 1 / -1; }
+  .chapter .index { grid-auto-flow: column; justify-content: start; align-items: baseline; gap: 12px; }
+  .chapter .index b { font-size: 2rem; }
+  .receipt-wrap, .dial { grid-template-columns: minmax(0, 1fr); }
+  .chapter { padding-block: 48px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .wedge { transition: d 0.3s ease; }
+}
+</style>
+
+<div class="page">
+  <div class="mast">
+    <span class="label">The Netherlands · Two wars, one household budget</span>
+    <span class="label" id="asof"></span>
+  </div>
+
+  <section class="hero" aria-labelledby="title">
+    <h1 id="title">Are there human casualties in the Netherlands from the wars in Ukraine and Iran?</h1>
+    <p class="answer">No bombs fell here. But the wars reached every kitchen, meter cupboard and holiday plan in the country. Added up, the Ukraine price shock took about <em id="hero-hours"></em> of life expectancy from every person living in the Netherlands, on our central estimate, and well over a thousand lifetimes of waking attention.</p>
+    <div class="figures">
+      <div><strong id="h-household"></strong><span>extra spent per household on food, energy and fuel, 2022–23</span></div>
+      <div><strong id="h-national"></strong><span>nationally, of which support paid back <b id="h-support"></b></span></div>
+      <div><strong id="h-lifetimes"></strong><span>full lifetimes, as an equivalent of life-years lost (range <span id="h-range"></span>)</span></div>
+      <div><strong id="h-iran"></strong><span>Iran war so far, per household</span></div>
+    </div>
+  </section>
+
+  <!-- 01 -->
+  <section class="chapter" id="shock">
+    <div class="index"><b>01</b><span class="label">The shock</span></div>
+    <div class="body">
+      <div class="big signal" id="c1-big"></div>
+      <h2>In October 2022, energy cost almost double what it would have cost without the war.</h2>
+      <div class="prose">
+        <p>Each line below is one month. It shows how far household energy prices sat above a path that simply grows 2% a year from February 2022, the month Russia invaded. The trace jumps at the invasion, spikes in autumn, and drops below zero once the government's price ceiling arrived in January 2023.</p>
+      </div>
+      <figure class="chart" id="chart-seismo" aria-label="Monthly excess of household energy prices over the no-war path, March 2022 to December 2023"></figure>
+      <div class="verdict"><span class="label">Can we blame the war?</span><span class="scale"><span class="on">Yes</span><span>Partly</span><span>Can't tell</span></span><span class="why">Gas prices were already high in late 2021. The trace starts at the February 2022 level, so that earlier rise is not counted.</span></div>
+      <p class="sources">Eurostat HICP, home energy (prc_hicp_minr, CP045). Published series, before the CBS method correction.</p>
+    </div>
+  </section>
+
+  <!-- 02 -->
+  <section class="chapter" id="phantom">
+    <div class="index"><b>02</b><span class="label">The phantom</span></div>
+    <div class="body">
+      <div class="big" id="c2-big"></div>
+      <h2>The inflation everyone heard about was not the inflation most households paid.</h2>
+      <div class="prose">
+        <p>Until June 2023, Statistics Netherlands priced energy from new contracts only. In September 2022 the official figure said prices were <strong>14.5%</strong> higher than a year before. Recomputed with the contracts people actually had, it was <strong>7.8%</strong>. The headline ran months ahead of the bills.</p>
+        <p>Then the order flipped. As fixed contracts renewed at crisis prices, households paid <strong>11.6%</strong> more in January 2023 while the official figure had already fallen to 7.6%. The pain arrived after the news had moved on.</p>
+      </div>
+      <figure class="chart" id="chart-phantom" aria-label="Year-on-year inflation, published versus recomputed with existing contracts, 2022 to May 2023"></figure>
+      <div class="verdict"><span class="label">Can we blame the war?</span><span class="scale"><span>Yes</span><span class="on">Partly</span><span>Can't tell</span></span><span class="why">The war drove the prices. The gap between the two lines is a measurement problem, and it changes when people felt the shock.</span></div>
+      <p class="sources">CBS, <a href="https://www.cbs.nl/nl-nl/achtergrond/2023/26/cbs-stapt-over-op-nieuwe-methode-voor-energieprijzen-in-de-cpi" target="_blank" rel="noopener">CBS stapt over op nieuwe methode voor energieprijzen in de CPI</a> (2023). Index levels transcribed and checked against the published rates.</p>
+    </div>
+  </section>
+
+  <!-- 03 -->
+  <section class="chapter" id="cold">
+    <div class="index"><b>03</b><span class="label">The cold</span></div>
+    <div class="body">
+      <div class="big" id="c3-big"></div>
+      <h2>The country turned the heating down by two degrees and used the least gas since 1972.</h2>
+      <div class="prose">
+        <p>Households burned about a quarter less gas in 2022 than in 2021. Weather explains part of it; corrected for the mild winter, use was still 15% lower. Seven in ten households with a gas boiler set the thermostat to 19 °C instead of 21. Smart-thermostat data put the average Dutch living room at 18 °C that winter.</p>
+        <p>Did the cold kill anyone? In November 2022, <strong>about 1,400 more people died than expected</strong>, 10% above the norm, about half of them in vulnerable groups such as nursing-home residents. CBS attributes most excess deaths of 2022 to flu and covid-19, and nobody has separated out cold homes. That number is the gap in this story.</p>
+      </div>
+      <figure class="chart" id="chart-thermo" aria-label="Living-room temperature before and during the 2022–23 winter"></figure>
+      <div class="facts">
+        <div><strong id="c3-gas"></strong><span>household gas use, 2022 vs 2021</span></div>
+        <div><strong>31 bn m³</strong><span>total Dutch gas use in 2022, lowest since 1972</span></div>
+        <div><strong>+1,400</strong><span>deaths above expected in November 2022, cause unresolved</span></div>
+      </div>
+      <div class="verdict"><span class="label">Can we blame the war?</span><span class="scale"><span>Yes</span><span>Partly</span><span class="on">Can't tell</span></span><span class="why">The gas cut was a response to war prices (CBS names price as the main driver). The deaths overlap with flu and covid, and no Dutch study isolates cold homes.</span></div>
+      <p class="sources">CBS via <a href="https://nos.nl/l/2463617" target="_blank" rel="noopener">NOS, 13 Feb 2023</a> · Milieu Centraal and tado via <a href="https://www.wyniasweek.nl/nederlandse-huizen-zijn-een-stuk-killer-geworden/" target="_blank" rel="noopener">Wynia's Week, 1 Apr 2023</a> · CBS via <a href="https://nieuws.nl/algemeen/cbs-afgelopen-maand-10-procent-meer-sterfgevallen-dan-verwacht" target="_blank" rel="noopener">ANP, 9 Dec 2022</a> and <a href="https://nieuws.nl/algemeen/nog-steeds-veel-oversterfte-in-2022-vooral-door-griep-en-covid" target="_blank" rel="noopener">25 Jan 2023</a></p>
+    </div>
+  </section>
+
+  <!-- 04 -->
+  <section class="chapter" id="kitchen">
+    <div class="index"><b>04</b><span class="label">The kitchen</span></div>
+    <div class="body">
+      <div class="big signal" id="c4-big"></div>
+      <h2>Energy came back down. Groceries never did.</h2>
+      <div class="prose">
+        <p>The average household paid <strong id="c4-total"></strong> more for food over 22 months than it would have without the shock. By December 2023 food was still <strong id="c4-gap"></strong> above its no-war path, and that higher level is now simply what food costs. Of everything the war did to Dutch prices, the grocery bill is the part that stayed.</p>
+        <p>Food banks served almost <strong>200,000 people</strong> in 2022. By 2025 the number had fallen to about 155,000, still high, and rising again.</p>
+      </div>
+      <div class="receipt-wrap">
+        <div class="receipt" id="receipt" aria-label="Monthly extra food cost for the average household as a till receipt"></div>
+        <figure class="chart" id="chart-food" aria-label="Cumulative extra food cost per household"></figure>
+      </div>
+      <div class="verdict"><span class="label">Can we blame the war?</span><span class="scale"><span>Yes</span><span class="on">Partly</span><span>Can't tell</span></span><span class="why">Energy, fertiliser and grain prices push food up, but so did wages, margins and bird flu in 2022–23. The model counts all excess food inflation, so this is an upper bound.</span></div>
+      <p class="sources">Model: Eurostat HICP food (CP01) against a 2% path, weighted with CBS Budgetonderzoek 2020 · Voedselbanken Nederland via <a href="https://nos.nl/l/2616784" target="_blank" rel="noopener">NOS, 2 Jun 2026</a></p>
+    </div>
+  </section>
+
+  <!-- 05 -->
+  <section class="chapter" id="holidays">
+    <div class="index"><b>05</b><span class="label">The holiday</span></div>
+    <div class="body">
+      <div class="big" id="c5-big"></div>
+      <h2>For the lowest incomes, the holiday is the first thing to go.</h2>
+      <div class="prose">
+        <p>In 2023, 19.2% of people aged 15 and over took no holiday, and 27.6% of them said they could not afford one. Income splits the country: 38% of the lowest-income quarter stayed home, against 8% of the highest.</p>
+        <p>Did the energy crisis cancel holidays? The national numbers cannot say. Covid emptied the airports in 2020 and the recovery masks any war effect. Iran is easier to see. In April 2026 KLM scrapped 160 flights over the May holiday, and Air France–KLM expects to spend about €2 billion more on kerosene this year, which goes onto ticket prices.</p>
+      </div>
+      <figure class="chart" id="chart-holiday" aria-label="Share of people taking no holiday, 2019 to 2023"></figure>
+      <div class="verdict"><span class="label">Can we blame the war?</span><span class="scale"><span>Yes</span><span>Partly</span><span class="on">Can't tell</span></span><span class="why">For 2022 the covid recovery swamps any war effect. For 2026 the cancelled flights are directly fuel-driven.</span></div>
+      <p class="sources">CBS, <a href="https://www.cbs.nl/nl-nl/nieuws/2024/28/1-op-de-5-nederlanders-ging-in-2023-niet-op-vakantie" target="_blank" rel="noopener">1 op de 5 Nederlanders ging in 2023 niet op vakantie</a> (2024) · <a href="https://nltimes.nl/2026/04/16/klm-scraps-160-flights-key-holiday-amid-soaring-fuel-prices-middle-east-tension" target="_blank" rel="noopener">NL Times, 16 Apr 2026</a></p>
+    </div>
+  </section>
+
+  <!-- 06 -->
+  <section class="chapter" id="nerves">
+    <div class="index"><b>06</b><span class="label">The nerves</span></div>
+    <div class="body">
+      <div class="big signal">−59</div>
+      <h2>Dutch consumers were never as gloomy as in the autumn of the energy crisis.</h2>
+      <div class="prose">
+        <p>Consumer confidence fell to <strong>−59</strong> in September 2022, the lowest reading since CBS began measuring in 1986. The twenty-year average is around −10. In the same months, one in three households told Nibud it could barely make ends meet, and calls to its helpline ran at 1.5 to 2 times the usual rate.</p>
+        <p>The worry outlasted the prices. The share of people worried about their finances rose from 23% in 2021 to almost 30%, and to about 40% among the lowest earners. When the Iran strikes began, confidence dropped from −24 in February 2026 to −46 by May.</p>
+      </div>
+      <figure class="chart" id="chart-nerves" aria-label="Consumer confidence in 2022 and 2026 against the twenty-year average"></figure>
+      <div class="verdict"><span class="label">Can we blame the war?</span><span class="scale"><span>Yes</span><span class="on">Partly</span><span>Can't tell</span></span><span class="why">The timing lines up twice, at the energy peak in 2022 and after the strikes in 2026. CBS does not attribute the drops to a cause.</span></div>
+      <p class="sources">CBS consumer confidence, <a href="https://www.cbs.nl/nl-nl/nieuws/2022/42/consumentenvertrouwen-verandert-niet" target="_blank" rel="noopener">Oct 2022</a> and <a href="https://www.cbs.nl/nl-nl/nieuws/2026/21/consumentenvertrouwen-daalt-verder-in-mei" target="_blank" rel="noopener">May 2026</a> · Nibud via <a href="https://nltimes.nl/2022/09/15/netherlands-heading-debt-crisis-budget-institute-warns" target="_blank" rel="noopener">NL Times, 15 Sep 2022</a> · CBS via <a href="https://www.hartvannederland.nl/algemeen-nieuws/artikelen/steeds-meer-nederlanders-maken-zich-zorgen-over-hun-financiele-situatie" target="_blank" rel="noopener">ANP, 8 Jun 2023</a></p>
+    </div>
+  </section>
+
+  <!-- 07 -->
+  <section class="chapter" id="who">
+    <div class="index"><b>07</b><span class="label">Who paid</span></div>
+    <div class="body">
+      <div class="big" id="c7-big"></div>
+      <h2>Support pulled the poorest fifth above the waterline. The middle stayed under.</h2>
+      <div class="prose">
+        <p>Every household got €380 off its energy bill in late 2022, and households near the social minimum could claim €1,300 in both 2022 and 2023. For the poorest fifth that was more than the war cost them on average. The middle three fifths, too well off for targeted help, lost between 1.5% and 1.7% of a year's income.</p>
+        <p>The poorest fifth's gain depends on who claimed. Below <strong id="c7-be"></strong> take-up it turns into a loss. Municipalities report reaching 86 to 90% of eligible households. The households that missed the payment still lost about €830 each.</p>
+      </div>
+      <figure class="chart" id="chart-water" aria-label="Net war cost after support as a share of income, by income fifth"></figure>
+      <div class="verdict"><span class="label">Can we blame the war?</span><span class="scale"><span class="on">Yes</span><span>Partly</span><span>Can't tell</span></span><span class="why">Model result for food, energy and fuel only. Measured against spending instead of income, every fifth lost a similar 2.7–3.1%.</span></div>
+      <p class="sources">Model: CBS 85420NED, 85419NED, 83932NED; Eurostat HICP · Take-up: SZW, <a href="https://berthub.eu/tkconv/getraw/2024D26690" target="_blank" rel="noopener">Monitor uitvoering energietoeslag</a> (2024)</p>
+    </div>
+  </section>
+
+  <!-- 08 -->
+  <section class="chapter" id="count">
+    <div class="index"><b>08</b><span class="label">The count</span></div>
+    <div class="body">
+      <div class="big signal" id="c8-big"></div>
+      <h2>Spread across 18 million people, the war took a few hours of life from each of them.</h2>
+      <div class="prose">
+        <p>The richest fifth of the Netherlands lives about 8.5 years longer than the poorest. Part of that gap is money; the rest is education, work and illness that lowers income in the first place. How much is money is a matter of judgement. Move the dial and see what your answer does to the count.</p>
+      </div>
+      <div class="dial">
+        <div class="controls">
+          <label for="causal">How much of the rich–poor life gap is caused by income itself?</label>
+          <input type="range" id="causal" min="0" max="60" step="5" value="25">
+          <output id="causal-out" for="causal">25%</output>
+          <div class="readout">
+            <div><strong class="mono" id="dial-hours"></strong><span class="label">hours per person</span></div>
+            <div><strong class="mono" id="dial-lives"></strong><span class="label">lifetimes, Ukraine</span></div>
+          </div>
+        </div>
+        <figure class="chart" id="chart-clock" aria-label="Hours of life lost per person shown on a 24-hour dial"></figure>
+      </div>
+      <div class="verdict"><span class="label">Can we blame the war?</span><span class="scale"><span>Yes</span><span class="on">Partly</span><span>Can't tell</span></span><span class="why">An equivalence, not a death count. It covers only the income route; cold homes and stress are not in it, and some studies find mortality falls in downturns (Ruhm, 2000).</span></div>
+      <p class="sources">CBS income–longevity gap via <a href="https://nieuws.nl/algemeen/rijkste-nederlanders-kwarteeuw-langer-gezond-dan-armste" target="_blank" rel="noopener">ANP, 21 Dec 2022</a> · scaled to 22 months of a 60-year exposure · life expectancy 82</p>
+    </div>
+  </section>
+
+  <!-- 09 -->
+  <section class="chapter" id="iran">
+    <div class="index"><b>09</b><span class="label">No umbrella</span></div>
+    <div class="body">
+      <div class="big" id="c9-big"></div>
+      <h2>The Iran shock is small so far. It is landing on households with no support left.</h2>
+      <div class="prose">
+        <p>Six months in, motor fuel sits about 15% above its no-war path while household energy has barely moved. Most people are on contracts that reprice over the coming year. The cost so far is <strong id="c9-eur"></strong> per household. The CPB expects no purchasing-power growth this year instead of +1.4%, inflation of 3.8 to 5.3%, and €200–350 a year extra for households just above the poverty line.</p>
+        <p>The difference from 2022 is the cushion. Energy poverty fell during the Ukraine shock because support kept people out of it. When the payments stopped it went back to 6%, higher than at any point during that war. That is the starting line for Iran.</p>
+      </div>
+      <figure class="chart" id="chart-umbrella" aria-label="Households in energy poverty 2019 to 2025, with households kept out by support"></figure>
+      <div class="verdict"><span class="label">Can we blame the war?</span><span class="scale"><span class="on">Yes</span><span>Partly</span><span>Can't tell</span></span><span class="why">Fuel prices responded within weeks of the strikes. The bigger effects on gas contracts and food are still to come.</span></div>
+      <p class="sources">CBS/TNO via <a href="https://www.cbs.nl/nl-nl/nieuws/2026/30/afname-energiearmoede-stagneert-in-2025" target="_blank" rel="noopener">CBS, Afname energiearmoede stagneert in 2025</a> · CPB via <a href="https://nos.nl/l/2610684" target="_blank" rel="noopener">NOS, 16 Apr 2026</a> · Model: Eurostat HICP motor fuel (CP0722)</p>
+    </div>
+  </section>
+
+
+  <!-- 10 -->
+  <section class="chapter" id="attention">
+    <div class="index"><b>10</b><span class="label">The attention</span></div>
+    <div class="body">
+      <div class="big signal" id="c10-big"></div>
+      <h2>Counted in time instead of health, the war's largest toll was attention.</h2>
+      <div class="prose">
+        <p>In the first weeks of the invasion, 87% of Dutch adults followed the war and 90% were worried about it; 44% feared a nuclear attack. On 7 March 2022 the eight o'clock news drew 2.3 million viewers. Then came a year of talk at kitchen tables, in parliament and at work about gas bills, sanctions and refugees.</p>
+        <p>Nobody measured how many minutes that took, so the dial below is an assumption you can change. The default: followers spent 15 extra minutes a day on the war in the first three months, and 5 minutes a day for the rest of the year. Multiply that by about 12 million adults and divide by a waking lifetime (82 years of 16 waking hours) and you get the number above.</p>
+        <p>Time spent understanding a war is not lost the way a life cut short is. Some of it was civic duty, and some of it turned into donations and spare rooms for refugees. But every hour of it was taken from something else.</p>
+      </div>
+      <div class="dial">
+        <div class="controls">
+          <label for="intense">Extra minutes a day, first three months</label>
+          <input type="range" id="intense" min="0" max="60" step="5" value="15">
+          <label for="background">Extra minutes a day, rest of the first year</label>
+          <input type="range" id="background" min="0" max="30" step="1" value="5">
+          <div class="readout">
+            <div><strong class="mono" id="att-hours"></strong><span class="label">million hours</span></div>
+            <div><strong class="mono" id="att-lives"></strong><span class="label">waking lifetimes</span></div>
+          </div>
+        </div>
+        <figure class="chart" id="chart-compare" aria-label="Lifetimes of health lost compared with waking lifetimes of attention"></figure>
+      </div>
+      <div class="verdict"><span class="label">Can we blame the war?</span><span class="scale"><span class="on">Yes</span><span>Partly</span><span>Can't tell</span></span><span class="why">The attention is entirely war-driven. The minutes are an assumption; the share who followed and worried is measured. Government time (cabinet, parliament, ministries) is not counted, because no hours are published.</span></div>
+      <p class="sources">I&amp;O Research for NOS, 4–7 Mar 2022 via <a href="https://www.binnenlandsbestuur.nl/bestuur-en-organisatie/io-research/nederlanders-maken-zich-grote-zorgen-om-oorlog-oekraine" target="_blank" rel="noopener">Binnenlands Bestuur</a> · NCTV flash poll, <a href="https://www.nctv.nl/binaries/nctv/documenten/rapporten/2022/03/15/flitspeiling-oekraine-2-10-3-2022-over-zorgen-gevolgen-voor-nl--informatievoorziening/Flitspeiling_oekra%C3%AFne+2_.pdf" target="_blank" rel="noopener">10 Mar 2022</a> · viewing figures via <a href="https://www.tvgids.nl/nieuws/televisie/de-tv-van-gisteren-kijkcijfers-giro555-oekraine-journaals-hunted-into-the-wild" target="_blank" rel="noopener">TV Gids</a> · adults: CBS population 2022, approximated</p>
+    </div>
+  </section>
+
+  <section class="ledger" id="ledger" aria-labelledby="ledger-title">
+    <div class="index"><span class="label">The ledger</span></div>
+    <div class="body">
+      <h2 id="ledger-title">So, are there casualties?</h2>
+      <p>Yes, if you count the way this country actually lost: in money, warmth, groceries, nerves, hours and a sliver of life expectancy. No, if you count bodies; the one death figure that exists cannot be separated from flu and covid.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">What the war took</th><th scope="col" class="num">Ukraine 2022–23</th><th scope="col" class="num">Iran 2026, so far</th><th scope="col">Blame</th></tr></thead>
+          <tbody id="ledger-rows"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="method" id="method">
+    <div class="index"><span class="label">Method</span></div>
+    <div class="body">
+      <p>Excess prices are actual Eurostat HICP prices for the Netherlands minus a path that grows 2% a year from the month each war began. Only food, home energy and motor fuel count. Wider "core" inflation would double the bill, but it had too many other causes to pin on a war. Each income fifth's spending pattern comes from the CBS budget survey; income from CBS household income tables. The energy channel uses the midpoint of the published and recomputed CBS energy series. Compensation not visible in prices (the €380 discount, the €1,300 energietoeslag) is subtracted per fifth.</p>
+      <p>Code, data and a referee-style critique of every assumption: <a href="https://github.com/akramvanahmed-projects/war-casualties-nl" target="_blank" rel="noopener">github.com/akramvanahmed-projects/war-casualties-nl</a>.</p>
+    </div>
+  </section>
+
+  <footer>
+    <span class="label">Data: CBS and Eurostat, CC BY 4.0. Results are model estimates, not official statistics.</span>
+    <span class="label" id="foot-asof"></span>
+  </footer>
+</div>
+
+<script>
+const DATA = /*__DATA__*/null;
+const NS = "http://www.w3.org/2000/svg";
+const $ = (id) => document.getElementById(id);
+const eur = (v) => "€" + Math.round(v).toLocaleString("en-GB");
+const monthName = (m) => new Date(m + "-01T00:00:00").toLocaleString("en-GB", { month: "short", year: "numeric" });
+
+function el(tag, attrs = {}, parent) {
+  const node = document.createElementNS(NS, tag);
+  for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, v);
+  if (parent) parent.appendChild(node);
+  return node;
+}
+function text(parent, x, y, str, attrs = {}) {
+  const t = el("text", { x, y, ...attrs }, parent);
+  t.textContent = str;
+  return t;
+}
+function svg(host, w, h) {
+  host.innerHTML = "";
+  return el("svg", { viewBox: `0 0 ${w} ${h}`, role: "img" }, host);
+}
+/* Draw at the container's real width so 11px labels stay 11px on a phone. */
+const widthOf = (id, max) => Math.max(300, Math.min(max, Math.round($(id).getBoundingClientRect().width) || max));
+const narrow = (W) => W < 520;
+
+/* Static figures */
+function fillText() {
+  const u = DATA.ukraine, i = DATA.iran, f = DATA.facts;
+  $("asof").textContent = "Prices to " + monthName(DATA.asOf);
+  $("foot-asof").textContent = "Updated monthly · prices to " + monthName(DATA.asOf);
+  $("hero-hours").textContent = u.hoursPerPerson.toFixed(1) + " hours";
+  $("h-household").textContent = eur(u.householdGross);
+  $("h-national").textContent = "€" + u.nationalGrossBn + " bn";
+  $("h-support").textContent = "€" + u.nationalSupportBn + " bn";
+  $("h-lifetimes").textContent = u.lifetimes.central_net;
+  $("h-range").textContent = u.lifetimes.low_net + "–" + u.lifetimes.high_net;
+  $("h-iran").textContent = eur(i.householdGross);
+  $("c1-big").innerHTML = "+" + u.peakEnergy + "<small>%</small>";
+  $("c2-big").innerHTML = "14.5<small>% vs</small> 7.8<small>%</small>";
+  $("c3-big").innerHTML = "19<small>°C</small>";
+  $("c3-gas").textContent = "−" + f.gas.householdCutPct + "%";
+  $("c4-big").textContent = eur(u.foodTotal);
+  $("c4-total").textContent = eur(u.foodTotal);
+  $("c4-gap").textContent = u.foodGapEnd + "%";
+  $("c5-big").innerHTML = "38<small>% vs</small> 8<small>%</small>";
+  $("c7-big").innerHTML = "1.5–1.7<small>%</small>";
+  $("c7-be").textContent = u.breakEven + "%";
+  $("c9-big").textContent = eur(i.householdGross);
+  $("c9-eur").textContent = eur(i.householdGross);
+}
+
+/* 01 Seismograph: one vertical stroke per month from the zero line */
+function seismograph() {
+  const data = DATA.ukraine.energyGap, W = widthOf("chart-seismo", 720), H = 260, L = 44, R = 12, T = 18, B = 34;
+  const s = svg($("chart-seismo"), W, H);
+  const y = (v) => T + (100 - v) / 125 * (H - T - B);
+  const step = (W - L - R) / data.length;
+  for (const v of [100, 50, 0, -25]) {
+    el("line", { x1: L, x2: W - R, y1: y(v), y2: y(v), class: v === 0 ? "s-ink" : "s-rule", "stroke-width": v === 0 ? 1.5 : 1 }, s);
+    text(s, L - 8, y(v) + 4, (v > 0 ? "+" : "") + v + "%", { "text-anchor": "end" });
+  }
+  data.forEach((d, k) => {
+    const x = L + step * (k + 0.5);
+    el("line", { x1: x, x2: x, y1: y(0), y2: y(d.v), class: d.v >= 0 ? "s-signal" : "s-grey", "stroke-width": Math.max(3, step * 0.42), "stroke-linecap": "butt" }, s);
+    if (k === 0 || k === data.length - 1 || d.m === "2023-01") text(s, x, H - 10, monthName(d.m), { "text-anchor": k === 0 ? "start" : k === data.length - 1 ? "end" : "middle" });
+  });
+  const peak = data.reduce((a, b) => (b.v > a.v ? b : a));
+  const px = L + step * (data.indexOf(peak) + 0.5);
+  text(s, px + 8, y(peak.v) + 4, narrow(W) ? `+${Math.round(peak.v)}%` : `+${Math.round(peak.v)}%  ${monthName(peak.m)}`, { class: "t-signal" });
+  const capIdx = data.findIndex((d) => d.m === "2023-01");
+  text(s, L + step * (capIdx + 0.5), y(0) - 10, narrow(W) ? "price ceiling" : "price ceiling from here", { "text-anchor": "start" });
+}
+
+/* 02 Phantom: the published line drawn as a ghost over the real one */
+function phantom() {
+  const data = DATA.phantom, W = widthOf("chart-phantom", 720), H = 280, L = 40, R = narrow(W) ? 64 : 130, T = 16, B = 34;
+  const s = svg($("chart-phantom"), W, H);
+  const x = (k) => L + k / (data.length - 1) * (W - L - R);
+  const y = (v) => T + (16 - v) / 16 * (H - T - B);
+  for (const v of [0, 4, 8, 12, 16]) {
+    el("line", { x1: L, x2: W - R, y1: y(v), y2: y(v), class: "s-rule" }, s);
+    text(s, L - 8, y(v) + 4, v + "%", { "text-anchor": "end" });
+  }
+  let area = "";
+  data.forEach((d, k) => { area += (k ? "L" : "M") + x(k) + "," + y(d.published); });
+  for (let k = data.length - 1; k >= 0; k--) area += "L" + x(k) + "," + y(data[k].actual);
+  el("path", { d: area + "Z", class: "f-soft", opacity: 0.8 }, s);
+  const line = (key) => data.map((d, k) => (k ? "L" : "M") + x(k) + "," + y(d[key])).join("");
+  el("path", { d: line("published"), class: "f-none s-grey", "stroke-width": 2, "stroke-dasharray": "5 4" }, s);
+  el("path", { d: line("actual"), class: "f-none s-ink", "stroke-width": 2.5 }, s);
+  const last = data.length - 1;
+  text(s, x(last) + 8, y(data[last].published) + 4, "official", {});
+  if (narrow(W)) {
+    text(s, x(last) + 8, y(data[last].actual) + 4, "paid", { class: "t-ink" });
+  } else {
+    text(s, x(last) + 8, y(data[last].actual) + 4, "what households", { class: "t-ink" });
+    text(s, x(last) + 8, y(data[last].actual) + 18, "paid", { class: "t-ink" });
+  }
+  const jun = data.findIndex((d) => d.m === "2022-06"), feb = data.findIndex((d) => d.m === "2023-02");
+  text(s, x(jun), y(1.2), narrow(W) ? "headline first" : "headline ahead of the bills", { "text-anchor": "middle" });
+  text(s, x(feb), y(14.2), narrow(W) ? "bills later" : "bills ahead of the headline", { "text-anchor": "middle" });
+  const sep = data.findIndex((d) => d.m === "2022-09");
+  text(s, x(sep), y(data[sep].published) - 10, "14.5%", { "text-anchor": "middle" });
+  text(s, x(sep), y(data[sep].actual) + 18, "7.8%", { "text-anchor": "middle", class: "t-ink" });
+  data.forEach((d, k) => { if (d.m.endsWith("-01") || d.m.endsWith("-07")) text(s, x(k), H - 10, monthName(d.m), { "text-anchor": "middle" }); });
+}
+
+/* 03 Thermometer strip */
+function thermometer() {
+  const W = widthOf("chart-thermo", 720), H = 120, L = narrow(W) ? 30 : 60, R = narrow(W) ? 30 : 60;
+  const s = svg($("chart-thermo"), W, H);
+  const x = (c) => L + (c - 16) / 6 * (W - L - R);
+  for (let c = 16; c <= 22; c++) {
+    el("line", { x1: x(c), x2: x(c), y1: 54, y2: 66, class: "s-grey" }, s);
+    text(s, x(c), 86, narrow(W) ? String(c) : c + " °C", { "text-anchor": "middle" });
+  }
+  el("rect", { x: x(16), y: 58, width: x(22) - x(16), height: 4, class: "f-grey" }, s);
+  el("rect", { x: x(19), y: 57, width: x(21) - x(19), height: 6, class: "f-signal" }, s);
+  const mark = (c, label, cls, anchor, dy) => {
+    el("circle", { cx: x(c), cy: 60, r: 7, class: cls }, s);
+    el("line", { x1: x(c), x2: x(c), y1: 60, y2: 60 - dy + 6, class: "s-grey" }, s);
+    text(s, x(c), 60 - dy, label, { "text-anchor": anchor, class: cls === "f-signal" ? "t-signal" : "t-ink" });
+  };
+  mark(21, narrow(W) ? "before" : "thermostat before: 21", "f-ink", "middle", 24);
+  mark(19, narrow(W) ? "7 in 10 homes" : "7 in 10 homes set 19", "f-signal", "middle", 44);
+  mark(18, narrow(W) ? "measured" : "measured room: 18", "f-signal", "middle", 24);
+  text(s, 0, 112, narrow(W) ? "Winter 2022–23. Milieu Centraal; tado." : "Winter 2022–23. Thermostat settings (Milieu Centraal) and measured room temperature (tado).", {});
+}
+
+/* 04 Receipt and cumulative line */
+function receipt() {
+  const rows = DATA.ukraine.foodReceipt;
+  const box = $("receipt");
+  const head = document.createElement("header");
+  head.textContent = "Extra groceries · avg household";
+  box.appendChild(head);
+  let running = 0;
+  rows.forEach((r) => {
+    running += r.v;
+    const row = document.createElement("div");
+    row.className = "row";
+    row.innerHTML = `<span>${monthName(r.m)}</span><span class="war">+${eur(r.v).replace("€", "€ ")}</span>`;
+    box.appendChild(row);
+  });
+  const total = document.createElement("div");
+  total.className = "row total";
+  total.innerHTML = `<span>WAR SURCHARGE</span><span class="war">${eur(running)}</span>`;
+  box.appendChild(total);
+
+  const W = widthOf("chart-food", 640), H = 300, L = 46, R = 14, T = 14, B = 30;
+  const s = svg($("chart-food"), W, H);
+  const max = Math.ceil(running / 200) * 200;
+  const x = (k) => L + k / (rows.length - 1) * (W - L - R);
+  const y = (v) => T + (1 - v / max) * (H - T - B);
+  for (let v = 0; v <= max; v += 200) {
+    el("line", { x1: L, x2: W - R, y1: y(v), y2: y(v), class: "s-rule" }, s);
+    text(s, L - 8, y(v) + 4, "€" + v, { "text-anchor": "end" });
+  }
+  let cum = 0, d = "", area = `M${x(0)},${y(0)}`;
+  rows.forEach((r, k) => { cum += r.v; d += (k ? "L" : "M") + x(k) + "," + y(cum); area += "L" + x(k) + "," + y(cum); });
+  el("path", { d: area + `L${x(rows.length - 1)},${y(0)}Z`, class: "f-soft" }, s);
+  el("path", { d, class: "f-none s-signal", "stroke-width": 2.5 }, s);
+  text(s, x(rows.length - 1), y(cum) - 10, eur(cum), { "text-anchor": "end", class: "t-signal" });
+  text(s, x(0), H - 8, monthName(rows[0].m), {});
+  text(s, x(rows.length - 1), H - 8, monthName(rows[rows.length - 1].m), { "text-anchor": "end" });
+}
+
+/* 05 Holidays */
+function holidays() {
+  const series = Object.entries(DATA.facts.holidays.noHolidayPct);
+  const W = widthOf("chart-holiday", 720), H = 220, L = 40, R = 20, T = 20, B = 30;
+  const s = svg($("chart-holiday"), W, H);
+  const x = (k) => L + k / (series.length - 1) * (W - L - R);
+  const y = (v) => T + (35 - v) / 35 * (H - T - B);
+  for (const v of [0, 10, 20, 30]) {
+    el("line", { x1: L, x2: W - R, y1: y(v), y2: y(v), class: "s-rule" }, s);
+    text(s, L - 8, y(v) + 4, v + "%", { "text-anchor": "end" });
+  }
+  el("path", { d: series.map(([, v], k) => (k ? "L" : "M") + x(k) + "," + y(v)).join(""), class: "f-none s-ink", "stroke-width": 2 }, s);
+  series.forEach(([yr, v], k) => {
+    el("circle", { cx: x(k), cy: y(v), r: 4.5, class: yr === "2022" || yr === "2023" ? "f-signal" : "f-ink" }, s);
+    text(s, x(k), y(v) - 12, v.toFixed(1) + "%", { "text-anchor": "middle", class: "t-ink" });
+    text(s, x(k), H - 8, yr, { "text-anchor": "middle" });
+  });
+  text(s, x(1) + 10, y(31.7) + 22, "covid", {});
+  text(s, x(3) - 6, y(20.2) + 26, "energy crisis years", { class: "t-signal" });
+}
+
+/* 06 Nerves: two windows, same scale, average line */
+function nerves() {
+  const pts = DATA.facts.confidence.points, avg = DATA.facts.confidence.average20y;
+  const W = widthOf("chart-nerves", 720), H = 250, L = 40, T = 28, B = 30, gap = narrow(W) ? 16 : 40;
+  const s = svg($("chart-nerves"), W, H);
+  const y = (v) => T + (0 - v) / 65 * (H - T - B);
+  const groups = [["2022", pts.filter((p) => p.m.startsWith("2022"))], ["2026", pts.filter((p) => p.m.startsWith("2026"))]];
+  const panelW = (W - L - gap) / 2;
+  for (const v of [0, -20, -40, -60]) text(s, L - 8, y(v) + 4, v, { "text-anchor": "end" });
+  groups.forEach(([yr, list], g) => {
+    const x0 = L + g * (panelW + gap);
+    for (const v of [0, -20, -40, -60]) el("line", { x1: x0, x2: x0 + panelW, y1: y(v), y2: y(v), class: "s-rule" }, s);
+    el("line", { x1: x0, x2: x0 + panelW, y1: y(avg), y2: y(avg), class: "s-grey", "stroke-dasharray": "4 4" }, s);
+    const n = list.length;
+    const x = (k) => x0 + (k + 0.5) / n * panelW;
+    list.forEach((p, k) => {
+      el("line", { x1: x(k), x2: x(k), y1: y(0), y2: y(p.v), class: "s-signal", "stroke-width": 10 }, s);
+      text(s, x(k), y(p.v) + 16, p.v, { "text-anchor": "middle", class: "t-signal" });
+      text(s, x(k), H - 8, monthName(p.m).split(" ")[0], { "text-anchor": "middle" });
+    });
+    text(s, x0, T - 12, yr, { class: "t-ink" });
+  });
+  text(s, L + panelW - 4, y(avg) - 6, narrow(W) ? "avg" : "20-year average", { "text-anchor": "end" });
+}
+
+/* 07 Waterline */
+function waterline() {
+  const net = DATA.ukraine.netPct, gross = DATA.ukraine.grossPct;
+  const W = widthOf("chart-water", 720), H = 300, L = 0, R = 0, T = 40, B = 30;
+  const names = narrow(W) ? ["Poorest", "2nd", "Middle", "4th", "Richest"] : ["Poorest fifth", "Second", "Middle", "Fourth", "Richest fifth"];
+  const s = svg($("chart-water"), W, H);
+  const top = Math.max(2, Math.ceil(-Math.min(...net)));
+  const bottom = Math.ceil(Math.max(...gross));
+  const y = (v) => T + (top + v) / (top + bottom) * (H - T - B);
+  el("rect", { x: L, y: y(0), width: W - L - R, height: y(bottom) - y(0), class: "f-wash" }, s);
+  const slot = (W - L - R) / net.length, bw = slot * 0.5;
+  net.forEach((v, k) => {
+    const cx = L + slot * (k + 0.5);
+    el("rect", { x: cx - bw / 2, y: y(0), width: bw, height: y(gross[k]) - y(0), class: "f-none s-grey", "stroke-dasharray": "3 3" }, s);
+    if (v > 0) {
+      el("rect", { x: cx - bw / 2, y: y(0), width: bw, height: y(v) - y(0), class: "f-signal" }, s);
+      text(s, cx, y(0) + (y(v) - y(0)) / 2 + 4, v.toFixed(1) + "%", { "text-anchor": "middle", style: "fill:var(--paper);font-weight:500" });
+    } else {
+      el("rect", { x: cx - bw / 2, y: y(v), width: bw, height: y(0) - y(v), class: "f-ink" }, s);
+      text(s, cx, y(v) - 8, "+" + (-v).toFixed(1) + (narrow(W) ? "%" : "% ahead"), { "text-anchor": "middle", class: "t-ink" });
+    }
+    text(s, cx, T - 22, names[k], { "text-anchor": "middle", class: "t-ink" });
+  });
+  el("line", { x1: L, x2: W - R, y1: y(0), y2: y(0), class: "s-ink", "stroke-width": 2 }, s);
+  text(s, W - R - 4, y(0) - 6, narrow(W) ? "no loss" : "waterline: no loss", { "text-anchor": "end" });
+  text(s, L + slot * 0.5 + bw / 2 + 6, y(gross[0]) - 4, narrow(W) ? "dashed: before" : "dashed: loss before support", {});
+  text(s, W - R - 6, y(bottom) - 8, narrow(W) ? "red: after" : "red: lost after support", { "text-anchor": "end", class: "t-signal" });
+}
+
+/* 08 Dial: hours lost on a 24-hour clock */
+function clock(hours) {
+  const host = $("chart-clock");
+  host.innerHTML = "";
+  const W = 300, c = 150, r = 120;
+  const s = svg(host, W, W);
+  el("circle", { cx: c, cy: c, r, class: "f-wash" }, s);
+  for (let h = 0; h < 24; h++) {
+    const a = (h / 24) * 2 * Math.PI - Math.PI / 2;
+    const r1 = h % 6 === 0 ? r - 14 : r - 7;
+    el("line", { x1: c + Math.cos(a) * r1, y1: c + Math.sin(a) * r1, x2: c + Math.cos(a) * r, y2: c + Math.sin(a) * r, class: "s-grey" }, s);
+  }
+  const frac = Math.min(hours, 23.99) / 24;
+  const end = frac * 2 * Math.PI - Math.PI / 2;
+  const large = frac > 0.5 ? 1 : 0;
+  if (hours > 0) {
+    el("path", { class: "f-signal wedge", d: `M${c},${c} L${c},${c - r} A${r},${r} 0 ${large} 1 ${c + Math.cos(end) * r},${c + Math.sin(end) * r} Z` }, s);
+  }
+  text(s, c, c + 6, hours.toFixed(1) + " h", { "text-anchor": "middle", class: "t-ink", style: "font-size:22px;font-weight:500" });
+  text(s, c, W - 4, "of one day, per person", { "text-anchor": "middle" });
+}
+function dial() {
+  const u = DATA.ukraine, base = u.causalCentral * 100;
+  const input = $("causal");
+  const update = () => {
+    const share = Number(input.value);
+    const hours = u.hoursPerPerson * share / base;
+    const lives = u.lifetimes.central_net * share / base;
+    $("causal-out").textContent = share + "%";
+    $("dial-hours").textContent = hours.toFixed(1);
+    $("dial-lives").textContent = Math.round(lives);
+    clock(hours);
+  };
+  input.addEventListener("input", update);
+  update();
+  $("c8-big").innerHTML = u.hoursPerPerson.toFixed(1) + "<small>hours</small>";
+}
+
+/* 09 Umbrella: energy poverty with the support-years cushion hatched on top */
+function umbrella() {
+  const pov = DATA.energyPoverty, kept = DATA.keptOut;
+  const years = Object.keys(pov);
+  const W = widthOf("chart-umbrella", 720), H = 260, L = 40, R = 20, T = 24, B = 30;
+  const s = svg($("chart-umbrella"), W, H);
+  const defs = el("defs", {}, s);
+  const pat = el("pattern", { id: "hatch", width: 6, height: 6, patternUnits: "userSpaceOnUse", patternTransform: "rotate(45)" }, defs);
+  el("line", { x1: 0, y1: 0, x2: 0, y2: 6, class: "s-grey", "stroke-width": 1.5 }, pat);
+  const y = (v) => T + (10 - v) / 10 * (H - T - B);
+  for (const v of [0, 5, 10]) {
+    el("line", { x1: L, x2: W - R, y1: y(v), y2: y(v), class: "s-rule" }, s);
+    text(s, L - 8, y(v) + 4, v + "%", { "text-anchor": "end" });
+  }
+  const slot = (W - L - R) / years.length, bw = slot * 0.56;
+  years.forEach((yr, k) => {
+    const cx = L + slot * (k + 0.5), v = pov[yr], extra = kept[yr] || 0;
+    const after = Number(yr) >= 2024;
+    el("rect", { x: cx - bw / 2, y: y(v), width: bw, height: y(0) - y(v), class: after ? "f-signal" : "f-ink", opacity: after ? 1 : 0.85 }, s);
+    if (extra) el("rect", { x: cx - bw / 2, y: y(v + extra), width: bw, height: y(v) - y(v + extra), fill: "url(#hatch)", class: "s-grey" }, s);
+    text(s, cx, y(v + extra) - 6, extra && !narrow(W) ? `${v.toFixed(1)}% (+${extra.toFixed(1)})` : narrow(W) ? v.toFixed(1) : v.toFixed(1) + "%", { "text-anchor": "middle", class: after ? "t-signal" : "t-ink" });
+    text(s, cx, H - 8, narrow(W) ? "’" + yr.slice(2) : yr, { "text-anchor": "middle" });
+  });
+  if (!narrow(W)) text(s, W - R, T - 8, "solid: in energy poverty · hatched: kept out by support · red: after support ended", { "text-anchor": "end" });
+}
+
+
+/* 10 Attention: minutes x followers / waking lifetime */
+function attention() {
+  const a = DATA.facts.attention, life = DATA.ukraine.lifetimes.central_net;
+  const followers = a.adults * a.followShare / 100;
+  const waking = 82 * 365.25 * a.wakingHoursPerDay;
+  const intense = $("intense"), background = $("background");
+  const update = () => {
+    const hours = followers * (Number(intense.value) * a.intenseDays + Number(background.value) * a.backgroundDays) / 60;
+    const lives = hours / waking;
+    $("att-hours").textContent = Math.round(hours / 1e6).toLocaleString("en-GB");
+    $("att-lives").textContent = Math.round(lives).toLocaleString("en-GB");
+    $("c10-big").innerHTML = Math.round(lives).toLocaleString("en-GB") + "<small>waking lifetimes</small>";
+    compare(life, lives);
+    ledgerAttention(lives, hours);
+  };
+  intense.addEventListener("input", update);
+  background.addEventListener("input", update);
+  update();
+}
+function compare(health, attention) {
+  const host = $("chart-compare");
+  host.innerHTML = "";
+  const W = widthOf("chart-compare", 420), H = 220, L = 0, barH = 34;
+  const s = svg(host, W, H);
+  const max = Math.max(health, attention, 1);
+  const w = (v) => (W - L - 10) * v / max;
+  text(s, 0, 30, "Health: life-years lost to lower income", { class: "t-ink" });
+  el("rect", { x: L, y: 40, width: Math.max(w(health), 2), height: barH, class: "f-signal" }, s);
+  text(s, L + Math.max(w(health), 2) + 6, 62, health + " lifetimes", { class: "t-signal" });
+  text(s, 0, 120, "Attention: news, talk and worry", { class: "t-ink" });
+  el("rect", { x: L, y: 130, width: Math.max(w(attention), 2), height: barH, class: "f-ink" }, s);
+  const label = Math.round(attention).toLocaleString("en-GB") + " waking lifetimes";
+  const inside = w(attention) > 190;
+  text(s, inside ? L + 8 : L + w(attention) + 6, 152, label, inside ? { style: "fill:var(--paper)" } : { class: "t-ink" });
+  text(s, 0, H - 4, "Same scale. Bars are equivalents, not people.", {});
+}
+function ledger() {
+  const u = DATA.ukraine, i = DATA.iran, f = DATA.facts;
+  const rows = [
+    ["Money per household (food, energy, fuel)", eur(u.householdGross), eur(i.householdGross), "yes"],
+    ["Money, nationally / paid back by support", "€" + u.nationalGrossBn + " bn / €" + u.nationalSupportBn + " bn", "€" + i.nationalGrossBn + " bn / €" + i.nationalSupportBn + " bn", "yes"],
+    ["Groceries, extra per household", eur(u.foodTotal), "food below path", "partly"],
+    ["Household gas use", "−" + f.gas.householdCutPct + "%", "barely moved", "partly"],
+    ["Living-room temperature", "19 °C, from 21", "no data", "partly"],
+    ["Deaths above expected, Nov 2022", "+1,400", "no data", "can't tell"],
+    ["Consumer confidence, lowest reading", "−59", "−46", "partly"],
+    ["Life expectancy per person", u.hoursPerPerson.toFixed(1) + " hours", (u.hoursPerPerson * i.lifetimes / u.lifetimes.central_net).toFixed(1) + " hours", "partly"],
+    ["Full lifetimes, health equivalent", u.lifetimes.central_net + " (" + u.lifetimes.low_net + "–" + u.lifetimes.high_net + ")", String(i.lifetimes), "partly"],
+    ["Waking lifetimes of attention", "<span id=\"ledger-att\"></span>", "not estimated", "yes"],
+  ];
+  $("ledger-rows").innerHTML = rows.map(([what, a, b, blame]) =>
+    `<tr><td>${what}</td><td class="num"><strong>${a}</strong></td><td class="num">${b}</td><td><span class="tag ${blame === "yes" ? "yes" : ""}">${blame}</span></td></tr>`).join("");
+}
+function ledgerAttention(lives, hours) {
+  const cell = $("ledger-att");
+  if (cell) cell.textContent = Math.round(lives).toLocaleString("en-GB") + " (" + Math.round(hours / 1e6) + "m hours)";
+}
+
+fillText();
+ledger();
+seismograph();
+phantom();
+thermometer();
+receipt();
+holidays();
+nerves();
+waterline();
+dial();
+umbrella();
+attention();
+
+let resizeTimer, lastWidth = window.innerWidth;
+window.addEventListener("resize", () => {
+  if (window.innerWidth === lastWidth) return;
+  lastWidth = window.innerWidth;
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    seismograph(); phantom(); thermometer(); holidays(); nerves(); waterline(); umbrella();
+    $("receipt").innerHTML = ""; receipt();
+    $("causal").dispatchEvent(new Event("input")); $("intense").dispatchEvent(new Event("input"));
+  }, 150);
+});
+</script>

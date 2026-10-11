@@ -1,0 +1,144 @@
+{
+  "gas": {
+    "householdCutPct": 25,
+    "weatherAdjustedCutPct": 15,
+    "totalBcm": 31,
+    "lowestSince": 1972,
+    "source": "CBS via NOS, 13 Feb 2023",
+    "url": "https://nos.nl/l/2463617"
+  },
+  "thermostat": {
+    "share": "7 in 10",
+    "before": 21,
+    "after": 19,
+    "tadoAverage": 18,
+    "source": "Milieu Centraal; tado (Wynia's Week, 1 Apr 2023)",
+    "url": "https://www.wyniasweek.nl/nederlandse-huizen-zijn-een-stuk-killer-geworden/"
+  },
+  "deathsNov2022": {
+    "extraPct": 10,
+    "extra": 1400,
+    "note": "Partly covid-19; about half in vulnerable groups such as nursing homes",
+    "source": "CBS via ANP, 9 Dec 2022",
+    "url": "https://nieuws.nl/algemeen/cbs-afgelopen-maand-10-procent-meer-sterfgevallen-dan-verwacht"
+  },
+  "deaths2022": {
+    "note": "CBS attributes 2022 excess mortality mainly to flu and covid-19",
+    "source": "CBS via ANP, 25 Jan 2023",
+    "url": "https://nieuws.nl/algemeen/nog-steeds-veel-oversterfte-in-2022-vooral-door-griep-en-covid"
+  },
+  "foodBanks": {
+    "y2022": 200000,
+    "y2025": 155000,
+    "source": "Voedselbanken Nederland via NOS, 2 Jun 2026",
+    "url": "https://nos.nl/l/2616784"
+  },
+  "holidays": {
+    "noHolidayPct": {
+      "2019": 18.5,
+      "2020": 31.7,
+      "2021": 23.3,
+      "2022": 20.2,
+      "2023": 19.2
+    },
+    "noMoneyShareOfStayers2023": 27.6,
+    "lowestQuartileNoHoliday": 38,
+    "highestQuartileNoHoliday": 8,
+    "source": "CBS, 1 op de 5 Nederlanders ging in 2023 niet op vakantie (2024)",
+    "url": "https://www.cbs.nl/nl-nl/nieuws/2024/28/1-op-de-5-nederlanders-ging-in-2023-niet-op-vakantie"
+  },
+  "flights2026": {
+    "klmCancelled": 160,
+    "airlineExtraFuelBn": 2,
+    "source": "NL Times, 16 Apr and 1 May 2026",
+    "url": "https://nltimes.nl/2026/04/16/klm-scraps-160-flights-key-holiday-amid-soaring-fuel-prices-middle-east-tension"
+  },
+  "confidence": {
+    "points": [
+      {
+        "m": "2022-09",
+        "v": -59,
+        "label": "Lowest since 1986"
+      },
+      {
+        "m": "2022-10",
+        "v": -59
+      },
+      {
+        "m": "2026-02",
+        "v": -24
+      },
+      {
+        "m": "2026-03",
+        "v": -30
+      },
+      {
+        "m": "2026-04",
+        "v": -44
+      },
+      {
+        "m": "2026-05",
+        "v": -46
+      }
+    ],
+    "average20y": -11,
+    "source": "CBS consumer confidence, Oct 2022 and May 2026",
+    "url": "https://www.cbs.nl/nl-nl/nieuws/2026/21/consumentenvertrouwen-daalt-verder-in-mei"
+  },
+  "moneyWorries": {
+    "y2021": 23,
+    "latest": 30,
+    "lowestIncome": 40,
+    "highestIncome": 20,
+    "source": "CBS via ANP, 8 Jun 2023",
+    "url": "https://www.hartvannederland.nl/algemeen-nieuws/artikelen/steeds-meer-nederlanders-maken-zich-zorgen-over-hun-financiele-situatie"
+  },
+  "nibud": {
+    "makeEndsMeet": "1 in 3",
+    "callsMultiple": "1.5 to 2 times",
+    "source": "Nibud via NL Times, 15 Sep 2022",
+    "url": "https://nltimes.nl/2022/09/15/netherlands-heading-debt-crisis-budget-institute-warns"
+  },
+  "debtHelp": {
+    "note": "Applications passed their January 2020 level in June 2022; CPB estimated up to 1.2 million people at risk of financial distress",
+    "source": "Divosa/NVVK monitor via Binnenlands Bestuur, 26 Oct 2022",
+    "url": "https://www.binnenlandsbestuur.nl/sociaal/meer-aanvragen-voor-schuldhulpverlening"
+  },
+  "cpb2026": {
+    "koopkrachtBefore": 1.4,
+    "koopkrachtNow": 0.0,
+    "koopkrachtWorst": -1.4,
+    "inflationLow": 3.8,
+    "inflationHigh": 5.3,
+    "nearPovertyExtraLow": 200,
+    "nearPovertyExtraHigh": 350,
+    "source": "CPB via NOS, 16 Apr 2026",
+    "url": "https://nos.nl/l/2610684"
+  },
+  "takeUp": {
+    "reach2022": 90,
+    "reach2023": 86,
+    "source": "SZW, Monitor uitvoering energietoeslag (2024)",
+    "url": "https://berthub.eu/tkconv/getraw/2024D26690"
+  },
+  "attention": {
+    "adults": 14200000,
+    "adultsSource": "CBS population on 1 Jan 2022, about 17.6 million, of whom roughly 14.2 million aged 18+ (approximation)",
+    "followShare": 87,
+    "worriedShare": 90,
+    "veryWorried": 51,
+    "fearNuclear": 44,
+    "pollSource": "I&O Research for NOS, 4-7 Mar 2022, n=2,132",
+    "pollUrl": "https://www.binnenlandsbestuur.nl/bestuur-en-organisatie/io-research/nederlanders-maken-zich-grote-zorgen-om-oorlog-oekraine",
+    "journaalViewers": 2300000,
+    "journaalDate": "7 Mar 2022",
+    "journaalUrl": "https://www.tvgids.nl/nieuws/televisie/de-tv-van-gisteren-kijkcijfers-giro555-oekraine-journaals-hunted-into-the-wild",
+    "nctvVeryWorriedMar": 39,
+    "nctvUrl": "https://www.nctv.nl/binaries/nctv/documenten/rapporten/2022/03/15/flitspeiling-oekraine-2-10-3-2022-over-zorgen-gevolgen-voor-nl--informatievoorziening/Flitspeiling_oekra%C3%AFne+2_.pdf",
+    "intenseDays": 92,
+    "backgroundDays": 273,
+    "intenseMinutesDefault": 15,
+    "backgroundMinutesDefault": 5,
+    "wakingHoursPerDay": 16
+  }
+}
