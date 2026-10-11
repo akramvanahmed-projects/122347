@@ -1,8 +1,8 @@
 # Hidden casualties: what two war price shocks cost Dutch households
 
-The Russia–Ukraine war cost Dutch households €15.5 billion in excess spending on food, home energy and motor fuel between March 2022 and December 2023. Support returned €5.9 billion. After support, the middle three income fifths lost between 1.5% and 1.7% of their disposable income, and the richest fifth 1.1%. The poorest fifth came out 1.9% ahead, but only on average and only if enough of them claimed the energietoeslag. Translated into life expectancy, the net loss equals about 113 full lifetimes (range 45 to 226). The Iran war has so far cost €78 per household and the equivalent of 3 lifetimes. Its price shock has reached the petrol pump but not, as of August 2026, the gas meter.
+The Russia–Ukraine war cost Dutch households €15.5 billion in excess spending on food, home energy and motor fuel between March 2022 and December 2023. Support returned €5.9 billion. After support, the middle three income fifths lost between 1.5% and 1.7% of their disposable income, and the richest fifth 1.1%. The poorest fifth came out 1.9% ahead, but only on average and only if enough of them claimed the energietoeslag. Translated into life expectancy, the net loss equals about 113 full lifetimes (range 45 to 226). Counted as casualties, the Ukraine shock left about 1,200 estimated deaths from the cold, more than 900,000 people seriously wounded and about 1,850 lives lost in total once life-expectancy equivalents are added (range 490 to 4,000). The Iran war has so far cost €78 per household and the equivalent of 3 lifetimes. Its price shock has reached the petrol pump but not, as of August 2026, the gas meter.
 
-These numbers come from a deliberately narrow definition of "war cost", and most of this report is about why it is narrow. The second half widens the lens to what money does not capture: the heating turned down, the holiday not taken, the record low in consumer confidence, and the attention the war absorbed. Measured in waking time rather than health, that attention is the largest toll of all: on transparent but assumed inputs, about 1,200 waking lifetimes for the Ukraine war's first year.
+These numbers come from a deliberately narrow definition of "war cost", and most of this report is about why it is narrow. The second half widens the lens to what money does not capture: the heating turned down, the holiday not taken, the record low in consumer confidence, and the attention the war absorbed. It then assembles everything into a casualty ledger of the dead, the wounded and the lost hours, and ends with who carried the load.
 
 A companion story page presents the same results visually: `docs/index.html` in the repository.
 
@@ -55,7 +55,36 @@ Money is the part of a war shock that statistics capture best. The rest has to b
 
 **The nerves.** Consumer confidence fell to −59 in September and October 2022, the lowest since CBS began the series in 1986, against a twenty-year average of about −10 (CBS, 2022). In the same month Nibud reported that one in three households could barely make ends meet and that calls to its helpline ran 1.5 to 2 times above normal (Nibud via NL Times, 2022). The share of people worried about their finances rose from 23% in 2021 to almost 30%, and about 40% among the lowest earners (CBS via ANP, 2023). After the Iran strikes, confidence dropped from −24 in February 2026 to −46 in May (CBS, 2026). The timing matches both wars, but CBS does not attribute the drops to a cause. *Verdict: partly.*
 
-**The attention.** In the first week of March 2022, 87% of Dutch adults followed the war, 90% were worried about it, and 44% feared a nuclear attack (I&O Research for NOS, n = 2,132). The eight o'clock news drew 2.3 million viewers on 7 March (TV Gids). No one has measured how many minutes the country spent following, discussing and worrying about the war, so we assume it: 15 extra minutes a day per follower for the first three months and 5 a day for the rest of the year. Applied to about 12.4 million adult followers, that is 565 million hours. Divided by a waking lifetime (82 years of 16 waking hours, about 479,000 hours), it equals about 1,180 waking lifetimes, ten times the health-based estimate above. The minutes are the weakest input in this report, and the story page lets the reader change them. Time spent understanding a war is not lost in the way a life is; much of it was civic attention, and some turned into donations and housing for refugees. Government time is not counted because neither cabinet nor parliament publishes hours by topic; the Speaker of the House described 2022 only as a year of "many debates" on Ukraine (Tweede Kamer, 2022). *Verdict: yes for the cause, assumed for the size.*
+**The attention.** In the first week of March 2022, 87% of Dutch adults followed the war, 90% were worried about it, and 44% feared a nuclear attack (I&O Research for NOS, n = 2,132). The eight o'clock news drew 2.3 million viewers on 7 March (TV Gids). No one has measured how many minutes the country spent following, discussing and worrying about the war, so we assume it: 15 extra minutes a day per follower for the first three months and 5 a day for the rest of the year. Applied to about 12.4 million adult followers, that is 565 million hours. Divided by a waking lifetime (82 years of 16 waking hours, about 479,000 hours), it equals about 1,180 waking lifetimes, ten times the income-based life-expectancy estimate above. The minutes are the weakest input in this report, and the story page lets the reader change them. Time spent understanding a war is not lost in the way a life is; much of it was civic attention, and some turned into donations and housing for refugees. Government time is not counted because neither cabinet nor parliament publishes hours by topic; the Speaker of the House described 2022 only as a year of "many debates" on Ukraine (Tweede Kamer, 2022). *Verdict: yes for the cause, assumed for the size.*
+
+## The casualty ledger
+
+The project's question was whether the wars caused human casualties in the Netherlands. Answering it in a military register means counting three things separately: the dead, the wounded, and, because a war that is followed on screens also consumes time, the hours.
+
+**The dead: cold.** No Dutch death certificate names energy prices, so the count has to be estimated. Chirakijja, Jayachandran and Ong (2023) estimate from US winters that a 1% rise in the winter heating price raises all-cause mortality by 0.032% (standard error 0.014). In the Dutch heating season of October 2022 to March 2023, home energy cost on average 46% more than its no-war path, using the same midpoint of published and recomputed CBS energy prices as the cost model. About 82,000 deaths were expected in those six months, a figure derived from CBS's weekly expected-death series (3,050 to 3,460 a week in December and January). The product is about **1,200 deaths**, with a range of 170 to 2,200 from the 95% interval of the elasticity. For scale: CBS counted about 4,800 deaths above expected between late November 2022 and January 2023, attributing most of 2022's excess to flu and covid-19, and The Economist estimated 68,000 energy-price deaths across Europe that winter, which scales to a figure of similar magnitude for the Netherlands. Transferring a US elasticity to Dutch housing is the weakest step. Dutch homes are better insulated, but Dutch households cut gas use far more sharply.
+
+**The dead: life expectancy.** The income channel described above adds 113 lifetime equivalents (45–226).
+
+**The wounded.** We count people whose quality of life the war damaged, separately from deaths, and price the damage in healthy life-years with disability weights from the Global Burden of Disease study (mild anxiety 0.030, moderate 0.133). Financial worry is not a GBD health state; we give it a third of the mild-anxiety weight and use the full weight as an upper bound. Serious hardship gets twice the mild weight.
+
+| Group | Severity | People | Weight (range) | Years | Healthy years lost |
+|---|---|---|---|---|---|
+| Needed food aid | serious | 49,500 | 0.06 (0.03–0.133) | 1.0 | 3,000 |
+| Poorest fifth without the €1,300 payment | serious | 854,806 | 0.01 (0.005–0.03) | 1.83 | 15,600 |
+| New money worries | light | 994,000 | 0.01 (0.005–0.03) | 1.5 | 14,900 |
+| Worried a lot about the war | light | 5,538,000 | 0.01 (0.005–0.03) | 0.1667 | 9,200 |
+| Skipped a holiday | light | 255,000 | 0.005 (0.0025–0.015) | 1.0 | 1,300 |
+| Lived in a colder home | light | 10,710,000 | 0.0 (0.0–0.0) | 0.5 | 0 |
+
+People appear in several rows, so the counts are wounds, not persons. Together the groups lose about 44,000 healthy years, or **540 lifetime equivalents** (270–1,580). The serious wounded number about **904,306**; the light wounds about 17.5 million. The colder-home group carries no weight in the total: discomfort is counted, not converted.
+
+**The ledger.** Dead from the cold plus the two life-expectancy channels give **about 1,850 lives** (range 490 to 4,000). Separately, and in a different unit, the attention the war absorbed equals about **1,180 waking lifetimes**. These numbers should not be added to each other, and neither should be compared with the casualties in Ukraine or Iran, which are of a different order.
+
+## Epilogue: who carried it
+
+Every channel in this report bends the same way. The poorest fifth lost 3.7% of its income before support against 1.3% for the richest. It was nearly five times as likely to take no holiday (38% against 8%) and twice as likely to worry about money (about 40% against 20%). The households that fell through the support scheme were, by construction, in the bottom fifth. When support was generous, energy poverty fell during the worst price shock in fifty years; when it ended, energy poverty returned to 6%.
+
+"Injustice anywhere is a threat to justice everywhere," Martin Luther King Jr. wrote in 1963. The Dutch data are a small, measurable instance of the idea: a war in one place produced its injuries here along the existing lines of inequality. Nelson Mandela's version, from Trafalgar Square in 2005, is closer to a policy conclusion: "As long as poverty, injustice and gross inequality persist in our world, none of us can truly rest."
 
 ## How much the answer depends on our choices
 
@@ -110,5 +139,12 @@ The CBS research series was transcribed from a CBS article, not downloaded from 
 - Voedselbanken Nederland via NOS (2026, 2 June). Na daling nu weer meer mensen naar voedselbank. https://nos.nl/l/2616784
 - Wynia's Week (2023, 1 April). Nederlandse huizen zijn een stuk killer geworden (Milieu Centraal, tado). https://www.wyniasweek.nl/nederlandse-huizen-zijn-een-stuk-killer-geworden/
 - CPB via NOS (2026, 16 April). CPB: huishoudens gaan erop achteruit door oorlog Midden-Oosten. https://nos.nl/l/2610684
+- Chirakijja, J., Jayachandran, S. and Ong, P. (2023). The mortality effects of winter heating prices. *Economic Journal* 134(657), 402–417. https://pmc.ncbi.nlm.nih.gov/articles/PMC10702363/
+- CBS (2023). Eind januari geen oversterfte meer. https://www.cbs.nl/nl-nl/nieuws/2023/05/eind-januari-geen-oversterfte-meer
+- The Economist (2023, 10 May), via American Experiment. https://www.americanexperiment.org/the-economist-higher-energy-prices-may-have-killed-more-europeans-last-winter-than-covid-19/
+- ScotPHO. Scottish Burden of Disease: anxiety (GBD disability weights). https://www.scotpho.org.uk/media/1778/sbod2016-anxiety2.pdf
+- Voedselbanken Nederland (2023). Feiten en cijfers per 31-12-2022. https://voedselbankennederland.nl/wp-content/uploads/2023/12/Feiten-en-Cijfers-per-31-12-2022-versie-29-12-2023.pdf
+- King, M. L. Jr. (1963). Letter from Birmingham Jail.
+- Mandela, N. (2005, 3 February). Speech for the Make Poverty History campaign, Trafalgar Square, London.
 - Chetty, R. et al. (2016). The association between income and life expectancy in the United States, 2001–2014. *JAMA* 315(16).
 - Ruhm, C. J. (2000). Are recessions good for your health? *Quarterly Journal of Economics* 115(2).

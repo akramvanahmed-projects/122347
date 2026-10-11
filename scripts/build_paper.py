@@ -105,32 +105,35 @@ def appendix_html() -> str:
 
 def cover_html(numbers: dict) -> str:
     u, i = numbers["ukraine"], numbers["iran"]
+    c = json.loads((ROOT / "reports" / "casualties.json").read_text())
+    dead, lives = c["cold"]["deaths"], c["total_lives"]
     household = sum(u["gross_eur"].values()) / 5
     days = u["days_per_person_central_net"]
+    r = lambda v, to: f"{round(v / to) * to:,}"
     return f"""
 <section class="cover">
   <div class="top"><span>Working paper No. 1</span><span>October 2026 · prices to {numbers['latest_price_month']}</span></div>
   <div>
     <h1>Hidden<br>casualties<span>.</span></h1>
-    <p class="sub">What the Russia–Ukraine and Iran war price shocks cost Dutch households in money, warmth, attention and life expectancy.</p>
+    <p class="sub">A casualty count for two wars that were fought elsewhere: what the Russia–Ukraine and Iran price shocks cost the Netherlands in money, warmth, health, life and time.</p>
   </div>
   <div class="keys">
-    <div><b>€{household:,.0f}</b><span>extra spent per household on food, energy and fuel, Mar 2022 – Dec 2023</span></div>
-    <div><b>€{u['national_gross_eur_bn']:.1f} bn</b><span>national excess cost, of which support returned €{u['national_compensation_eur_bn']:.1f} bn</span></div>
-    <div><b>{days * 24:.1f} h</b><span>life expectancy lost per resident, central estimate ({u['lifetimes']['central_net']:.0f} lifetimes)</span></div>
-    <div><b>€{sum(i['gross_eur'].values()) / 5:,.0f}</b><span>Iran war cost per household so far</span></div>
+    <div><b>≈{r(dead['central'], 100)}</b><span>estimated deaths from the cold, winter 2022–23 ({r(dead['low'], 10)}–{r(dead['high'], 100)})</span></div>
+    <div><b>≈{r(lives['central'], 50)}</b><span>lives in total, deaths plus life-year equivalents ({r(lives['low'], 10)}–{r(lives['high'], 100)})</span></div>
+    <div><b>{c['serious_wounded'] / 1000:,.0f}k</b><span>seriously wounded: food aid, or no support for the poorest</span></div>
+    <div><b>≈{r(c['attention_lifetimes'], 10)}</b><span>waking lifetimes spent following the war (assumed minutes)</span></div>
   </div>
   <div class="foot">war-casualties-nl · github.com/akramvanahmed-projects/war-casualties-nl · Data: CBS and Eurostat (CC BY 4.0). Model estimates, not official statistics.</div>
 </section>
 <section class="summary">
   <h2>Key findings</h2>
   <ol>
-    <li><strong>Food, not energy, was the lasting cost.</strong> Energy prices peaked 96% above their no-war path in October 2022 and fell below it under the 2023 price ceiling. Food never came back down: still 14% above its path at the end of 2023, €1,073 per household in total.</li>
+    <li><strong>The war left measurable casualties in a country it never touched.</strong> About {r(dead['central'], 100)} deaths from the cold (range {r(dead['low'], 10)}–{r(dead['high'], 100)}), more than 900,000 people seriously wounded in their finances or health, light wounds on almost everyone, and about {r(lives['central'], 50)} lives once life-expectancy equivalents are added.</li>
+    <li><strong>Food, not energy, was the lasting cost.</strong> Energy prices peaked 96% above their no-war path in October 2022 and fell below it under the 2023 price ceiling. Food never came back down: still 14% above its path at the end of 2023, €1,073 per household in total, €{household:,.0f} across food, energy and fuel.</li>
     <li><strong>The official inflation figure mistimed the shock.</strong> In September 2022 published inflation was 14.5%; recomputed with the contracts households actually held, it was 7.8%. By January 2023 the order had reversed: 7.6% published, 11.6% paid.</li>
-    <li><strong>Support rescued the poorest fifth and left the middle exposed.</strong> After support the poorest fifth came out 1.9% of income ahead on average (break-even at 32% take-up of the energietoeslag; municipalities report 86–90% reach). The middle three fifths lost 1.5–1.7% of income.</li>
-    <li><strong>"The poor lost most" is a denominator effect.</strong> As a share of spending, every fifth lost 2.7–3.1%. The regressive pattern in income terms comes from the poorest fifth spending 1.34 times its registered income.</li>
-    <li><strong>The health toll is small and uncertain; the attention toll is large and assumed.</strong> Via the income–longevity gradient, about {u['lifetimes']['central_net']:.0f} lifetimes (range {u['lifetimes']['low_net']:.0f}–{u['lifetimes']['high_net']:.0f}), or {days * 24:.1f} hours per resident. Time spent following and worrying about the war adds up to roughly 1,200 waking lifetimes under stated assumptions.</li>
-    <li><strong>Iran is landing on an uncushioned country.</strong> €{sum(i['gross_eur'].values()) / 5:,.0f} per household so far, almost all motor fuel. Energy poverty is back at 6%, higher than at any point during the Ukraine shock, and no support package comparable to 2022 is in place.</li>
+    <li><strong>Support rescued the poorest fifth on average and left the middle exposed.</strong> After support the poorest fifth came out 1.9% of income ahead (break-even at 32% take-up; municipalities report 86–90% reach). The middle three fifths lost 1.5–1.7% of income. Poorest-fifth households without the €1,300 payment lost about €830 each.</li>
+    <li><strong>The wounds followed the income line.</strong> The poorest were five times as likely to skip a holiday and twice as likely to worry about money. Life expectancy lost per resident is {days * 24:.1f} hours on average, concentrated where incomes are lowest.</li>
+    <li><strong>Iran is landing on an uncushioned country.</strong> €{sum(i['gross_eur'].values()) / 5:,.0f} per household so far, almost all motor fuel. Energy poverty is back at 6%, higher than at any point during the Ukraine shock.</li>
   </ol>
 </section>
 """
