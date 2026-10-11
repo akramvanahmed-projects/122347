@@ -3,7 +3,7 @@ name: Update data
 on:
   push:
     branches: [main]
-    paths: ["src/**", "config.yaml", "tests/**", ".github/workflows/**", "data/manual/**"]
+    paths: ["src/**", "app.py", "config.yaml", "tests/**", ".github/workflows/**", "data/manual/**"]
   schedule:
     - cron: "17 6 3 * *"   # monthly, after Eurostat's flash/final HICP releases
   workflow_dispatch:

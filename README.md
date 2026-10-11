@@ -1,9 +1,11 @@
-# The War Bill — how much Dutch household income two wars took
+# Are there human casualties in the Netherlands from the wars in Ukraine and Iran?
+<div dir="rtl">هل يوجد ضحايا بشرية في هولندا بسبب الحرب في أوكرانيا والآن في إيران؟</div>
 
-**Research question.** What share of Dutch household income was lost to the price
-shocks of the Russia–Ukraine war (2022–23) and the Iran war (2026–), how unevenly
-was that loss spread across income quintiles, which spending categories drove it,
-and how much did government compensation give back?
+**Research question.** No bombs fell on the Netherlands, but the price shocks of the
+Russia–Ukraine war (2022–23) and the Iran war (2026–) took income from every household.
+How much, from whom, through which spending, how much did government support give
+back — and what does that income loss mean in **life-years, healthy life-years,
+households pushed into hardship, and "full lifetimes lost" equivalents**?
 
 **Why it's a good portfolio project.** It combines public microdata-based statistics
 (CBS budget survey), monthly price indices (Eurostat HICP), a counterfactual model,
@@ -34,7 +36,15 @@ energietoeslag, 2026 commuting allowance) are subtracted per quintile → **net 
 The 2023 energy price ceiling is already inside the price index, so it is not
 double-counted.
 
-**1.5 Sensitivity.** Every assumption (counterfactual method, window end, take-up)
+**1.5 Human cost.** CBS reports the top income quintile lives ~8.5 years longer
+(~18 healthy years) than the bottom one. That gradient, per log-point of income, is
+scaled for a temporary shock (shock years ÷ ~60 adult years) and for the share that
+is causal (10% / 25% / 50%). Days lost per person × population = life-years lost;
+÷ life expectancy (82) = **full lifetimes lost (equivalent)** — an equivalence, not a
+death count. Hardship = households whose net war loss exceeds a month of their own
+grocery budget. Measured energy-poverty figures (CBS/TNO) are shown alongside.
+
+**1.6 Sensitivity.** Every assumption (counterfactual method, window end, take-up)
 lives in `config.yaml` and is adjustable in the dashboard sidebar.
 
 ## 2. Data sources
@@ -63,6 +73,7 @@ streamlit run app.py
 ## 4. Dashboard pages
 
 1. **Headline** — % of income lost per war, per quintile, gross vs net of compensation.
+1. **Human cost** — lifetimes lost (equivalent), life-years, healthy life-years, hardship, energy poverty.
 2. **Timeline** — monthly loss rate per quintile, both wars on one axis (months since shock).
 3. **What drove it** — stacked contribution of food / home energy / motor fuel / other.
 4. **Compensation** — how much each measure returned, per quintile.

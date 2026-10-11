@@ -77,3 +77,41 @@ compensation:
     episode: iran
     eur_per_household: [10, 25, 40, 55, 60]            # ASSUMPTION: rough, refine with CBS commuting data
     source: "Kabinet voorjaarspakket april 2026"
+
+# ---------------------------------------------------------------------------
+# Human cost layer. Translates income loss into life-years using the Dutch
+# income–longevity gradient, scaled for a TEMPORARY shock. Every number is a
+# published figure (source given) or an explicit ASSUMPTION with a range.
+# ---------------------------------------------------------------------------
+human_cost:
+  households_total: 8258900      # CBS 83932NED, private households 2024
+  persons_per_household: 2.1     # CBS 83932NED, 2024
+  life_expectancy: 82.0          # NL period life expectancy at birth (CBS); divisor for "full lifetimes"
+  # Gap between lowest and highest income quintile (CBS):
+  le_gap_years: 8.5              # life expectancy: ~9 yrs men, ~8 yrs women
+  hle_gap_years: 18.0            # healthy life expectancy, income-only CBS study
+  income_ratio_q5_q1: null       # null = take from household income data (fallback 4.5)
+  # The gradient builds up over a lifetime; a shock lasting d years gets
+  # d / exposure_years of it.  ASSUMPTION
+  exposure_years: 60
+  # Share of the cross-sectional gradient that is causal (rest is reverse
+  # causation and selection). Literature range is wide.  ASSUMPTION
+  causal_share: {low: 0.10, central: 0.25, high: 0.50}
+  # "Hardship" threshold: household's net war loss exceeds this many months
+  # of its own food budget.  ASSUMPTION
+  hardship_food_months: 1.0
+
+# Measured indicators (shown as-is, not modelled).
+indicators:
+  energy_poverty_pct:            # CBS/TNO Monitor energiearmoede (2023+ preliminary)
+    "2019": 9.9
+    "2020": 6.9
+    "2021": 6.8
+    "2022": 4.1
+    "2023": 3.7
+    "2024": 6.0
+    "2025": 6.0
+  saved_by_compensation_pct:     # households kept out of energy poverty by support
+    "2022": 1.8
+    "2023": 4.3
+  source: "CBS, 'Afname energiearmoede stagneert in 2025' (2026)"
