@@ -6,7 +6,7 @@ No bombs fell on the Netherlands, but both wars reached Dutch kitchens and meter
 
 ![Support erased the poorest fifth's war loss. Everyone else still paid.](figures/01_bleeding_income.png)
 
-The poorest fifth lost 3.7% of its income before support and ended up 1.9% ahead after it, assuming 55% of those households claimed the €1,300 energietoeslag in both years. Below 32% take-up they would still have lost. Everyone above them paid between 1.1% and 1.7% of income. Measured against spending rather than income, the shock was close to flat: every fifth lost between 2.7% and 3.1% of what it spent. Most of the apparent regressivity comes from the bottom fifth spending a third more than its registered income.
+The poorest fifth lost 3.7% of its income before support and ended up 1.9% ahead after it, assuming 55% of those households claimed the €1,300 energietoeslag in both years. Below 32% take-up they would still have lost. Municipalities estimate they reached about 90% of eligible households in 2022 and 86% in 2023, so the gain is more likely than not, but the share of the poorest fifth that was eligible is not published. Everyone above them paid between 1.1% and 1.7% of income. Measured against spending rather than income, the shock was close to flat: every fifth lost between 2.7% and 3.1% of what it spent. Most of the apparent regressivity comes from the bottom fifth spending a third more than its registered income.
 
 Turned into life expectancy with the Dutch income–longevity gradient, the Ukraine shock cost the equivalent of 113 full 82-year lifetimes after support (plausible range 45 to 226), and support prevented about 72 more. That is 0.19 days per resident. Six months into the Iran war the bill is €78 per household, almost all of it motor fuel, and the life-years equivalent is 3. Household energy prices have not moved yet.
 
@@ -15,7 +15,7 @@ Figures as of August 2026 prices. The charts and `reports/key_numbers.json` refr
 ## How to reproduce
 
 ```bash
-git clone https://github.com/akramvanahmed-projects/122347.git && cd 122347
+git clone https://github.com/akramvanahmed-projects/war-casualties-nl.git && cd war-casualties-nl
 pip install -r requirements.txt
 python -m warcost all          # fetch, analyse, draw figures
 streamlit run app.py           # interactive version

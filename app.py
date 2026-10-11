@@ -5,6 +5,12 @@
 from __future__ import annotations
 
 import copy
+import sys
+from pathlib import Path
+
+# Streamlit Cloud installs requirements.txt (which includes the package), but the
+# app should also run straight from a fresh clone.
+sys.path.insert(0, str(Path(__file__).parent / "src"))
 
 import plotly.graph_objects as go
 import streamlit as st

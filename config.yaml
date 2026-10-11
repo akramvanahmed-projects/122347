@@ -72,11 +72,11 @@ compensation:
   - name: "Energietoeslag 2022"
     episode: ukraine
     amount: 1300
-    take_up_by_quintile: [0.55, 0.10, 0.0, 0.0, 0.0]   # ASSUMPTION [citation needed]
+    take_up_by_quintile: [0.55, 0.10, 0.0, 0.0, 0.0]   # ASSUMPTION: ~88% reach of eligible (SZW 2024) x ~62% of Q1 eligible [citation needed]
   - name: "Energietoeslag 2023"
     episode: ukraine
     amount: 1300
-    take_up_by_quintile: [0.55, 0.10, 0.0, 0.0, 0.0]   # ASSUMPTION [citation needed]
+    take_up_by_quintile: [0.55, 0.10, 0.0, 0.0, 0.0]   # ASSUMPTION: ~88% reach of eligible (SZW 2024) x ~62% of Q1 eligible [citation needed]
   - name: "Commuting allowance €0.23→€0.25/km, 2026"
     episode: iran
     eur_per_household: [10, 25, 40, 55, 60]            # ASSUMPTION [citation needed]
