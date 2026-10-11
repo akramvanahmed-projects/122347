@@ -182,6 +182,13 @@ table.methods td.refs a, .reflist a { color: var(--ink-2); }
 .disclaimer p { font-size: var(--step--1); color: var(--ink-2); }
 .disclaimer p strong { color: var(--ink); }
 
+.epigraph { padding-block: 72px 24px; }
+.epigraph blockquote p { font-size: clamp(2.2rem, 6vw, 4.8rem); max-width: 18ch; }
+.jump { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 8px 22px; padding-top: 18px; border-top: 1px solid var(--rule); }
+.jump a { font-family: var(--font-data); font-size: var(--step--1); text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink); text-decoration: none; border-bottom: 2px solid var(--signal); padding-bottom: 2px; }
+.jump a:hover { color: var(--signal); }
+.summary-head { border-bottom: 2px solid var(--ink); }
+
 @media (max-width: 760px) {
   .tally .index, .tally .body { grid-column: 1 / -1; }
   .hero .figures.five { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -209,6 +216,13 @@ table.methods td.refs a, .reflist a { color: var(--ink-2); }
     <span class="label" id="asof"></span>
   </div>
 
+  <section class="epigraph" aria-label="Epigraph">
+    <blockquote>
+      <p>“Injustice anywhere is a threat to justice everywhere.”</p>
+      <cite>Martin Luther King Jr., Letter from Birmingham Jail, 1963</cite>
+    </blockquote>
+  </section>
+
   <section class="hero" aria-labelledby="title">
     <h1 id="title">Are there human casualties in the Netherlands from the wars in Ukraine and Iran?</h1>
     <p class="answer">No bombs fell here. But a war two thousand kilometres away reached every kitchen, meter cupboard and holiday plan in the country. Counted the way an army counts its losses, the Russia–Ukraine war left the Netherlands with <em id="hero-dead"></em> dead from the cold, <em id="hero-serious"></em> seriously wounded, a light wound on almost everyone, and <em id="hero-hours-att"></em> waking lifetimes spent watching it happen.</p>
@@ -220,8 +234,67 @@ table.methods td.refs a, .reflist a { color: var(--ink-2); }
       <div><strong id="h-light"></strong><span>light wounds: colder homes, worry, lost holidays</span></div>
       <div><strong id="h-att"></strong><span>waking lifetimes spent following the war</span></div>
     </div>
+    <nav class="jump" aria-label="Sections">
+      <a href="#summary">Executive summary</a>
+      <a href="#full-story">The full story</a>
+      <a href="#method">How we calculated</a>
+      <a href="#sources">Sources</a>
+      <a href="#disclaimer">Disclaimer</a>
+    </nav>
   </section>
 
+  <section class="part summary-head" id="summary" aria-label="Executive summary">
+    <span class="label">Executive summary</span>
+    <h2>The count in three pages</h2>
+    <p>The running total, the ledger and what it means. Everything after this is the evidence, chapter by chapter.</p>
+  </section>
+  <section class="tally" id="tally" aria-labelledby="tally-title">
+    <div class="index"><span class="label">The running count</span></div>
+    <div class="body">
+      <h2 id="tally-title">Chapter by chapter, the count adds up.</h2>
+      <p class="tally-lede">Follow the line. Each stop is a chapter of the full story that added casualties. The line thickens as lives are lost, and loops where the dead begin.</p>
+      <figure class="chart" id="chart-tally" aria-label="Winding line through each casualty chapter with the running totals"></figure>
+    </div>
+  </section>
+  <section class="ledger" id="ledger" aria-labelledby="ledger-title">
+    <div class="index"><span class="label">The casualty ledger</span></div>
+    <div class="body">
+      <h2 id="ledger-title">So, are there casualties?</h2>
+      <p class="ledger-lede">Yes. Not the kind a war memorial lists, but countable. Each mark below is one human life, or its equivalent in years.</p>
+      <figure class="chart" id="chart-wall" aria-label="Memorial wall: one mark per life lost or its equivalent, by cause"></figure>
+      <h3 class="sub">Of every 100 people in the Netherlands</h3>
+      <figure class="chart" id="chart-hundred" aria-label="Of every 100 residents, how many were wounded in each way"></figure>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">The count, Russia–Ukraine war</th><th scope="col" class="num">Central</th><th scope="col" class="num">Range</th><th scope="col">Kind</th></tr></thead>
+          <tbody id="ledger-rows"></tbody>
+        </table>
+      </div>
+      <p class="sources">Iran war so far: <span id="ledger-iran"></span></p>
+    </div>
+  </section>
+  <section class="epilogue" id="epilogue" aria-labelledby="epilogue-title">
+    <div class="index"><span class="label">What it means</span></div>
+    <div class="body">
+      <h2 id="epilogue-title">The war was fought far away. Its bill was paid here, and not evenly.</h2>
+      <div class="prose">
+        <p>Every chapter of the full story ends in the same place. The poorest fifth lost three times as large a share of its income before support arrived. It was five times as likely to skip a holiday, and twice as likely to lie awake over money. The households that fell through the gap in the support scheme were all in the bottom fifth. The cold, the worry and the lost years landed hardest where the margins were thinnest.</p>
+      </div>
+      <figure class="chart" id="chart-justice" aria-label="Lowest against highest income group on three measures"></figure>
+      <div class="prose">
+        <p>The war's real casualties are in Ukraine and in Iran, and they are of a different order. What this story counts is the echo: a price shock that crossed a continent and found, in one of the richest countries on earth, the same fault line every crisis finds. A country that cushioned its poorest in 2022 cut its energy poverty while prices tripled. A country that stopped cushioning them saw energy poverty return as soon as the support ended. The next war has already started sending its bill.</p>
+      </div>
+      <blockquote class="second">
+        <p>“As long as poverty, injustice and gross inequality persist in our world, none of us can truly rest.”</p>
+        <cite>Nelson Mandela, Trafalgar Square, London, 3 February 2005</cite>
+      </blockquote>
+    </div>
+  </section>
+  <section class="part" id="full-story" aria-label="The full story">
+    <span class="label">The full story</span>
+    <h2>Chapter by chapter</h2>
+    <p>Thirteen chapters in five parts, each with its numbers, its sources and a verdict on how much of it the war caused.</p>
+  </section>
   <section class="part" aria-label="Part I">
     <span class="label">Part I</span>
     <h2>The bill</h2>
@@ -487,54 +560,8 @@ table.methods td.refs a, .reflist a { color: var(--ink-2); }
     </div>
   </section>
 
-  <section class="tally" id="tally" aria-labelledby="tally-title">
-    <div class="index"><span class="label">The running count</span></div>
-    <div class="body">
-      <h2 id="tally-title">Chapter by chapter, the count adds up.</h2>
-      <p class="tally-lede">Follow the line. Each stop is a chapter that added casualties. The line thickens as lives are lost, and loops where the dead begin.</p>
-      <figure class="chart" id="chart-tally" aria-label="Winding line through each casualty chapter with the running totals"></figure>
-    </div>
-  </section>
 
-  <section class="ledger" id="ledger" aria-labelledby="ledger-title">
-    <div class="index"><span class="label">The casualty ledger</span></div>
-    <div class="body">
-      <h2 id="ledger-title">So, are there casualties?</h2>
-      <p class="ledger-lede">Yes. Not the kind a war memorial lists, but countable. Each mark below is one human life, or its equivalent in years.</p>
-      <figure class="chart" id="chart-wall" aria-label="Memorial wall: one mark per life lost or its equivalent, by cause"></figure>
-      <h3 class="sub">Of every 100 people in the Netherlands</h3>
-      <figure class="chart" id="chart-hundred" aria-label="Of every 100 residents, how many were wounded in each way"></figure>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th scope="col">The count, Russia–Ukraine war</th><th scope="col" class="num">Central</th><th scope="col" class="num">Range</th><th scope="col">Kind</th></tr></thead>
-          <tbody id="ledger-rows"></tbody>
-        </table>
-      </div>
-      <p class="sources">Iran war so far: <span id="ledger-iran"></span></p>
-    </div>
-  </section>
 
-  <section class="epilogue" id="epilogue" aria-labelledby="epilogue-title">
-    <div class="index"><span class="label">Epilogue</span></div>
-    <div class="body">
-      <blockquote>
-        <p>“Injustice anywhere is a threat to justice everywhere.”</p>
-        <cite>Martin Luther King Jr., Letter from Birmingham Jail, 1963</cite>
-      </blockquote>
-      <h2 id="epilogue-title">The war was fought far away. Its bill was paid here, and not evenly.</h2>
-      <div class="prose">
-        <p>Every chapter of this story ends in the same place. The poorest fifth lost three times as large a share of its income before support arrived. It was five times as likely to skip a holiday, and twice as likely to lie awake over money. The households that fell through the gap in the support scheme were all in the bottom fifth. The cold, the worry and the lost years landed hardest where the margins were thinnest.</p>
-      </div>
-      <figure class="chart" id="chart-justice" aria-label="Lowest against highest income group on three measures"></figure>
-      <div class="prose">
-        <p>The war's real casualties are in Ukraine and in Iran, and they are of a different order. What this story counts is the echo: a price shock that crossed a continent and found, in one of the richest countries on earth, the same fault line every crisis finds. A country that cushioned its poorest in 2022 cut its energy poverty while prices tripled. A country that stopped cushioning them saw energy poverty return as soon as the support ended. The next war has already started sending its bill.</p>
-      </div>
-      <blockquote class="second">
-        <p>“As long as poverty, injustice and gross inequality persist in our world, none of us can truly rest.”</p>
-        <cite>Nelson Mandela, Trafalgar Square, London, 3 February 2005</cite>
-      </blockquote>
-    </div>
-  </section>
 
   <section class="method" id="method">
     <div class="index"><span class="label">Methods</span></div>
