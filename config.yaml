@@ -1,0 +1,79 @@
+# ---------------------------------------------------------------------------
+# War Bill NL — configuration
+# Every number here is either a data-source pointer or an explicit modelling
+# assumption. Assumptions are marked ASSUMPTION; change them and the dashboard
+# shows the effect (that is the sensitivity analysis).
+# ---------------------------------------------------------------------------
+
+episodes:
+  ukraine:
+    label: "Russia–Ukraine war"
+    shock_start: "2022-02"     # invasion 24 Feb 2022; first affected month = Mar 2022
+    window_end: "2023-12"      # ASSUMPTION: end of the energy-price shock window
+  iran:
+    label: "Iran war"
+    shock_start: "2026-02"     # US/Israel strikes late Feb 2026; first CPI month = Mar 2026
+    window_end: null           # null = latest available month
+
+# How "no-war" prices are built for each spending group after shock_start.
+counterfactual:
+  method: "pre_trend"          # "pre_trend" | "target"
+  pre_trend_months: 24         # pre_trend: average annual growth over N months before the shock
+  target_rate: 0.02            # target: every group grows at this annual rate (ECB target)
+  floor_rate: 0.0              # ASSUMPTION: never assume falling no-war prices
+
+# Price data: Eurostat HICP, monthly index, Netherlands.
+# Eurostat moved to COICOP 2018 and a 2025=100 base in 2026; the fetcher
+# accepts whichever index unit is present and rebases internally.
+prices:
+  source: "eurostat"
+  dataset: "prc_hicp_midx"
+  geo: "NL"
+  start: "2017-01"
+  groups:                       # spending group -> Eurostat COICOP code
+    food: "CP01"                # food & non-alcoholic beverages
+    home_energy: "CP045"        # electricity, gas, other fuels, district heat
+    motor_fuel: "CP0722"        # fuels for personal transport
+    core: "TOT_X_NRG_FOOD"      # everything except energy & food (incl. rent)
+    all_items: "CP00"
+
+# Spending patterns and income by income quintile (CBS StatLine, OData).
+cbs:
+  spending_shares_table: "85420NED"   # Bestedingspatroon van huishoudens; bestedingsaandelen (2015, 2020)
+  spending_euros_table: "85419NED"    # Bestedingen huishoudens; hoofdgroepen (2015, 2020)
+  income_table: "83932NED"            # Inkomen van huishoudens; verify ID, set null to skip
+  survey_year: "2020"
+  # Regexes used to find the right rows in CBS labels (Dutch).
+  quintile_patterns: ["1e 20%", "2e 20%", "3e 20%", "4e 20%", "5e 20%"]
+  category_patterns:
+    food: "voedingsmiddelen en alcoholvrije"
+    home_energy: "elektriciteit, gas"
+    motor_fuel: "brandstof"
+
+# Manual override: if the CBS label matching fails on your machine, fill this
+# CSV (template is written by `python -m src.fetch --templates`).
+manual:
+  household_csv: "data/manual/household_budget.csv"
+
+# Government compensation that is NOT inside the price index.
+# (Price caps such as the 2023 energy price ceiling are already inside CPI/HICP.)
+# eur_per_household: per income quintile Q1..Q5, for the whole episode.
+compensation:
+  - name: "Energy bill discount Nov–Dec 2022 (€190/month)"
+    episode: ukraine
+    eur_per_household: [380, 380, 380, 380, 380]
+    source: "Rijksoverheid — tijdelijke tegemoetkoming energiekosten"
+  - name: "Energietoeslag 2022 (€1,300, ≤120% social minimum)"
+    episode: ukraine
+    amount: 1300
+    take_up_by_quintile: [0.55, 0.10, 0.0, 0.0, 0.0]   # ASSUMPTION: eligible & claimed share
+    source: "Rijksoverheid — energietoeslag lage inkomens"
+  - name: "Energietoeslag 2023 (€1,300, ≤120% social minimum)"
+    episode: ukraine
+    amount: 1300
+    take_up_by_quintile: [0.55, 0.10, 0.0, 0.0, 0.0]   # ASSUMPTION
+    source: "Rijksoverheid — energietoeslag 2023"
+  - name: "Higher untaxed commuting allowance 2026 (€0.23→€0.25/km)"
+    episode: iran
+    eur_per_household: [10, 25, 40, 55, 60]            # ASSUMPTION: rough, refine with CBS commuting data
+    source: "Kabinet voorjaarspakket april 2026"

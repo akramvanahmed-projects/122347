@@ -1,0 +1,57 @@
+name: Update data
+
+on:
+  push:
+    branches: [main]
+    paths: ["src/**", "config.yaml", "tests/**", ".github/workflows/**", "data/manual/**"]
+  schedule:
+    - cron: "17 6 3 * *"   # monthly, after Eurostat's flash/final HICP releases
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-data
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install
+        run: pip install -r requirements.txt
+
+      - name: Unit tests
+        run: pytest -q
+
+      - name: Inspect source tables
+        continue-on-error: true
+        run: python -m src.fetch --inspect 2>&1 | tee data/inspect_log.txt
+
+      - name: Fetch data
+        id: fetch
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          mkdir -p data/processed
+          python -m src.fetch 2>&1 | tee data/processed/fetch_log.txt
+
+      - name: Commit data and logs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898+github-actions[bot]@users.noreply.github.com"
+          git add -A data
+          git diff --cached --quiet || git commit -m "data: refresh (${{ steps.fetch.outcome }}) [skip ci]"
+          git push
+
+      - name: Fail if fetch failed
+        if: steps.fetch.outcome != 'success'
+        run: exit 1
