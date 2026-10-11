@@ -34,7 +34,7 @@ jobs:
 
       - name: Inspect source tables
         continue-on-error: true
-        run: python -m src.fetch --inspect 2>&1 | tee data/inspect_log.txt
+        run: mkdir -p data && python -m src.fetch --inspect 2>&1 | tee data/inspect_log.txt
 
       - name: Fetch data
         id: fetch

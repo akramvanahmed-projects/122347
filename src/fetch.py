@@ -74,9 +74,13 @@ def _cbs(table: str) -> pd.DataFrame:
     return pd.DataFrame(cbsodata.get_data(table))
 
 
+def _is_text(s: pd.Series) -> bool:
+    return pd.api.types.is_object_dtype(s) or pd.api.types.is_string_dtype(s)
+
+
 def _find_col(df: pd.DataFrame, pattern: str) -> str:
     for col in df.columns:
-        if df[col].dtype == object and df[col].astype(str).str.contains(pattern, case=False, regex=False).any():
+        if _is_text(df[col]) and df[col].astype(str).str.contains(pattern, case=False, regex=False).any():
             return col
     raise KeyError(f"no column contains a label matching {pattern!r}")
 
@@ -191,10 +195,10 @@ def inspect(cfg: dict) -> None:
             df = _cbs(table)
             lines = [f"{table}: {len(df)} rows", f"columns: {list(df.columns)}", ""]
             for col in df.columns:
-                if df[col].dtype == object:
+                if _is_text(df[col]):
                     vals = df[col].dropna().unique()
                     lines.append(f"[{col}] {len(vals)} unique")
-                    lines += [f"   {v}" for v in vals[:80]]
+                    lines += [f"   {v}" for v in vals[:400]]
             (debug / f"{table}_structure.txt").write_text("\n".join(lines))
             df.head(300).to_csv(debug / f"{table}_head.csv", index=False)
             print(f"  inspected {table}: {len(df)} rows")
@@ -212,6 +216,24 @@ def inspect(cfg: dict) -> None:
             lines.append(f"{code}: OK units={sorted(set(df['unit']))} last={df['time'].max()}")
         else:
             lines.append(f"{code}: HTTP {r.status_code} {r.text[:200]}")
+    # Find successor HICP datasets (2026: ECOICOP 2, 2025=100)
+    toc = requests.get("https://ec.europa.eu/eurostat/api/dissemination/catalogue/toc/txt?lang=en", timeout=120)
+    hicp = [ln for ln in toc.text.splitlines() if "prc_hicp" in ln.lower()]
+    lines += ["", "TOC prc_hicp entries:"] + [re.sub(r"\s+", " ", ln)[:200] for ln in hicp]
+    for ln in hicp:
+        m = re.search(r"(prc_hicp_\w+)", ln)
+        if not m or not re.search(r"monthly", ln, re.I) or "index" not in ln.lower():
+            continue
+        ds = m.group(1)
+        r = requests.get(EUROSTAT_URL.format(ds=ds), params={"geo": p["geo"], "sinceTimePeriod": "2026-01"}, timeout=120)
+        if r.ok:
+            df = parse_jsonstat(r.json())
+            codes = sorted(set(df["coicop"])) if "coicop" in df else sorted(df.columns)
+            lines.append(f"\n[{ds}] dims={list(df.columns)} units={sorted(set(df.get('unit', [])))} "
+                         f"last={df['time'].max()} n_codes={len(codes)}")
+            lines.append("   " + " ".join(codes))
+        else:
+            lines.append(f"\n[{ds}] HTTP {r.status_code}")
     (debug / "eurostat_codes.txt").write_text("\n".join(lines))
     print("\n".join(lines))
 
