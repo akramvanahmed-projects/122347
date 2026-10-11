@@ -248,7 +248,7 @@ table.methods td.refs a, .reflist a { color: var(--ink-2); }
     <div class="body">
       <h2 id="tally-title">Yes. Here is the count, step by step.</h2>
       <p class="tally-lede">Follow the line from top to bottom. Each stop is one way the war hurt people in the Netherlands, with what it added and the total so far. The line turns red and thickens once lives are lost.</p>
-      <p class="timeframe"><strong>One time frame for every number: <span class="win-label"></span>.</strong> That runs from the invasion of Ukraine to the latest month with price data, <span class="win-years"></span> years, and covers both wars: the Russia–Ukraine shock and, from March 2026, the Iran war. These are totals for the whole period, not yearly figures. Each stop shows when, inside that period, the damage was measured. Where nothing was measured, it counts as zero.</p>
+      <p class="timeframe"><strong>One time frame for every number: <span class="win-label"></span>.</strong> That runs from the invasion of Ukraine to the latest month with price data, <span class="win-years"></span> years, and covers both wars: the Russia–Ukraine shock and, from March 2026, the Iran war. These are totals for the whole period, not yearly figures. Every stop covers that same period. The small line under each stop says which years inside it have data; years without data count as zero.</p>
       <dl class="key">
         <div><dt><span class="sw light"></span>Light wound</dt><dd>Life got harder for a while: a cold home, worry, no holiday.</dd></div>
         <div><dt><span class="sw serious"></span>Serious wound</dt><dd>Real hardship: needing a food bank, or losing income with no support.</dd></div>
@@ -1265,14 +1265,14 @@ function tally() {
   const g = Object.fromEntries(c.wounded.map((x) => [x.group, x]));
   const life = c.cold.deaths.central + c.income_lifetimes.central + c.wound_lifetimes.central;
   const stops = [
-    { ch: "05", title: "Colder homes", period: g["Lived in a colder home"].period, add: people(g["Lived in a colder home"].people) + " light wounds", meaning: "Heating turned down to 19 °C or lower: a winter of cold rooms", light: g["Lived in a colder home"].people },
-    { ch: "06", title: "Worry", period: "2022–2024", add: people(g["Worried a lot about the war"].people + g["New money worries"].people) + " light wounds", meaning: "Worried a lot about the war, or newly worried about money", light: g["Worried a lot about the war"].people + g["New money worries"].people },
-    { ch: "07", title: "No holiday", period: g["Skipped a holiday"].period, add: people(g["Skipped a holiday"].people) + " light wounds", meaning: "Stayed home instead of taking a holiday: stress, no rest", light: g["Skipped a holiday"].people },
-    { ch: "08", title: "Hardship", period: "2022–2025", add: people(c.serious_wounded) + " serious wounds", meaning: "Needed a food bank, or among the poorest with no €1,300 support", serious: c.serious_wounded },
-    { ch: "09", title: "Deaths from the cold", period: "four winters, 2022–26", add: "≈" + num(Math.round(c.cold.deaths.central / 100) * 100) + " lives lost", meaning: "Estimated deaths as homes got colder; most in the first winter", lives: c.cold.deaths.central, dead: true },
-    { ch: "10", title: "Lower income", period: DATA.window.label + ", both wars", add: num(c.income_lifetimes.central) + " lives lost", meaning: "Life expectancy lost to lower income, added up into whole lives", lives: c.income_lifetimes.central },
-    { ch: "11", title: "Worn-down health", period: "2022–2025", add: "≈" + num(Math.round(c.wound_lifetimes.central / 10) * 10) + " lives lost", meaning: "Healthy years lost to worry and hardship, added up into whole lives", lives: c.wound_lifetimes.central },
-    { ch: "12", title: "Attention", period: DATA.window.label, add: "≈" + num(Math.round(c.attention_lifetimes / 10) * 10) + " waking lifetimes", meaning: "Time spent following, discussing and worrying about the wars", hours: c.attention_lifetimes },
+    { ch: "05", title: "Colder homes", measured: "Data: winter 2022–23 only; later winters not measured, counted 0", add: people(g["Lived in a colder home"].people) + " light wounds", meaning: "Heating turned down to 19 °C or lower: a winter of cold rooms", light: g["Lived in a colder home"].people },
+    { ch: "06", title: "Worry", measured: "Data: war worry Mar–Apr 2022, money worry 2022–2024; 2025–26 not yet published, counted 0", add: people(g["Worried a lot about the war"].people + g["New money worries"].people) + " light wounds", meaning: "Worried a lot about the war, or newly worried about money", light: g["Worried a lot about the war"].people + g["New money worries"].people },
+    { ch: "07", title: "No holiday", measured: "Data: 2022 and 2023 vs 2019; 2024–26 not yet published, counted 0", add: people(g["Skipped a holiday"].people) + " light wounds", meaning: "Stayed home instead of taking a holiday: stress, no rest", light: g["Skipped a holiday"].people },
+    { ch: "08", title: "Hardship", measured: "Data: food banks 2022–2025; missed support 2022–2023, the support years", add: people(c.serious_wounded) + " serious wounds", meaning: "Needed a food bank, or among the poorest with no €1,300 support", serious: c.serious_wounded },
+    { ch: "09", title: "Deaths from the cold", measured: "Data: all four winters in the period, 2022–23 to 2025–26", add: "≈" + num(Math.round(c.cold.deaths.central / 100) * 100) + " lives lost", meaning: "Estimated deaths as homes got colder; most in the first winter", lives: c.cold.deaths.central, dead: true },
+    { ch: "10", title: "Lower income", measured: "Data: whole period, both wars", add: num(c.income_lifetimes.central) + " lives lost", meaning: "Life expectancy lost to lower income, added up into whole lives", lives: c.income_lifetimes.central },
+    { ch: "11", title: "Worn-down health", measured: "Data: built from the wounds above, year by year", add: "≈" + num(Math.round(c.wound_lifetimes.central / 10) * 10) + " lives lost", meaning: "Healthy years lost to worry and hardship, added up into whole lives", lives: c.wound_lifetimes.central },
+    { ch: "12", title: "Attention", measured: "Data: whole period, both wars; minutes are assumed", add: "≈" + num(Math.round(c.attention_lifetimes / 10) * 10) + " waking lifetimes", meaning: "Time spent following, discussing and worrying about the wars", hours: c.attention_lifetimes },
   ];
   let L = 0, S = 0, Lt = 0, H = 0;
   for (const st of stops) {
@@ -1280,7 +1280,7 @@ function tally() {
     st.cum = { lives: L, serious: S, light: Lt, hours: H };
   }
   const W = widthOf("chart-tally", 900), phone = narrow(W);
-  const gapY = phone ? 200 : 190, top = 40;
+  const gapY = phone ? 235 : 215, top = 40;
   const xs = phone ? [22, 22] : [W * 0.42, W * 0.58];
   const nodes = stops.map((st, k) => ({ ...st, x: phone ? 22 : xs[k % 2], y: top + k * gapY }));
   const endY = top + stops.length * gapY + 40;
@@ -1322,11 +1322,15 @@ function tally() {
     const tx = phone ? 46 : left ? n.x - 26 : n.x + 26;
     const anchor = left ? "end" : "start";
     const wrapAt = phone ? 34 : 46;
-    text(s, tx, n.y - 30, n.title.toUpperCase() + "  ·  " + n.period, { "text-anchor": anchor, class: "t-ink" });
+    text(s, tx, n.y - 30, n.title.toUpperCase() + "  ·  " + DATA.window.label, { "text-anchor": anchor, class: "t-ink" });
     text(s, tx, n.y - 6, "+ " + n.add, { "text-anchor": anchor, class: n.lives ? "t-head t-signal" : "t-head" });
     let ly = n.y + 14;
     for (const line of wrap(n.meaning, wrapAt)) {
       text(s, tx, ly, line, { "text-anchor": anchor, class: "t-ink" });
+      ly += 15;
+    }
+    for (const line of wrap(n.measured, wrapAt + 4)) {
+      text(s, tx, ly + 4, line, { "text-anchor": anchor, style: "font-style:italic" });
       ly += 15;
     }
     const cum = n.cum;
