@@ -46,14 +46,15 @@ def human_cost(cfg: dict, inputs: dict, results: dict[str, EpisodeResult]) -> di
 
 def sensitivity(cfg: dict, inputs: dict) -> pd.DataFrame:
     """Net loss for Q1 and Q5 (% of income) under every combination of the contested choices."""
-    grid = itertools.product(("target", "pre_trend"), ("cbs_research", "published"), ("2020", "2015"))
+    grid = itertools.product(("target", "pre_trend"), (0.0, 0.5, 1.0), ("2020", "2015"))
     rows = []
-    for method, energy, survey in grid:
-        for episode, result in run_all(cfg, inputs, method=method, energy_method=energy,
+    for method, energy_weight, survey in grid:
+        for episode, result in run_all(cfg, inputs, method=method, energy_weight=energy_weight,
                                        survey_year=survey).items():
             s = result.summary
             rows.append({
-                "episode": episode, "counterfactual": method, "energy_method": energy, "survey_year": survey,
+                "episode": episode, "counterfactual": method, "energy_correction_weight": energy_weight,
+                "survey_year": survey,
                 "q1_net_pct": s.at["Q1", "net_pct_income"], "q5_net_pct": s.at["Q5", "net_pct_income"],
                 "q1_with_core_pct": s.at["Q1", "net_pct_income"] + s.at["Q1", "core_pct_income"],
                 "q5_with_core_pct": s.at["Q5", "net_pct_income"] + s.at["Q5", "core_pct_income"],
@@ -93,10 +94,37 @@ def key_numbers(cfg: dict, inputs: dict, results: dict[str, EpisodeResult],
             "healthy_life_years_central_net": float(t.at[("central", "net"), "healthy_life_years"]),
             "days_per_person_central_net": float(t.at[("central", "net"), "days_per_person"]),
             "households_total": float(households_total),
+            "gross_pct_spending": s["gross_pct_spending"].round(2).to_dict(),
+            "channel_eur_mean_household": (
+                result.losses.groupby("channel")["loss_eur"].sum() / len(QUINTILES)).round(0).to_dict(),
+            "q1_break_even_take_up": _break_even_take_up(cfg, episode, s),
             "peak_energy_gap_pct": float(result.gap["home_energy"].max() * 100),
             "peak_energy_gap_month": str(result.gap["home_energy"].idxmax()),
         }
     out["standardised_income_ratio_q5_q1"] = standardised_income_ratio(inputs["income"])
+    return out
+
+
+def _break_even_take_up(cfg: dict, episode: str, summary: pd.DataFrame) -> float | None:
+    """Share of Q1 households that must claim means-tested support for Q1 to break even on average."""
+    flat = sum(m["eur_per_household"][0] for m in cfg["compensation"]
+               if m["episode"] == episode and "eur_per_household" in m)
+    targeted = sum(m["amount"] for m in cfg["compensation"]
+                   if m["episode"] == episode and "amount" in m)
+    if not targeted:
+        return None
+    return float(np.clip((summary.at["Q1", "gross_eur"] - flat) / targeted, 0, 1))
+
+
+def bounds(cfg: dict, inputs: dict) -> dict:
+    """Net loss as % of income under the published (0) and recomputed (1) energy series."""
+    out = {}
+    for weight in (0.0, 1.0):
+        for episode, result in run_all(cfg, inputs, energy_weight=weight).items():
+            out.setdefault(episode, {})[f"energy_weight_{weight:g}"] = {
+                "gross_pct_income": result.summary["gross_pct_income"].round(2).to_dict(),
+                "net_pct_income": result.summary["net_pct_income"].round(2).to_dict(),
+            }
     return out
 
 
@@ -109,6 +137,7 @@ def write_outputs(cfg: dict) -> dict:
         lives[episode].to_csv(PROCESSED / f"human_cost_{episode}.csv", index=False)
     sensitivity(cfg, inputs).round(3).to_csv(PROCESSED / "sensitivity.csv", index=False)
     numbers = key_numbers(cfg, inputs, results, lives)
+    numbers["energy_bounds"] = bounds(cfg, inputs)
     (ROOT / "reports").mkdir(exist_ok=True)
     (ROOT / "reports" / "key_numbers.json").write_text(json.dumps(numbers, indent=2, default=_jsonable))
     return numbers

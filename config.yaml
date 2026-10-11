@@ -25,10 +25,13 @@ counterfactual:
 # in 2022 (post-Covid reopening, a tight labour market) to attribute to the war.
 direct_channels: ["food", "home_energy", "motor_fuel"]
 
-# Before June 2023 the Dutch energy price index used new contracts only, which
-# overstated what households paid in 2022 and understated early 2023.
-# "cbs_research" corrects the energy channel with CBS's own back-calculation.
-energy_method: "cbs_research"     # or "published"
+# Before June 2023 the Dutch energy index priced new contracts only. CBS later
+# recomputed it with existing contracts. Anchored at Feb 2022, the published
+# series undercounts what fixed-contract households paid in 2023; the
+# recomputed one also counts the delayed pass-through of the autumn 2021 gas
+# spike, which predates the war. The truth is between them.
+# 0 = published, 1 = CBS recomputation, 0.5 = midpoint (central case).
+energy_correction_weight: 0.5
 energy_research_series: "data/external/cbs_cpi_energy_method_research_series.csv"
 
 prices:

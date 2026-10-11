@@ -48,6 +48,16 @@ def monthly_income(income: pd.DataFrame, prices: pd.DataFrame, months: pd.Period
     return base.mul(uprate, axis=0).rename_axis("month")
 
 
+def monthly_spending(spending_eur: pd.Series, prices: pd.DataFrame, survey_year: str,
+                     months: pd.PeriodIndex) -> pd.DataFrame:
+    """Cash spending per household per month, month x quintile, uprated from the survey year."""
+    survey_prices = prices.loc[prices.index.year == int(survey_year), "all_items"]
+    if survey_prices.empty:
+        raise ValueError(f"price data must cover the survey year {survey_year}")
+    uprate = prices["all_items"].reindex(months) / survey_prices.mean()
+    return pd.DataFrame({q: uprate * spending_eur[q] / 12 for q in QUINTILES}).rename_axis("month")
+
+
 def monthly_losses(gap: pd.DataFrame, weights: pd.DataFrame, spending_eur: pd.Series,
                    prices: pd.DataFrame, survey_year: str,
                    energy_correction: pd.Series | None = None) -> pd.DataFrame:
@@ -69,14 +79,7 @@ def monthly_losses(gap: pd.DataFrame, weights: pd.DataFrame, spending_eur: pd.Se
         )
         share["home_energy"] += adjustment
 
-    survey_prices = prices.loc[prices.index.year == int(survey_year), "all_items"]
-    if survey_prices.empty:
-        raise ValueError(f"price data must cover the survey year {survey_year}")
-    survey_level = survey_prices.mean()
-    uprate = prices["all_items"].reindex(gap.index) / survey_level
-    monthly_spend = pd.concat(
-        {q: uprate * spending_eur[q] / 12 for q in QUINTILES}, names=["quintile", "month"]
-    )
+    monthly_spend = monthly_spending(spending_eur, prices, survey_year, gap.index).unstack()
     long = share.stack().rename("loss_share").to_frame().rename_axis(["quintile", "month", "channel"])
     long["loss_eur"] = long["loss_share"] * monthly_spend.reindex(long.index.droplevel("channel")).to_numpy()
     return long.reset_index()
@@ -121,11 +124,11 @@ class EpisodeResult:
 def run_episode(cfg: dict, episode: str, prices: pd.DataFrame, households: pd.DataFrame,
                 income: pd.DataFrame, research_series: pd.DataFrame | None = None,
                 method: str | None = None, survey_year: str | None = None,
-                energy_method: str | None = None) -> EpisodeResult:
+                energy_weight: float | None = None) -> EpisodeResult:
     spec = cfg["episodes"][episode]
     cf_spec = cfg["counterfactual"]
     survey_year = survey_year or cfg["cbs"]["survey_year"]
-    energy_method = energy_method or cfg["energy_method"]
+    energy_weight = cfg["energy_correction_weight"] if energy_weight is None else energy_weight
 
     columns = [c for c in [*CHANNELS, "all_items"] if c in prices]
     no_war = counterfactual(prices[columns], spec["shock_month"], method or cf_spec["method"],
@@ -135,11 +138,14 @@ def run_episode(cfg: dict, episode: str, prices: pd.DataFrame, households: pd.Da
         gap["core"] = 0.0
 
     correction = None
-    if energy_method == "cbs_research" and research_series is not None:
-        correction = energy_method_correction(research_series, gap.index, spec["shock_month"])
+    if energy_weight and research_series is not None:
+        correction = energy_weight * energy_method_correction(research_series, gap.index, spec["shock_month"])
 
     weights = spending_weights(households, survey_year)
     losses = monthly_losses(gap, weights, cash_spending(households, survey_year), prices, survey_year, correction)
     comp = compensation(cfg["compensation"], episode)
     summary = summarise(losses, comp, monthly_income(income, prices, gap.index), cfg["direct_channels"])
+    summary["spending_eur"] = monthly_spending(cash_spending(households, survey_year), prices, survey_year,
+                                               gap.index).sum()
+    summary["gross_pct_spending"] = summary["gross_eur"] / summary["spending_eur"] * 100
     return EpisodeResult(gap, no_war, losses, comp, summary)

@@ -35,7 +35,7 @@ def test_compensation_take_up():
 
 def test_episode_losses_match_hand_calculation(cfg, prices, households, income):
     cfg["episodes"]["ukraine"]["end_month"] = "2022-03"
-    result = run_episode(cfg, "ukraine", prices, households, income, energy_method="published")
+    result = run_episode(cfg, "ukraine", prices, households, income, energy_weight=0.0)
     q1_energy = result.losses.query("quintile == 'Q1' and channel == 'home_energy'")["loss_eur"].iloc[0]
     uprate = prices.at[pd.Period("2022-03", "M"), "all_items"] / prices.loc["2020-01":"2020-12", "all_items"].mean()
     assert q1_energy == pytest.approx(0.5 * 0.08 * 24000 / 12 * uprate)
