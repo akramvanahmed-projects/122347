@@ -145,7 +145,27 @@ td .tag { font-family: var(--font-data); font-size: 0.72rem; border: 1px solid v
 td .tag.yes { background: var(--ink); color: var(--paper); }
 .dial .controls label + input { margin-bottom: 6px; }
 
+.hero .answer.small { font-size: var(--step-0); color: var(--ink-2); font-weight: 400; }
+.hero .figures.five { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.part { padding-block: 96px 40px; border-bottom: 2px solid var(--ink); display: grid; gap: 10px; }
+.part h2 { font-size: clamp(3rem, 9vw, 7rem); font-weight: 900; letter-spacing: -0.045em; line-height: 0.9; }
+.part p { font-size: var(--step-1); color: var(--ink-2); max-width: 40ch; line-height: 1.35; }
+.ledger-lede { font-size: var(--step-1); line-height: 1.4; max-width: 46ch; }
+h3.sub { font-family: var(--font-data); font-size: var(--step--1); font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-2); margin-top: 18px; }
+.epilogue { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; padding-block: 96px 72px; border-bottom: 2px solid var(--ink); }
+.epilogue .index { grid-column: 1 / span 3; }
+.epilogue .body { grid-column: 4 / -1; display: grid; gap: 26px; min-width: 0; }
+.epilogue h2 { font-size: var(--step-2); font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; max-width: 26ch; }
+blockquote { margin: 0; display: grid; gap: 10px; }
+blockquote p { font-family: var(--font-display); font-size: clamp(2rem, 4.6vw, 3.6rem); font-weight: 800; line-height: 1.02; letter-spacing: -0.03em; max-width: 20ch; }
+blockquote.second p { font-size: clamp(1.5rem, 3vw, 2.3rem); color: var(--signal); max-width: 28ch; }
+blockquote cite { font-family: var(--font-data); font-size: var(--step--1); font-style: normal; color: var(--ink-2); }
+
 @media (max-width: 760px) {
+  .hero .figures.five { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hero .figures.five div:nth-child(odd) { border-left: none; padding-left: 0; }
+  .hero .figures.five div:nth-child(even) { border-left: 1px solid var(--rule); padding-left: 16px; }
+  .epilogue .index, .epilogue .body { grid-column: 1 / -1; }
   .ledger .index, .ledger .body { grid-column: 1 / -1; }
   .hero .answer { grid-column: 1 / -1; }
   .hero .figures { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -169,15 +189,22 @@ td .tag.yes { background: var(--ink); color: var(--paper); }
 
   <section class="hero" aria-labelledby="title">
     <h1 id="title">Are there human casualties in the Netherlands from the wars in Ukraine and Iran?</h1>
-    <p class="answer">No bombs fell here. But the wars reached every kitchen, meter cupboard and holiday plan in the country. Added up, the Ukraine price shock took about <em id="hero-hours"></em> of life expectancy from every person living in the Netherlands, on our central estimate, and well over a thousand lifetimes of waking attention.</p>
-    <div class="figures">
-      <div><strong id="h-household"></strong><span>extra spent per household on food, energy and fuel, 2022–23</span></div>
-      <div><strong id="h-national"></strong><span>nationally, of which support paid back <b id="h-support"></b></span></div>
-      <div><strong id="h-lifetimes"></strong><span>full lifetimes, as an equivalent of life-years lost (range <span id="h-range"></span>)</span></div>
-      <div><strong id="h-iran"></strong><span>Iran war so far, per household</span></div>
+    <p class="answer">No bombs fell here. But a war two thousand kilometres away reached every kitchen, meter cupboard and holiday plan in the country. Counted the way an army counts its losses, the Russia–Ukraine war left the Netherlands with <em id="hero-dead"></em> dead from the cold, <em id="hero-serious"></em> seriously wounded, a light wound on almost everyone, and <em id="hero-hours-att"></em> waking lifetimes spent watching it happen.</p>
+    <p class="answer small">This is how we counted, chapter by chapter, with every source and every assumption in view.</p>
+    <div class="figures five">
+      <div><strong id="h-dead"></strong><span>estimated deaths from the cold, winter 2022–23</span></div>
+      <div><strong id="h-lives"></strong><span>lives lost in total, deaths plus life-year equivalents</span></div>
+      <div><strong id="h-serious"></strong><span>seriously wounded: food aid, or no support for the poorest</span></div>
+      <div><strong id="h-light"></strong><span>light wounds: colder homes, worry, lost holidays</span></div>
+      <div><strong id="h-att"></strong><span>waking lifetimes spent following the war</span></div>
     </div>
   </section>
 
+  <section class="part" aria-label="Part I">
+    <span class="label">Part I</span>
+    <h2>The bill</h2>
+    <p>What the war cost in euros, and who paid.</p>
+  </section>
   <!-- 01 -->
   <section class="chapter" id="shock">
     <div class="index"><b>01</b><span class="label">The shock</span></div>
@@ -210,29 +237,8 @@ td .tag.yes { background: var(--ink); color: var(--paper); }
   </section>
 
   <!-- 03 -->
-  <section class="chapter" id="cold">
-    <div class="index"><b>03</b><span class="label">The cold</span></div>
-    <div class="body">
-      <div class="big" id="c3-big"></div>
-      <h2>The country turned the heating down by two degrees and used the least gas since 1972.</h2>
-      <div class="prose">
-        <p>Households burned about a quarter less gas in 2022 than in 2021. Weather explains part of it; corrected for the mild winter, use was still 15% lower. Seven in ten households with a gas boiler set the thermostat to 19 °C instead of 21. Smart-thermostat data put the average Dutch living room at 18 °C that winter.</p>
-        <p>Did the cold kill anyone? In November 2022, <strong>about 1,400 more people died than expected</strong>, 10% above the norm, about half of them in vulnerable groups such as nursing-home residents. CBS attributes most excess deaths of 2022 to flu and covid-19, and nobody has separated out cold homes. That number is the gap in this story.</p>
-      </div>
-      <figure class="chart" id="chart-thermo" aria-label="Living-room temperature before and during the 2022–23 winter"></figure>
-      <div class="facts">
-        <div><strong id="c3-gas"></strong><span>household gas use, 2022 vs 2021</span></div>
-        <div><strong>31 bn m³</strong><span>total Dutch gas use in 2022, lowest since 1972</span></div>
-        <div><strong>+1,400</strong><span>deaths above expected in November 2022, cause unresolved</span></div>
-      </div>
-      <div class="verdict"><span class="label">Can we blame the war?</span><span class="scale"><span>Yes</span><span>Partly</span><span class="on">Can't tell</span></span><span class="why">The gas cut was a response to war prices (CBS names price as the main driver). The deaths overlap with flu and covid, and no Dutch study isolates cold homes.</span></div>
-      <p class="sources">CBS via <a href="https://nos.nl/l/2463617" target="_blank" rel="noopener">NOS, 13 Feb 2023</a> · Milieu Centraal and tado via <a href="https://www.wyniasweek.nl/nederlandse-huizen-zijn-een-stuk-killer-geworden/" target="_blank" rel="noopener">Wynia's Week, 1 Apr 2023</a> · CBS via <a href="https://nieuws.nl/algemeen/cbs-afgelopen-maand-10-procent-meer-sterfgevallen-dan-verwacht" target="_blank" rel="noopener">ANP, 9 Dec 2022</a> and <a href="https://nieuws.nl/algemeen/nog-steeds-veel-oversterfte-in-2022-vooral-door-griep-en-covid" target="_blank" rel="noopener">25 Jan 2023</a></p>
-    </div>
-  </section>
-
-  <!-- 04 -->
   <section class="chapter" id="kitchen">
-    <div class="index"><b>04</b><span class="label">The kitchen</span></div>
+    <div class="index"><b>03</b><span class="label">The kitchen</span></div>
     <div class="body">
       <div class="big signal" id="c4-big"></div>
       <h2>Energy came back down. Groceries never did.</h2>
@@ -249,41 +255,9 @@ td .tag.yes { background: var(--ink); color: var(--paper); }
     </div>
   </section>
 
-  <!-- 05 -->
-  <section class="chapter" id="holidays">
-    <div class="index"><b>05</b><span class="label">The holiday</span></div>
-    <div class="body">
-      <div class="big" id="c5-big"></div>
-      <h2>For the lowest incomes, the holiday is the first thing to go.</h2>
-      <div class="prose">
-        <p>In 2023, 19.2% of people aged 15 and over took no holiday, and 27.6% of them said they could not afford one. Income splits the country: 38% of the lowest-income quarter stayed home, against 8% of the highest.</p>
-        <p>Did the energy crisis cancel holidays? The national numbers cannot say. Covid emptied the airports in 2020 and the recovery masks any war effect. Iran is easier to see. In April 2026 KLM scrapped 160 flights over the May holiday, and Air France–KLM expects to spend about €2 billion more on kerosene this year, which goes onto ticket prices.</p>
-      </div>
-      <figure class="chart" id="chart-holiday" aria-label="Share of people taking no holiday, 2019 to 2023"></figure>
-      <div class="verdict"><span class="label">Can we blame the war?</span><span class="scale"><span>Yes</span><span>Partly</span><span class="on">Can't tell</span></span><span class="why">For 2022 the covid recovery swamps any war effect. For 2026 the cancelled flights are directly fuel-driven.</span></div>
-      <p class="sources">CBS, <a href="https://www.cbs.nl/nl-nl/nieuws/2024/28/1-op-de-5-nederlanders-ging-in-2023-niet-op-vakantie" target="_blank" rel="noopener">1 op de 5 Nederlanders ging in 2023 niet op vakantie</a> (2024) · <a href="https://nltimes.nl/2026/04/16/klm-scraps-160-flights-key-holiday-amid-soaring-fuel-prices-middle-east-tension" target="_blank" rel="noopener">NL Times, 16 Apr 2026</a></p>
-    </div>
-  </section>
-
-  <!-- 06 -->
-  <section class="chapter" id="nerves">
-    <div class="index"><b>06</b><span class="label">The nerves</span></div>
-    <div class="body">
-      <div class="big signal">−59</div>
-      <h2>Dutch consumers were never as gloomy as in the autumn of the energy crisis.</h2>
-      <div class="prose">
-        <p>Consumer confidence fell to <strong>−59</strong> in September 2022, the lowest reading since CBS began measuring in 1986. The twenty-year average is around −10. In the same months, one in three households told Nibud it could barely make ends meet, and calls to its helpline ran at 1.5 to 2 times the usual rate.</p>
-        <p>The worry outlasted the prices. The share of people worried about their finances rose from 23% in 2021 to almost 30%, and to about 40% among the lowest earners. When the Iran strikes began, confidence dropped from −24 in February 2026 to −46 by May.</p>
-      </div>
-      <figure class="chart" id="chart-nerves" aria-label="Consumer confidence in 2022 and 2026 against the twenty-year average"></figure>
-      <div class="verdict"><span class="label">Can we blame the war?</span><span class="scale"><span>Yes</span><span class="on">Partly</span><span>Can't tell</span></span><span class="why">The timing lines up twice, at the energy peak in 2022 and after the strikes in 2026. CBS does not attribute the drops to a cause.</span></div>
-      <p class="sources">CBS consumer confidence, <a href="https://www.cbs.nl/nl-nl/nieuws/2022/42/consumentenvertrouwen-verandert-niet" target="_blank" rel="noopener">Oct 2022</a> and <a href="https://www.cbs.nl/nl-nl/nieuws/2026/21/consumentenvertrouwen-daalt-verder-in-mei" target="_blank" rel="noopener">May 2026</a> · Nibud via <a href="https://nltimes.nl/2022/09/15/netherlands-heading-debt-crisis-budget-institute-warns" target="_blank" rel="noopener">NL Times, 15 Sep 2022</a> · CBS via <a href="https://www.hartvannederland.nl/algemeen-nieuws/artikelen/steeds-meer-nederlanders-maken-zich-zorgen-over-hun-financiele-situatie" target="_blank" rel="noopener">ANP, 8 Jun 2023</a></p>
-    </div>
-  </section>
-
-  <!-- 07 -->
+  <!-- 04 -->
   <section class="chapter" id="who">
-    <div class="index"><b>07</b><span class="label">Who paid</span></div>
+    <div class="index"><b>04</b><span class="label">Who paid</span></div>
     <div class="body">
       <div class="big" id="c7-big"></div>
       <h2>Support pulled the poorest fifth above the waterline. The middle stayed under.</h2>
@@ -297,9 +271,106 @@ td .tag.yes { background: var(--ink); color: var(--paper); }
     </div>
   </section>
 
+  <section class="part" aria-label="Part II">
+    <span class="label">Part II</span>
+    <h2>The wounded</h2>
+    <p>People whose lives got harder: lightly, in their thousands of thousands, and seriously, in their hundreds of thousands.</p>
+  </section>
+  <!-- 05 -->
+  <section class="chapter" id="cold">
+    <div class="index"><b>05</b><span class="label">The cold homes</span></div>
+    <div class="body">
+      <div class="big" id="c3-big"></div>
+      <h2>The country turned the heating down by two degrees and used the least gas since 1972.</h2>
+      <div class="prose">
+        <p>Households burned about a quarter less gas in 2022 than in 2021. Weather explains part of it; corrected for the mild winter, use was still 15% lower. Seven in ten households with a gas boiler set the thermostat to 19 °C instead of 21. Smart-thermostat data put the average Dutch living room at 18 °C that winter.</p>
+        <p>Read that as a casualty count and it is the widest wound of the war: about <strong id="c-coldhome"></strong> people spent the winter in a home two degrees colder than the one they were used to. A light wound for most. For an elderly person living alone, or a child with asthma, not light at all. Whether it killed anyone is the question of Part III.</p>
+      </div>
+      <figure class="chart" id="chart-thermo" aria-label="Living-room temperature before and during the 2022–23 winter"></figure>
+      <div class="facts">
+        <div><strong id="c3-gas"></strong><span>household gas use, 2022 vs 2021</span></div>
+        <div><strong>31 bn m³</strong><span>total Dutch gas use in 2022, lowest since 1972</span></div>
+        <div><strong id="c-coldhome2"></strong><span>people in homes that were turned down, our light-wound count</span></div>
+      </div>
+      <div class="verdict"><span class="label">Can we blame the war?</span><span class="scale"><span class="on">Yes</span><span>Partly</span><span>Can't tell</span></span><span class="why">CBS names price as the main reason households cut gas use. The count of people is our estimate: 7 in 10 of about 7.3 million gas-heated homes, at 2.1 people each.</span></div>
+      <p class="sources">CBS via <a href="https://nos.nl/l/2463617" target="_blank" rel="noopener">NOS, 13 Feb 2023</a> · Milieu Centraal and tado via <a href="https://www.wyniasweek.nl/nederlandse-huizen-zijn-een-stuk-killer-geworden/" target="_blank" rel="noopener">Wynia's Week, 1 Apr 2023</a></p>
+    </div>
+  </section>
+
+  <!-- 06 -->
+  <section class="chapter" id="nerves">
+    <div class="index"><b>06</b><span class="label">The nerves</span></div>
+    <div class="body">
+      <div class="big signal">−59</div>
+      <h2>Dutch consumers were never as gloomy as in the autumn of the energy crisis.</h2>
+      <div class="prose">
+        <p>Consumer confidence fell to <strong>−59</strong> in September 2022, the lowest reading since CBS began measuring in 1986. The twenty-year average is around −10. In the same months, one in three households told Nibud it could barely make ends meet, and calls to its helpline ran at 1.5 to 2 times the usual rate.</p>
+        <p>In casualty terms these are light wounds, but there were many of them: about <strong id="c-warworry"></strong> adults worried "a lot" about the war in March 2022, and roughly <strong id="c-moneyworry"></strong> more people than in 2021 worried about money. The worry outlasted the prices. The share of people worried about their finances rose from 23% in 2021 to almost 30%, and to about 40% among the lowest earners. When the Iran strikes began, confidence dropped from −24 in February 2026 to −46 by May.</p>
+      </div>
+      <figure class="chart" id="chart-nerves" aria-label="Consumer confidence in 2022 and 2026 against the twenty-year average"></figure>
+      <div class="verdict"><span class="label">Can we blame the war?</span><span class="scale"><span>Yes</span><span class="on">Partly</span><span>Can't tell</span></span><span class="why">The timing lines up twice, at the energy peak in 2022 and after the strikes in 2026. CBS does not attribute the drops to a cause.</span></div>
+      <p class="sources">CBS consumer confidence, <a href="https://www.cbs.nl/nl-nl/nieuws/2022/42/consumentenvertrouwen-verandert-niet" target="_blank" rel="noopener">Oct 2022</a> and <a href="https://www.cbs.nl/nl-nl/nieuws/2026/21/consumentenvertrouwen-daalt-verder-in-mei" target="_blank" rel="noopener">May 2026</a> · Nibud via <a href="https://nltimes.nl/2022/09/15/netherlands-heading-debt-crisis-budget-institute-warns" target="_blank" rel="noopener">NL Times, 15 Sep 2022</a> · CBS via <a href="https://www.hartvannederland.nl/algemeen-nieuws/artikelen/steeds-meer-nederlanders-maken-zich-zorgen-over-hun-financiele-situatie" target="_blank" rel="noopener">ANP, 8 Jun 2023</a></p>
+    </div>
+  </section>
+
+  <!-- 07 -->
+  <section class="chapter" id="holidays">
+    <div class="index"><b>07</b><span class="label">The holiday</span></div>
+    <div class="body">
+      <div class="big" id="c5-big"></div>
+      <h2>For the lowest incomes, the holiday is the first thing to go.</h2>
+      <div class="prose">
+        <p>In 2023, 19.2% of people aged 15 and over took no holiday, and 27.6% of them said they could not afford one. Income splits the country: 38% of the lowest-income quarter stayed home, against 8% of the highest.</p>
+        <p>Compared with 2019, about <strong id="c-holiday"></strong> more people took no holiday in 2022. That is an upper bound for the war's share, because some of it is the slow return from covid. We count them as lightly wounded.</p>
+        <p>Did the energy crisis cancel holidays? The national numbers cannot say. Covid emptied the airports in 2020 and the recovery masks any war effect. Iran is easier to see. In April 2026 KLM scrapped 160 flights over the May holiday, and Air France–KLM expects to spend about €2 billion more on kerosene this year, which goes onto ticket prices.</p>
+      </div>
+      <figure class="chart" id="chart-holiday" aria-label="Share of people taking no holiday, 2019 to 2023"></figure>
+      <div class="verdict"><span class="label">Can we blame the war?</span><span class="scale"><span>Yes</span><span>Partly</span><span class="on">Can't tell</span></span><span class="why">For 2022 the covid recovery swamps any war effect. For 2026 the cancelled flights are directly fuel-driven.</span></div>
+      <p class="sources">CBS, <a href="https://www.cbs.nl/nl-nl/nieuws/2024/28/1-op-de-5-nederlanders-ging-in-2023-niet-op-vakantie" target="_blank" rel="noopener">1 op de 5 Nederlanders ging in 2023 niet op vakantie</a> (2024) · <a href="https://nltimes.nl/2026/04/16/klm-scraps-160-flights-key-holiday-amid-soaring-fuel-prices-middle-east-tension" target="_blank" rel="noopener">NL Times, 16 Apr 2026</a></p>
+    </div>
+  </section>
+
   <!-- 08 -->
+  <section class="chapter" id="serious">
+    <div class="index"><b>08</b><span class="label">The serious wounded</span></div>
+    <div class="body">
+      <div class="big signal" id="c-serious-big"></div>
+      <h2>Nearly a million people took a serious wound.</h2>
+      <div class="prose">
+        <p>Two groups carried the heaviest part of the bill. The first went hungry enough to ask for help: food banks served <strong>147,500</strong> people in 2021 and <strong>197,000</strong> in 2022, almost <strong>50,000</strong> more in the first year of the war.</p>
+        <p>The second is quieter. In the poorest fifth, the households that did not receive the €1,300 energietoeslag, because they earned slightly too much or never claimed it, still lost about €830 each over the shock. That is roughly 5% of a year's income for people with none to spare. We count about <strong id="c-missed"></strong> people in that position.</p>
+      </div>
+      <figure class="chart" id="chart-serious" aria-label="Food aid recipients 2021 and 2022, and people in the poorest fifth with and without the energy payment"></figure>
+      <div class="verdict"><span class="label">Can we blame the war?</span><span class="scale"><span>Yes</span><span class="on">Partly</span><span>Can't tell</span></span><span class="why">Food-bank demand also rose with general inflation and the end of covid support. The poorest-fifth count rests on the 55% take-up assumption from chapter 04.</span></div>
+      <p class="sources">Voedselbanken Nederland, <a href="https://voedselbankennederland.nl/wp-content/uploads/2023/12/Feiten-en-Cijfers-per-31-12-2022-versie-29-12-2023.pdf" target="_blank" rel="noopener">Feiten en cijfers 2022</a> · Model: CBS 83932NED households per income fifth</p>
+    </div>
+  </section>
+
+  <section class="part" aria-label="Part III">
+    <span class="label">Part III</span>
+    <h2>The dead</h2>
+    <p>Three ways to count lives: deaths from the cold, life expectancy lost to lower income, and healthy years worn away by worry.</p>
+  </section>
+  <!-- 09 -->
+  <section class="chapter" id="deaths">
+    <div class="index"><b>09</b><span class="label">The cold, again</span></div>
+    <div class="body">
+      <div class="big signal" id="c-dead-big"></div>
+      <h2>The cold probably killed people. We can estimate how many, not who.</h2>
+      <div class="prose">
+        <p>No death certificate in the Netherlands says "energy prices". So we borrow a number from the economics literature. Studying US winters, Chirakijja, Jayachandran and Ong found that a 1% rise in the price of heating raises deaths by about 0.032%. People heat less, and the cold reaches hearts and lungs.</p>
+        <p>In the Dutch heating season of October 2022 to March 2023, home energy cost on average <strong id="c-heatgap"></strong> more than it would have without the war. About 82,000 deaths were expected in those six months. Multiply the three and you get roughly <strong id="c-dead"></strong> extra deaths, with a plausible range of <span id="c-deadrange"></span>.</p>
+        <p>Is that credible? CBS counted about 4,800 more deaths than expected between late November 2022 and January 2023, mostly from flu and covid. Our six-month estimate is about a quarter the size of that two-month excess. For Europe as a whole, The Economist estimated 68,000 deaths linked to high energy prices that winter. Scaled to the Dutch population, that points to a similar order of magnitude.</p>
+      </div>
+      <figure class="chart" id="chart-deaths" aria-label="Estimated cold deaths against all excess deaths recorded in winter 2022–23"></figure>
+      <div class="verdict"><span class="label">Can we blame the war?</span><span class="scale"><span>Yes</span><span class="on">Partly</span><span>Can't tell</span></span><span class="why">The mechanism is well documented, the size is borrowed from US data. The price ceiling and the €380 discount kept the number lower than the peak prices alone would imply.</span></div>
+      <p class="sources">Chirakijja, Jayachandran &amp; Ong, <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10702363/" target="_blank" rel="noopener">The Mortality Effects of Winter Heating Prices</a>, Economic Journal (2023) · CBS, <a href="https://www.cbs.nl/nl-nl/nieuws/2023/05/eind-januari-geen-oversterfte-meer" target="_blank" rel="noopener">Eind januari geen oversterfte meer</a> (2023) · The Economist (10 May 2023) via <a href="https://www.americanexperiment.org/the-economist-higher-energy-prices-may-have-killed-more-europeans-last-winter-than-covid-19/" target="_blank" rel="noopener">American Experiment</a></p>
+    </div>
+  </section>
+
+  <!-- 10 -->
   <section class="chapter" id="count">
-    <div class="index"><b>08</b><span class="label">The count</span></div>
+    <div class="index"><b>10</b><span class="label">The count</span></div>
     <div class="body">
       <div class="big signal" id="c8-big"></div>
       <h2>Spread across 18 million people, the war took a few hours of life from each of them.</h2>
@@ -323,29 +394,33 @@ td .tag.yes { background: var(--ink); color: var(--paper); }
     </div>
   </section>
 
-  <!-- 09 -->
-  <section class="chapter" id="iran">
-    <div class="index"><b>09</b><span class="label">No umbrella</span></div>
+  <!-- 11 -->
+  <section class="chapter" id="healthy">
+    <div class="index"><b>11</b><span class="label">The worn-down years</span></div>
     <div class="body">
-      <div class="big" id="c9-big"></div>
-      <h2>The Iran shock is small so far. It is landing on households with no support left.</h2>
+      <div class="big signal" id="c-yld-big"></div>
+      <h2>Worry is not fatal, but it costs healthy years. Added up, the wounds equal hundreds of lives.</h2>
       <div class="prose">
-        <p>Six months in, motor fuel sits about 15% above its no-war path while household energy has barely moved. Most people are on contracts that reprice over the coming year. The cost so far is <strong id="c9-eur"></strong> per household. The CPB expects no purchasing-power growth this year instead of +1.4%, inflation of 3.8 to 5.3%, and €200–350 a year extra for households just above the poverty line.</p>
-        <p>The difference from 2022 is the cushion. Energy poverty fell during the Ukraine shock because support kept people out of it. When the payments stopped it went back to 6%, higher than at any point during that war. That is the starting line for Iran.</p>
+        <p>Health economists price illness in healthy life-years. A year lived with mild anxiety counts as 3% of a healthy year lost; with moderate anxiety, 13%. These are the disability weights of the Global Burden of Disease study. Financial worry is not a diagnosis, so we give it a third of the mild-anxiety weight, and use the full weight only as the upper bound. Serious hardship, like needing food aid, gets twice the mild weight.</p>
+        <p>Multiply each group of wounded by its weight and by how long the wound lasted. The total is about <strong id="c-yld-years"></strong> healthy years, the equivalent of <strong id="c-yld-lives"></strong> full lifetimes, with a range of <span id="c-yldrange"></span>. This is the softest number in the story, and the bars show why: most of it comes from millions of people each carrying a small weight.</p>
       </div>
-      <figure class="chart" id="chart-umbrella" aria-label="Households in energy poverty 2019 to 2025, with households kept out by support"></figure>
-      <div class="verdict"><span class="label">Can we blame the war?</span><span class="scale"><span class="on">Yes</span><span>Partly</span><span>Can't tell</span></span><span class="why">Fuel prices responded within weeks of the strikes. The bigger effects on gas contracts and food are still to come.</span></div>
-      <p class="sources">CBS/TNO via <a href="https://www.cbs.nl/nl-nl/nieuws/2026/30/afname-energiearmoede-stagneert-in-2025" target="_blank" rel="noopener">CBS, Afname energiearmoede stagneert in 2025</a> · CPB via <a href="https://nos.nl/l/2610684" target="_blank" rel="noopener">NOS, 16 Apr 2026</a> · Model: Eurostat HICP motor fuel (CP0722)</p>
+      <figure class="chart" id="chart-yld" aria-label="Healthy life-years lost by group of wounded, central estimate with range"></figure>
+      <div class="verdict"><span class="label">Can we blame the war?</span><span class="scale"><span>Yes</span><span class="on">Partly</span><span>Can't tell</span></span><span class="why">The counts of people are measured or close to it. The weights are our choice, anchored to GBD values, and the result moves one-for-one with them.</span></div>
+      <p class="sources">GBD disability weights for anxiety (mild 0.030, moderate 0.133, severe 0.523) via <a href="https://www.scotpho.org.uk/media/1778/sbod2016-anxiety2.pdf" target="_blank" rel="noopener">ScotPHO, Scottish Burden of Disease</a> · wounded counts from chapters 05–08</p>
     </div>
   </section>
 
-
-  <!-- 10 -->
+  <section class="part" aria-label="Part IV">
+    <span class="label">Part IV</span>
+    <h2>The hours</h2>
+    <p>What the war took that no statistic records: time.</p>
+  </section>
+  <!-- 12 -->
   <section class="chapter" id="attention">
-    <div class="index"><b>10</b><span class="label">The attention</span></div>
+    <div class="index"><b>12</b><span class="label">The attention</span></div>
     <div class="body">
       <div class="big signal" id="c10-big"></div>
-      <h2>Counted in time instead of health, the war's largest toll was attention.</h2>
+      <h2>Counted in time, the war took another thousand lifetimes.</h2>
       <div class="prose">
         <p>In the first weeks of the invasion, 87% of Dutch adults followed the war and 90% were worried about it; 44% feared a nuclear attack. On 7 March 2022 the eight o'clock news drew 2.3 million viewers. Then came a year of talk at kitchen tables, in parliament and at work about gas bills, sanctions and refugees.</p>
         <p>Nobody measured how many minutes that took, so the dial below is an assumption you can change. The default: followers spent 15 extra minutes a day on the war in the first three months, and 5 minutes a day for the rest of the year. Multiply that by about 12 million adults and divide by a waking lifetime (82 years of 16 waking hours) and you get the number above.</p>
@@ -362,24 +437,71 @@ td .tag.yes { background: var(--ink); color: var(--paper); }
             <div><strong class="mono" id="att-lives"></strong><span class="label">waking lifetimes</span></div>
           </div>
         </div>
-        <figure class="chart" id="chart-compare" aria-label="Lifetimes of health lost compared with waking lifetimes of attention"></figure>
+        <figure class="chart" id="chart-compare" aria-label="Lives lost compared with waking lifetimes of attention"></figure>
       </div>
       <div class="verdict"><span class="label">Can we blame the war?</span><span class="scale"><span class="on">Yes</span><span>Partly</span><span>Can't tell</span></span><span class="why">The attention is entirely war-driven. The minutes are an assumption; the share who followed and worried is measured. Government time (cabinet, parliament, ministries) is not counted, because no hours are published.</span></div>
       <p class="sources">I&amp;O Research for NOS, 4–7 Mar 2022 via <a href="https://www.binnenlandsbestuur.nl/bestuur-en-organisatie/io-research/nederlanders-maken-zich-grote-zorgen-om-oorlog-oekraine" target="_blank" rel="noopener">Binnenlands Bestuur</a> · NCTV flash poll, <a href="https://www.nctv.nl/binaries/nctv/documenten/rapporten/2022/03/15/flitspeiling-oekraine-2-10-3-2022-over-zorgen-gevolgen-voor-nl--informatievoorziening/Flitspeiling_oekra%C3%AFne+2_.pdf" target="_blank" rel="noopener">10 Mar 2022</a> · viewing figures via <a href="https://www.tvgids.nl/nieuws/televisie/de-tv-van-gisteren-kijkcijfers-giro555-oekraine-journaals-hunted-into-the-wild" target="_blank" rel="noopener">TV Gids</a> · adults: CBS population 2022, approximated</p>
     </div>
   </section>
 
+  <section class="part" aria-label="Part V">
+    <span class="label">Part V</span>
+    <h2>The next bill</h2>
+    <p>The Iran war, six months in.</p>
+  </section>
+  <!-- 13 -->
+  <section class="chapter" id="iran">
+    <div class="index"><b>13</b><span class="label">No umbrella</span></div>
+    <div class="body">
+      <div class="big" id="c9-big"></div>
+      <h2>The Iran shock is small so far. It is landing on households with no support left.</h2>
+      <div class="prose">
+        <p>Six months in, motor fuel sits about 15% above its no-war path while household energy has barely moved. Most people are on contracts that reprice over the coming year. The cost so far is <strong id="c9-eur"></strong> per household. The CPB expects no purchasing-power growth this year instead of +1.4%, inflation of 3.8 to 5.3%, and €200–350 a year extra for households just above the poverty line.</p>
+        <p>The difference from 2022 is the cushion. Energy poverty fell during the Ukraine shock because support kept people out of it. When the payments stopped it went back to 6%, higher than at any point during that war. That is the starting line for Iran.</p>
+      </div>
+      <figure class="chart" id="chart-umbrella" aria-label="Households in energy poverty 2019 to 2025, with households kept out by support"></figure>
+      <div class="verdict"><span class="label">Can we blame the war?</span><span class="scale"><span class="on">Yes</span><span>Partly</span><span>Can't tell</span></span><span class="why">Fuel prices responded within weeks of the strikes. The bigger effects on gas contracts and food are still to come.</span></div>
+      <p class="sources">CBS/TNO via <a href="https://www.cbs.nl/nl-nl/nieuws/2026/30/afname-energiearmoede-stagneert-in-2025" target="_blank" rel="noopener">CBS, Afname energiearmoede stagneert in 2025</a> · CPB via <a href="https://nos.nl/l/2610684" target="_blank" rel="noopener">NOS, 16 Apr 2026</a> · Model: Eurostat HICP motor fuel (CP0722)</p>
+    </div>
+  </section>
+
   <section class="ledger" id="ledger" aria-labelledby="ledger-title">
-    <div class="index"><span class="label">The ledger</span></div>
+    <div class="index"><span class="label">The casualty ledger</span></div>
     <div class="body">
       <h2 id="ledger-title">So, are there casualties?</h2>
-      <p>Yes, if you count the way this country actually lost: in money, warmth, groceries, nerves, hours and a sliver of life expectancy. No, if you count bodies; the one death figure that exists cannot be separated from flu and covid.</p>
+      <p class="ledger-lede">Yes. Not the kind a war memorial lists, but countable. Each mark below is one human life, or its equivalent in years.</p>
+      <figure class="chart" id="chart-wall" aria-label="Memorial wall: one mark per life lost or its equivalent, by cause"></figure>
+      <h3 class="sub">Of every 100 people in the Netherlands</h3>
+      <figure class="chart" id="chart-hundred" aria-label="Of every 100 residents, how many were wounded in each way"></figure>
       <div class="table-wrap">
         <table>
-          <thead><tr><th scope="col">What the war took</th><th scope="col" class="num">Ukraine 2022–23</th><th scope="col" class="num">Iran 2026, so far</th><th scope="col">Blame</th></tr></thead>
+          <thead><tr><th scope="col">The count, Russia–Ukraine war</th><th scope="col" class="num">Central</th><th scope="col" class="num">Range</th><th scope="col">Kind</th></tr></thead>
           <tbody id="ledger-rows"></tbody>
         </table>
       </div>
+      <p class="sources">Iran war so far: <span id="ledger-iran"></span></p>
+    </div>
+  </section>
+
+  <section class="epilogue" id="epilogue" aria-labelledby="epilogue-title">
+    <div class="index"><span class="label">Epilogue</span></div>
+    <div class="body">
+      <blockquote>
+        <p>“Injustice anywhere is a threat to justice everywhere.”</p>
+        <cite>Martin Luther King Jr., Letter from Birmingham Jail, 1963</cite>
+      </blockquote>
+      <h2 id="epilogue-title">The war was fought far away. Its bill was paid here, and not evenly.</h2>
+      <div class="prose">
+        <p>Every chapter of this story ends in the same place. The poorest fifth lost three times as large a share of its income before support arrived. It was five times as likely to skip a holiday, and twice as likely to lie awake over money. The households that fell through the gap in the support scheme were all in the bottom fifth. The cold, the worry and the lost years landed hardest where the margins were thinnest.</p>
+      </div>
+      <figure class="chart" id="chart-justice" aria-label="Lowest against highest income group on three measures"></figure>
+      <div class="prose">
+        <p>The war's real casualties are in Ukraine and in Iran, and they are of a different order. What this story counts is the echo: a price shock that crossed a continent and found, in one of the richest countries on earth, the same fault line every crisis finds. A country that cushioned its poorest in 2022 cut its energy poverty while prices tripled. A country that stopped cushioning them saw energy poverty return as soon as the support ended. The next war has already started sending its bill.</p>
+      </div>
+      <blockquote class="second">
+        <p>“As long as poverty, injustice and gross inequality persist in our world, none of us can truly rest.”</p>
+        <cite>Nelson Mandela, Trafalgar Square, London, 3 February 2005</cite>
+      </blockquote>
     </div>
   </section>
 
@@ -398,10 +520,12 @@ td .tag.yes { background: var(--ink); color: var(--paper); }
 </div>
 
 <script>
-const DATA = {"asOf":"2026-08","facts":{"gas":{"householdCutPct":25,"weatherAdjustedCutPct":15,"totalBcm":31,"lowestSince":1972,"source":"CBS via NOS, 13 Feb 2023","url":"https://nos.nl/l/2463617"},"thermostat":{"share":"7 in 10","before":21,"after":19,"tadoAverage":18,"source":"Milieu Centraal; tado (Wynia's Week, 1 Apr 2023)","url":"https://www.wyniasweek.nl/nederlandse-huizen-zijn-een-stuk-killer-geworden/"},"deathsNov2022":{"extraPct":10,"extra":1400,"note":"Partly covid-19; about half in vulnerable groups such as nursing homes","source":"CBS via ANP, 9 Dec 2022","url":"https://nieuws.nl/algemeen/cbs-afgelopen-maand-10-procent-meer-sterfgevallen-dan-verwacht"},"deaths2022":{"note":"CBS attributes 2022 excess mortality mainly to flu and covid-19","source":"CBS via ANP, 25 Jan 2023","url":"https://nieuws.nl/algemeen/nog-steeds-veel-oversterfte-in-2022-vooral-door-griep-en-covid"},"foodBanks":{"y2022":200000,"y2025":155000,"source":"Voedselbanken Nederland via NOS, 2 Jun 2026","url":"https://nos.nl/l/2616784"},"holidays":{"noHolidayPct":{"2019":18.5,"2020":31.7,"2021":23.3,"2022":20.2,"2023":19.2},"noMoneyShareOfStayers2023":27.6,"lowestQuartileNoHoliday":38,"highestQuartileNoHoliday":8,"source":"CBS, 1 op de 5 Nederlanders ging in 2023 niet op vakantie (2024)","url":"https://www.cbs.nl/nl-nl/nieuws/2024/28/1-op-de-5-nederlanders-ging-in-2023-niet-op-vakantie"},"flights2026":{"klmCancelled":160,"airlineExtraFuelBn":2,"source":"NL Times, 16 Apr and 1 May 2026","url":"https://nltimes.nl/2026/04/16/klm-scraps-160-flights-key-holiday-amid-soaring-fuel-prices-middle-east-tension"},"confidence":{"points":[{"m":"2022-09","v":-59,"label":"Lowest since 1986"},{"m":"2022-10","v":-59},{"m":"2026-02","v":-24},{"m":"2026-03","v":-30},{"m":"2026-04","v":-44},{"m":"2026-05","v":-46}],"average20y":-11,"source":"CBS consumer confidence, Oct 2022 and May 2026","url":"https://www.cbs.nl/nl-nl/nieuws/2026/21/consumentenvertrouwen-daalt-verder-in-mei"},"moneyWorries":{"y2021":23,"latest":30,"lowestIncome":40,"highestIncome":20,"source":"CBS via ANP, 8 Jun 2023","url":"https://www.hartvannederland.nl/algemeen-nieuws/artikelen/steeds-meer-nederlanders-maken-zich-zorgen-over-hun-financiele-situatie"},"nibud":{"makeEndsMeet":"1 in 3","callsMultiple":"1.5 to 2 times","source":"Nibud via NL Times, 15 Sep 2022","url":"https://nltimes.nl/2022/09/15/netherlands-heading-debt-crisis-budget-institute-warns"},"debtHelp":{"note":"Applications passed their January 2020 level in June 2022; CPB estimated up to 1.2 million people at risk of financial distress","source":"Divosa/NVVK monitor via Binnenlands Bestuur, 26 Oct 2022","url":"https://www.binnenlandsbestuur.nl/sociaal/meer-aanvragen-voor-schuldhulpverlening"},"cpb2026":{"koopkrachtBefore":1.4,"koopkrachtNow":0.0,"koopkrachtWorst":-1.4,"inflationLow":3.8,"inflationHigh":5.3,"nearPovertyExtraLow":200,"nearPovertyExtraHigh":350,"source":"CPB via NOS, 16 Apr 2026","url":"https://nos.nl/l/2610684"},"takeUp":{"reach2022":90,"reach2023":86,"source":"SZW, Monitor uitvoering energietoeslag (2024)","url":"https://berthub.eu/tkconv/getraw/2024D26690"},"attention":{"adults":14200000,"adultsSource":"CBS population on 1 Jan 2022, about 17.6 million, of whom roughly 14.2 million aged 18+ (approximation)","followShare":87,"worriedShare":90,"veryWorried":51,"fearNuclear":44,"pollSource":"I&O Research for NOS, 4-7 Mar 2022, n=2,132","pollUrl":"https://www.binnenlandsbestuur.nl/bestuur-en-organisatie/io-research/nederlanders-maken-zich-grote-zorgen-om-oorlog-oekraine","journaalViewers":2300000,"journaalDate":"7 Mar 2022","journaalUrl":"https://www.tvgids.nl/nieuws/televisie/de-tv-van-gisteren-kijkcijfers-giro555-oekraine-journaals-hunted-into-the-wild","nctvVeryWorriedMar":39,"nctvUrl":"https://www.nctv.nl/binaries/nctv/documenten/rapporten/2022/03/15/flitspeiling-oekraine-2-10-3-2022-over-zorgen-gevolgen-voor-nl--informatievoorziening/Flitspeiling_oekra%C3%AFne+2_.pdf","intenseDays":92,"backgroundDays":273,"intenseMinutesDefault":15,"backgroundMinutesDefault":5,"wakingHoursPerDay":16}},"ukraine":{"householdGross":1872,"nationalGrossBn":15.5,"nationalSupportBn":5.9,"energyGap":[{"m":"2022-03","v":46.6},{"m":"2022-04","v":35.4},{"m":"2022-05","v":17.5},{"m":"2022-06","v":6.7},{"m":"2022-07","v":27.0},{"m":"2022-08","v":55.2},{"m":"2022-09","v":94.4},{"m":"2022-10","v":96.1},{"m":"2022-11","v":45.8},{"m":"2022-12","v":44.9},{"m":"2023-01","v":-0.8},{"m":"2023-02","v":-4.9},{"m":"2023-03","v":-8.8},{"m":"2023-04","v":-10.0},{"m":"2023-05","v":-13.6},{"m":"2023-06","v":-15.3},{"m":"2023-07","v":-18.5},{"m":"2023-08","v":-19.0},{"m":"2023-09","v":-18.9},{"m":"2023-10","v":-19.5},{"m":"2023-11","v":-18.3},{"m":"2023-12","v":-17.8}],"peakEnergy":96,"peakEnergyMonth":"2022-10","foodReceipt":[{"m":"2022-03","v":1.23},{"m":"2022-04","v":7.9},{"m":"2022-05","v":13.46},{"m":"2022-06","v":21.03},{"m":"2022-07","v":27.36},{"m":"2022-08","v":33.15},{"m":"2022-09","v":30.57},{"m":"2022-10","v":35.84},{"m":"2022-11","v":42.86},{"m":"2022-12","v":52.3},{"m":"2023-01","v":58.03},{"m":"2023-02","v":68.33},{"m":"2023-03","v":69.49},{"m":"2023-04","v":68.77},{"m":"2023-05","v":72.27},{"m":"2023-06","v":72.56},{"m":"2023-07","v":73.29},{"m":"2023-08","v":70.55},{"m":"2023-09","v":64.95},{"m":"2023-10","v":63.16},{"m":"2023-11","v":63.38},{"m":"2023-12","v":62.33}],"foodTotal":1073,"foodGapEnd":14,"netPct":[-1.85,1.45,1.73,1.59,1.07],"grossPct":[3.73,2.59,2.2,1.93,1.25],"netEur":[-601,817,1382,1827,2346],"breakEven":32,"hoursPerPerson":4.6,"lifetimes":{"low_gross":74,"low_net":45,"central_gross":185,"central_net":113,"high_gross":369,"high_net":226},"causalCentral":0.25},"iran":{"householdGross":78,"nationalGrossBn":0.6,"nationalSupportBn":0.3,"fuelGap":[{"m":"2026-03","v":11.9},{"m":"2026-04","v":15.8},{"m":"2026-05","v":17.1},{"m":"2026-06","v":9.4},{"m":"2026-07","v":13.6},{"m":"2026-08","v":15.0}],"energyGapLast":2.6,"lifetimes":3},"phantom":[{"m":"2022-01","published":6.4,"actual":3.2},{"m":"2022-02","published":6.2,"actual":3.5},{"m":"2022-03","published":9.7,"actual":4.2},{"m":"2022-04","published":9.6,"actual":5.1},{"m":"2022-05","published":8.8,"actual":5.6},{"m":"2022-06","published":8.6,"actual":6.2},{"m":"2022-07","published":10.3,"actual":6.9},{"m":"2022-08","published":12.0,"actual":7.0},{"m":"2022-09","published":14.5,"actual":7.8},{"m":"2022-10","published":14.3,"actual":9.1},{"m":"2022-11","published":9.9,"actual":10.9},{"m":"2022-12","published":9.6,"actual":11.3},{"m":"2023-01","published":7.6,"actual":11.6},{"m":"2023-02","published":8.0,"actual":11.5},{"m":"2023-03","published":4.4,"actual":10.8},{"m":"2023-04","published":5.2,"actual":10.2},{"m":"2023-05","published":6.1,"actual":9.9}],"energyPoverty":{"2019":9.9,"2020":6.9,"2021":6.8,"2022":4.1,"2023":3.7,"2024":6.0,"2025":6.0},"keptOut":{"2022":1.8,"2023":4.3}};
+const DATA = {"asOf":"2026-08","facts":{"gas":{"householdCutPct":25,"weatherAdjustedCutPct":15,"totalBcm":31,"lowestSince":1972,"source":"CBS via NOS, 13 Feb 2023","url":"https://nos.nl/l/2463617"},"thermostat":{"share":"7 in 10","before":21,"after":19,"tadoAverage":18,"source":"Milieu Centraal; tado (Wynia's Week, 1 Apr 2023)","url":"https://www.wyniasweek.nl/nederlandse-huizen-zijn-een-stuk-killer-geworden/"},"deathsNov2022":{"extraPct":10,"extra":1400,"note":"Partly covid-19; about half in vulnerable groups such as nursing homes","source":"CBS via ANP, 9 Dec 2022","url":"https://nieuws.nl/algemeen/cbs-afgelopen-maand-10-procent-meer-sterfgevallen-dan-verwacht"},"deaths2022":{"note":"CBS attributes 2022 excess mortality mainly to flu and covid-19","source":"CBS via ANP, 25 Jan 2023","url":"https://nieuws.nl/algemeen/nog-steeds-veel-oversterfte-in-2022-vooral-door-griep-en-covid"},"foodBanks":{"y2022":200000,"y2025":155000,"source":"Voedselbanken Nederland via NOS, 2 Jun 2026","url":"https://nos.nl/l/2616784"},"holidays":{"noHolidayPct":{"2019":18.5,"2020":31.7,"2021":23.3,"2022":20.2,"2023":19.2},"noMoneyShareOfStayers2023":27.6,"lowestQuartileNoHoliday":38,"highestQuartileNoHoliday":8,"source":"CBS, 1 op de 5 Nederlanders ging in 2023 niet op vakantie (2024)","url":"https://www.cbs.nl/nl-nl/nieuws/2024/28/1-op-de-5-nederlanders-ging-in-2023-niet-op-vakantie"},"flights2026":{"klmCancelled":160,"airlineExtraFuelBn":2,"source":"NL Times, 16 Apr and 1 May 2026","url":"https://nltimes.nl/2026/04/16/klm-scraps-160-flights-key-holiday-amid-soaring-fuel-prices-middle-east-tension"},"confidence":{"points":[{"m":"2022-09","v":-59,"label":"Lowest since 1986"},{"m":"2022-10","v":-59},{"m":"2026-02","v":-24},{"m":"2026-03","v":-30},{"m":"2026-04","v":-44},{"m":"2026-05","v":-46}],"average20y":-11,"source":"CBS consumer confidence, Oct 2022 and May 2026","url":"https://www.cbs.nl/nl-nl/nieuws/2026/21/consumentenvertrouwen-daalt-verder-in-mei"},"moneyWorries":{"y2021":23,"latest":30,"lowestIncome":40,"highestIncome":20,"source":"CBS via ANP, 8 Jun 2023","url":"https://www.hartvannederland.nl/algemeen-nieuws/artikelen/steeds-meer-nederlanders-maken-zich-zorgen-over-hun-financiele-situatie"},"nibud":{"makeEndsMeet":"1 in 3","callsMultiple":"1.5 to 2 times","source":"Nibud via NL Times, 15 Sep 2022","url":"https://nltimes.nl/2022/09/15/netherlands-heading-debt-crisis-budget-institute-warns"},"debtHelp":{"note":"Applications passed their January 2020 level in June 2022; CPB estimated up to 1.2 million people at risk of financial distress","source":"Divosa/NVVK monitor via Binnenlands Bestuur, 26 Oct 2022","url":"https://www.binnenlandsbestuur.nl/sociaal/meer-aanvragen-voor-schuldhulpverlening"},"cpb2026":{"koopkrachtBefore":1.4,"koopkrachtNow":0.0,"koopkrachtWorst":-1.4,"inflationLow":3.8,"inflationHigh":5.3,"nearPovertyExtraLow":200,"nearPovertyExtraHigh":350,"source":"CPB via NOS, 16 Apr 2026","url":"https://nos.nl/l/2610684"},"takeUp":{"reach2022":90,"reach2023":86,"source":"SZW, Monitor uitvoering energietoeslag (2024)","url":"https://berthub.eu/tkconv/getraw/2024D26690"},"attention":{"adults":14200000,"adultsSource":"CBS population on 1 Jan 2022, about 17.6 million, of whom roughly 14.2 million aged 18+ (approximation)","followShare":87,"worriedShare":90,"veryWorried":51,"fearNuclear":44,"pollSource":"I&O Research for NOS, 4-7 Mar 2022, n=2,132","pollUrl":"https://www.binnenlandsbestuur.nl/bestuur-en-organisatie/io-research/nederlanders-maken-zich-grote-zorgen-om-oorlog-oekraine","journaalViewers":2300000,"journaalDate":"7 Mar 2022","journaalUrl":"https://www.tvgids.nl/nieuws/televisie/de-tv-van-gisteren-kijkcijfers-giro555-oekraine-journaals-hunted-into-the-wild","nctvVeryWorriedMar":39,"nctvUrl":"https://www.nctv.nl/binaries/nctv/documenten/rapporten/2022/03/15/flitspeiling-oekraine-2-10-3-2022-over-zorgen-gevolgen-voor-nl--informatievoorziening/Flitspeiling_oekra%C3%AFne+2_.pdf","intenseDays":92,"backgroundDays":273,"intenseMinutesDefault":15,"backgroundMinutesDefault":5,"wakingHoursPerDay":16}},"ukraine":{"householdGross":1872,"nationalGrossBn":15.5,"nationalSupportBn":5.9,"energyGap":[{"m":"2022-03","v":46.6},{"m":"2022-04","v":35.4},{"m":"2022-05","v":17.5},{"m":"2022-06","v":6.7},{"m":"2022-07","v":27.0},{"m":"2022-08","v":55.2},{"m":"2022-09","v":94.4},{"m":"2022-10","v":96.1},{"m":"2022-11","v":45.8},{"m":"2022-12","v":44.9},{"m":"2023-01","v":-0.8},{"m":"2023-02","v":-4.9},{"m":"2023-03","v":-8.8},{"m":"2023-04","v":-10.0},{"m":"2023-05","v":-13.6},{"m":"2023-06","v":-15.3},{"m":"2023-07","v":-18.5},{"m":"2023-08","v":-19.0},{"m":"2023-09","v":-18.9},{"m":"2023-10","v":-19.5},{"m":"2023-11","v":-18.3},{"m":"2023-12","v":-17.8}],"peakEnergy":96,"peakEnergyMonth":"2022-10","foodReceipt":[{"m":"2022-03","v":1.23},{"m":"2022-04","v":7.9},{"m":"2022-05","v":13.46},{"m":"2022-06","v":21.03},{"m":"2022-07","v":27.36},{"m":"2022-08","v":33.15},{"m":"2022-09","v":30.57},{"m":"2022-10","v":35.84},{"m":"2022-11","v":42.86},{"m":"2022-12","v":52.3},{"m":"2023-01","v":58.03},{"m":"2023-02","v":68.33},{"m":"2023-03","v":69.49},{"m":"2023-04","v":68.77},{"m":"2023-05","v":72.27},{"m":"2023-06","v":72.56},{"m":"2023-07","v":73.29},{"m":"2023-08","v":70.55},{"m":"2023-09","v":64.95},{"m":"2023-10","v":63.16},{"m":"2023-11","v":63.38},{"m":"2023-12","v":62.33}],"foodTotal":1073,"foodGapEnd":14,"netPct":[-1.85,1.45,1.73,1.59,1.07],"grossPct":[3.73,2.59,2.2,1.93,1.25],"netEur":[-601,817,1382,1827,2346],"breakEven":32,"hoursPerPerson":4.6,"lifetimes":{"low_gross":74,"low_net":45,"central_gross":185,"central_net":113,"high_gross":369,"high_net":226},"causalCentral":0.25},"iran":{"householdGross":78,"nationalGrossBn":0.6,"nationalSupportBn":0.3,"fuelGap":[{"m":"2026-03","v":11.9},{"m":"2026-04","v":15.8},{"m":"2026-05","v":17.1},{"m":"2026-06","v":9.4},{"m":"2026-07","v":13.6},{"m":"2026-08","v":15.0}],"energyGapLast":2.6,"lifetimes":3},"casualties":{"cold":{"season_price_gap_pct":45.78433417549695,"deaths":{"low":172.69850850997452,"central":1201.38092876504,"high":2215.0460874105424},"observed_excess_dec_jan":4800},"wounded":[{"group":"Needed food aid","severity":"serious","people":49500,"years":1.0,"weight":{"low":0.03,"central":0.06,"high":0.133},"healthy_years":{"low":1485.0,"central":2970.0,"high":6583.5},"blame":"partly"},{"group":"Poorest fifth without the €1,300 payment","severity":"serious","people":854806,"years":1.83,"weight":{"low":0.005,"central":0.01,"high":0.03},"healthy_years":{"low":7821.479474999999,"central":15642.958949999998,"high":46928.876849999986},"blame":"yes"},{"group":"New money worries","severity":"light","people":994000,"years":1.5,"weight":{"low":0.005,"central":0.01,"high":0.03},"healthy_years":{"low":7455.0,"central":14910.0,"high":44730.0},"blame":"partly"},{"group":"Worried a lot about the war","severity":"light","people":5538000,"years":0.1667,"weight":{"low":0.005,"central":0.01,"high":0.03},"healthy_years":{"low":4615.923,"central":9231.846,"high":27695.537999999997},"blame":"yes"},{"group":"Skipped a holiday","severity":"light","people":255000,"years":1.0,"weight":{"low":0.0025,"central":0.005,"high":0.015},"healthy_years":{"low":637.5,"central":1275.0,"high":3825.0},"blame":"can't tell"},{"group":"Lived in a colder home","severity":"light","people":10710000,"years":0.5,"weight":{"low":0.0,"central":0.0,"high":0.0},"healthy_years":{"low":0.0,"central":0.0,"high":0.0},"blame":"yes"}],"income_lifetimes":{"low":45.16342515918556,"central":112.90856289796386,"high":225.81712579592772},"wound_lifetimes":{"low":268.4744204268293,"central":536.9488408536586,"high":1582.4745713414632},"total_lives":{"low":486.33635409598935,"central":1851.2383325166625,"high":4023.3377845479336},"attention_lifetimes":1179.4366955476537,"serious_wounded":904306,"light_wounded":17497000},"phantom":[{"m":"2022-01","published":6.4,"actual":3.2},{"m":"2022-02","published":6.2,"actual":3.5},{"m":"2022-03","published":9.7,"actual":4.2},{"m":"2022-04","published":9.6,"actual":5.1},{"m":"2022-05","published":8.8,"actual":5.6},{"m":"2022-06","published":8.6,"actual":6.2},{"m":"2022-07","published":10.3,"actual":6.9},{"m":"2022-08","published":12.0,"actual":7.0},{"m":"2022-09","published":14.5,"actual":7.8},{"m":"2022-10","published":14.3,"actual":9.1},{"m":"2022-11","published":9.9,"actual":10.9},{"m":"2022-12","published":9.6,"actual":11.3},{"m":"2023-01","published":7.6,"actual":11.6},{"m":"2023-02","published":8.0,"actual":11.5},{"m":"2023-03","published":4.4,"actual":10.8},{"m":"2023-04","published":5.2,"actual":10.2},{"m":"2023-05","published":6.1,"actual":9.9}],"energyPoverty":{"2019":9.9,"2020":6.9,"2021":6.8,"2022":4.1,"2023":3.7,"2024":6.0,"2025":6.0},"keptOut":{"2022":1.8,"2023":4.3}};
 const NS = "http://www.w3.org/2000/svg";
 const $ = (id) => document.getElementById(id);
 const eur = (v) => "€" + Math.round(v).toLocaleString("en-GB");
+const num = (v) => Math.round(v).toLocaleString("en-GB");
+const people = (v) => v >= 1e6 ? (v / 1e6).toFixed(v >= 1e7 ? 1 : 2).replace(/\.?0+$/, "") + " million" : num(Math.round(v / 1000) * 1000);
 const monthName = (m) => new Date(m + "-01T00:00:00").toLocaleString("en-GB", { month: "short", year: "numeric" });
 
 function el(tag, attrs = {}, parent) {
@@ -425,26 +549,45 @@ const narrow = (W) => W < 520;
 
 /* Static figures */
 function fillText() {
-  const u = DATA.ukraine, i = DATA.iran, f = DATA.facts;
+  const u = DATA.ukraine, i = DATA.iran, f = DATA.facts, c = DATA.casualties;
+  const groups = Object.fromEntries(c.wounded.map((g) => [g.group, g]));
+  const dead = c.cold.deaths, yld = c.wound_lifetimes, tot = c.total_lives;
+  const yldYears = c.wounded.reduce((a, g) => a + g.healthy_years.central, 0);
   $("asof").textContent = "Prices to " + monthName(DATA.asOf);
   $("foot-asof").textContent = "Updated monthly · prices to " + monthName(DATA.asOf);
-  $("hero-hours").textContent = u.hoursPerPerson.toFixed(1) + " hours";
-  $("h-household").textContent = eur(u.householdGross);
-  $("h-national").textContent = "€" + u.nationalGrossBn + " bn";
-  $("h-support").textContent = "€" + u.nationalSupportBn + " bn";
-  $("h-lifetimes").textContent = u.lifetimes.central_net;
-  $("h-range").textContent = u.lifetimes.low_net + "–" + u.lifetimes.high_net;
-  $("h-iran").textContent = eur(i.householdGross);
+  $("hero-dead").textContent = "about " + num(Math.round(dead.central / 100) * 100);
+  $("hero-serious").textContent = "more than " + num(Math.floor(c.serious_wounded / 100000) * 100000);
+  $("hero-hours-att").textContent = num(Math.round(c.attention_lifetimes / 10) * 10);
+  $("h-dead").textContent = "≈" + num(Math.round(dead.central / 100) * 100);
+  $("h-lives").textContent = "≈" + num(Math.round(tot.central / 50) * 50);
+  $("h-serious").textContent = Math.round(c.serious_wounded / 1000) + "k";
+  $("h-light").textContent = (c.light_wounded / 1e6).toFixed(1) + "m";
+  $("h-att").textContent = "≈" + num(Math.round(c.attention_lifetimes / 10) * 10);
   $("c1-big").innerHTML = "+" + u.peakEnergy + "<small>%</small>";
   $("c2-big").innerHTML = "14.5<small>% vs</small> 7.8<small>%</small>";
   $("c3-big").innerHTML = "19<small>°C</small>";
   $("c3-gas").textContent = "−" + f.gas.householdCutPct + "%";
+  $("c-coldhome").textContent = people(groups["Lived in a colder home"].people);
+  $("c-coldhome2").textContent = (groups["Lived in a colder home"].people / 1e6).toFixed(1) + "m";
   $("c4-big").textContent = eur(u.foodTotal);
   $("c4-total").textContent = eur(u.foodTotal);
   $("c4-gap").textContent = u.foodGapEnd + "%";
+  $("c-warworry").textContent = people(groups["Worried a lot about the war"].people);
+  $("c-moneyworry").textContent = people(groups["New money worries"].people);
   $("c5-big").innerHTML = "38<small>% vs</small> 8<small>%</small>";
+  $("c-holiday").textContent = people(groups["Skipped a holiday"].people);
+  $("c-serious-big").innerHTML = Math.round(c.serious_wounded / 1000) + "<small>thousand</small>";
+  $("c-missed").textContent = people(groups["Poorest fifth without the €1,300 payment"].people);
   $("c7-big").innerHTML = "1.5–1.7<small>%</small>";
   $("c7-be").textContent = u.breakEven + "%";
+  $("c-dead-big").innerHTML = "≈" + num(Math.round(dead.central / 100) * 100) + "<small>deaths</small>";
+  $("c-heatgap").textContent = Math.round(c.cold.season_price_gap_pct) + "%";
+  $("c-dead").textContent = num(Math.round(dead.central / 100) * 100);
+  $("c-deadrange").textContent = num(Math.round(dead.low / 10) * 10) + " to " + num(Math.round(dead.high / 100) * 100);
+  $("c-yld-big").innerHTML = "≈" + num(Math.round(yld.central / 10) * 10) + "<small>lives</small>";
+  $("c-yld-years").textContent = num(Math.round(yldYears / 1000) * 1000);
+  $("c-yld-lives").textContent = num(Math.round(yld.central / 10) * 10);
+  $("c-yldrange").textContent = num(Math.round(yld.low / 10) * 10) + " to " + num(Math.round(yld.high / 10) * 10);
   $("c9-big").textContent = eur(i.householdGross);
   $("c9-eur").textContent = eur(i.householdGross);
 }
@@ -707,7 +850,7 @@ function umbrella() {
 
 /* 10 Attention: minutes x followers / waking lifetime */
 function attention() {
-  const a = DATA.facts.attention, life = DATA.ukraine.lifetimes.central_net;
+  const a = DATA.facts.attention, life = Math.round(DATA.casualties.total_lives.central);
   const followers = a.adults * a.followShare / 100;
   const waking = 82 * 365.25 * a.wakingHoursPerDay;
   const intense = $("intense"), background = $("background");
@@ -718,7 +861,6 @@ function attention() {
     $("att-lives").textContent = Math.round(lives).toLocaleString("en-GB");
     $("c10-big").innerHTML = Math.round(lives).toLocaleString("en-GB") + "<small>waking lifetimes</small>";
     compare(life, lives);
-    ledgerAttention(lives, hours);
   };
   intense.addEventListener("input", update);
   background.addEventListener("input", update);
@@ -731,9 +873,11 @@ function compare(health, attention) {
   const s = svg(host, W, H);
   const max = Math.max(health, attention, 1);
   const w = (v) => (W - L - 10) * v / max;
-  text(s, 0, 30, "Health: life-years lost to lower income", { class: "t-ink" });
+  text(s, 0, 30, "Lives: deaths and life-year equivalents", { class: "t-ink" });
   el("rect", { x: L, y: 40, width: Math.max(w(health), 2), height: barH, class: "f-signal" }, s);
-  text(s, L + Math.max(w(health), 2) + 6, 62, health + " lifetimes", { class: "t-signal" });
+  const hl = health.toLocaleString("en-GB") + " lives";
+  const hin = w(health) > 120;
+  text(s, hin ? L + 8 : L + Math.max(w(health), 2) + 6, 62, hl, hin ? { style: "fill:var(--paper)" } : { class: "t-signal" });
   text(s, 0, 120, "Attention: news, talk and worry", { class: "t-ink" });
   el("rect", { x: L, y: 130, width: Math.max(w(attention), 2), height: barH, class: "f-ink" }, s);
   const label = Math.round(attention).toLocaleString("en-GB") + " waking lifetimes";
@@ -741,30 +885,175 @@ function compare(health, attention) {
   text(s, inside ? L + 8 : L + w(attention) + 6, 152, label, inside ? { style: "fill:var(--paper)" } : { class: "t-ink" });
   text(s, 0, H - 4, "Same scale. Bars are equivalents, not people.", {});
 }
-function ledger() {
-  const u = DATA.ukraine, i = DATA.iran, f = DATA.facts;
-  const rows = [
-    ["Money per household (food, energy, fuel)", eur(u.householdGross), eur(i.householdGross), "yes"],
-    ["Money, nationally / paid back by support", "€" + u.nationalGrossBn + " bn / €" + u.nationalSupportBn + " bn", "€" + i.nationalGrossBn + " bn / €" + i.nationalSupportBn + " bn", "yes"],
-    ["Groceries, extra per household", eur(u.foodTotal), "food below path", "partly"],
-    ["Household gas use", "−" + f.gas.householdCutPct + "%", "barely moved", "partly"],
-    ["Living-room temperature", "19 °C, from 21", "no data", "partly"],
-    ["Deaths above expected, Nov 2022", "+1,400", "no data", "can't tell"],
-    ["Consumer confidence, lowest reading", "−59", "−46", "partly"],
-    ["Life expectancy per person", u.hoursPerPerson.toFixed(1) + " hours", (u.hoursPerPerson * i.lifetimes / u.lifetimes.central_net).toFixed(1) + " hours", "partly"],
-    ["Full lifetimes, health equivalent", u.lifetimes.central_net + " (" + u.lifetimes.low_net + "–" + u.lifetimes.high_net + ")", String(i.lifetimes), "partly"],
-    ["Waking lifetimes of attention", "<span id=\"ledger-att\"></span>", "not estimated", "yes"],
-  ];
-  $("ledger-rows").innerHTML = rows.map(([what, a, b, blame]) =>
-    `<tr><td>${what}</td><td class="num"><strong>${a}</strong></td><td class="num">${b}</td><td><span class="tag ${blame === "yes" ? "yes" : ""}">${blame}</span></td></tr>`).join("");
+
+/* 08 Serious wounded: two queues */
+function seriousChart() {
+  const c = DATA.casualties, f = DATA.facts;
+  const missed = c.wounded.find((g) => g.group.startsWith("Poorest fifth")).people;
+  const W = widthOf("chart-serious", 720), H = 190, L = 0;
+  const s = svg($("chart-serious"), W, H);
+  const max = Math.max(197000, missed) * 1.05;
+  const x = (v) => L + (W - 20) * v / max;
+  text(s, 0, 16, "People helped by food banks", { class: "t-ink" });
+  el("rect", { x: L, y: 26, width: x(147500), height: 26, class: "f-grey" }, s);
+  el("rect", { x: x(147500), y: 26, width: x(197000) - x(147500), height: 26, class: "f-signal" }, s);
+  text(s, x(147500) - 6, 44, "2021: 147,500", { "text-anchor": "end", class: "t-ink" });
+  text(s, x(197000) + 6, 44, "+49,500 in 2022", { class: "t-signal" });
+  text(s, 0, 102, narrow(W) ? "Poorest fifth, no €1,300 payment" : "Poorest fifth without the €1,300 payment", { class: "t-ink" });
+  el("rect", { x: L, y: 112, width: x(missed), height: 26, class: "f-signal" }, s);
+  const inside = x(missed) > 200;
+  text(s, inside ? x(missed) - 8 : x(missed) + 6, 130, people(missed) + " people", inside ? { "text-anchor": "end", style: "fill:var(--paper)" } : { class: "t-signal" });
+  text(s, 0, H - 6, narrow(W) ? "Same scale." : "Same scale. Red is our serious-wound count.", {});
 }
-function ledgerAttention(lives, hours) {
-  const cell = $("ledger-att");
-  if (cell) cell.textContent = Math.round(lives).toLocaleString("en-GB") + " (" + Math.round(hours / 1e6) + "m hours)";
+
+/* 09 Deaths: estimate inside the recorded winter excess */
+function deathsChart() {
+  const c = DATA.casualties.cold, d = c.deaths;
+  const W = widthOf("chart-deaths", 720), H = 170, L = 0, R = 20;
+  const s = svg($("chart-deaths"), W, H);
+  const max = c.observed_excess_dec_jan * 1.05;
+  const x = (v) => L + (W - L - R) * v / max;
+  text(s, 0, 16, narrow(W) ? "All excess deaths, Nov–Jan (CBS)" : "All deaths above expected, late Nov 2022 – Jan 2023 (CBS, all causes)", { class: "t-ink" });
+  el("rect", { x: L, y: 26, width: x(c.observed_excess_dec_jan), height: 34, class: "f-grey" }, s);
+  text(s, x(c.observed_excess_dec_jan) - 8, 48, "≈" + num(c.observed_excess_dec_jan), { "text-anchor": "end", class: "t-ink" });
+  text(s, 0, 92, narrow(W) ? "Our estimate, heating prices, Oct–Mar" : "Our estimate of deaths from heating prices, Oct 2022 – Mar 2023", { class: "t-signal" });
+  el("rect", { x: L, y: 102, width: x(d.central), height: 34, class: "f-signal" }, s);
+  el("line", { x1: x(d.low), x2: x(d.high), y1: 119, y2: 119, class: "s-ink", "stroke-width": 1.5 }, s);
+  for (const v of [d.low, d.high]) el("line", { x1: x(v), x2: x(v), y1: 110, y2: 128, class: "s-ink", "stroke-width": 1.5 }, s);
+  text(s, x(d.high) + 6, 123, "≈" + num(Math.round(d.central / 100) * 100) + " (" + num(Math.round(d.low / 10) * 10) + "–" + num(Math.round(d.high / 100) * 100) + ")", { class: "t-ink" });
+  text(s, 0, H - 4, narrow(W) ? "Different windows; size only." : "Different windows and different causes; shown on one scale for size only.", {});
+}
+
+/* 11 Healthy years by group, with ranges */
+function yldChart() {
+  const groups = DATA.casualties.wounded.filter((g) => g.healthy_years.high > 0)
+    .sort((a, b) => b.healthy_years.central - a.healthy_years.central);
+  const W = widthOf("chart-yld", 720), rowH = 46, T = 10, H = T + groups.length * rowH + 24;
+  const s = svg($("chart-yld"), W, H);
+  const max = Math.max(...groups.map((g) => g.healthy_years.high)) * 1.05;
+  const x = (v) => (W - 96) * v / max;
+  groups.forEach((g, k) => {
+    const y0 = T + k * rowH;
+    const name = narrow(W) ? g.group.replace("Poorest fifth without the €1,300 payment", "Poorest, no €1,300").replace("Worried a lot about the war", "Worried a lot (war)") : g.group;
+    text(s, 0, y0 + 12, name + " · " + people(g.people), { class: "t-ink" });
+    el("rect", { x: 0, y: y0 + 18, width: Math.max(x(g.healthy_years.central), 2), height: 14, class: g.severity === "serious" ? "f-signal" : "f-soft" }, s);
+    el("line", { x1: x(g.healthy_years.low), x2: x(g.healthy_years.high), y1: y0 + 25, y2: y0 + 25, class: "s-ink" }, s);
+    el("line", { x1: x(g.healthy_years.high), x2: x(g.healthy_years.high), y1: y0 + 19, y2: y0 + 31, class: "s-ink" }, s);
+    const lbl = num(Math.round(g.healthy_years.central / 100) * 100) + " yrs";
+    text(s, x(g.healthy_years.high) + 6, y0 + 29, lbl, {});
+  });
+  text(s, 0, H - 4, narrow(W) ? "Bar: central. Line: range." : "Bar: central estimate. Line: low to high weight. Dark red: serious wounds.", {});
+}
+
+/* Ledger: memorial wall, one mark per life */
+function wall() {
+  const c = DATA.casualties;
+  const parts = [
+    { n: Math.round(c.cold.deaths.central), cls: "f-ink", label: "deaths from the cold (estimate)", short: "deaths, cold" },
+    { n: Math.round(c.income_lifetimes.central), cls: "f-signal", label: "lifetimes of life expectancy lost to lower income", short: "lifetimes, lower income" },
+    { n: Math.round(c.wound_lifetimes.central), cls: "f-soft", label: "lifetimes of healthy years worn away by worry and hardship", short: "lifetimes, worry & hardship" },
+  ];
+  const att = Math.round(c.attention_lifetimes);
+  const W = widthOf("chart-wall", 1000);
+  const cell = W < 520 ? 5 : 7, gap = 1.5, cols = Math.floor(W / (cell + gap));
+  const lives = parts.reduce((a, p) => a + p.n, 0);
+  const rowsLives = Math.ceil(lives / cols), rowsAtt = Math.ceil(att / cols);
+  const legendH = 18 * (parts.length + 1) + 30;
+  const H = rowsLives * (cell + gap) + 40 + rowsAtt * (cell + gap) + legendH + 30;
+  const s = svg($("chart-wall"), W, H);
+  text(s, 0, 12, "Lives: " + num(lives), { class: "t-ink" });
+  let k = 0;
+  const y0 = 22;
+  for (const p of parts) {
+    for (let i = 0; i < p.n; i++, k++) {
+      el("rect", { x: (k % cols) * (cell + gap), y: y0 + Math.floor(k / cols) * (cell + gap), width: cell, height: cell, class: p.cls }, s);
+    }
+  }
+  const y1 = y0 + rowsLives * (cell + gap) + 28;
+  text(s, 0, y1 - 10, (narrow(W) ? "Waking lifetimes, attention: " : "Waking lifetimes spent following the war: ") + num(att), { class: "t-ink" });
+  for (let i = 0; i < att; i++) {
+    el("rect", { x: (i % cols) * (cell + gap) + 0.5, y: y1 + Math.floor(i / cols) * (cell + gap) + 0.5, width: cell - 1, height: cell - 1, class: "f-none s-grey", "stroke-width": 0.8 }, s);
+  }
+  let ly = y1 + rowsAtt * (cell + gap) + 24;
+  for (const p of [...parts, { n: att, cls: "f-none s-grey", label: "waking lifetimes of attention (time, not health)", short: "waking lifetimes, attention" }]) {
+    el("rect", { x: 0, y: ly - 9, width: 10, height: 10, class: p.cls }, s);
+    text(s, 18, ly, num(p.n) + "  " + (narrow(W) ? p.short : p.label), {});
+    ly += 18;
+  }
+}
+
+/* Ledger: of every 100 residents */
+function hundred() {
+  const c = DATA.casualties, pop = 17900000;
+  const g = Object.fromEntries(c.wounded.map((x) => [x.group, x]));
+  const items = [
+    ["lived in a colder home", g["Lived in a colder home"].people, "f-soft"],
+    ["worried a lot (war)", g["Worried a lot about the war"].people, "f-soft"],
+    ["gained new money worries", g["New money worries"].people, "f-soft"],
+    ["seriously wounded", c.serious_wounded, "f-signal"],
+  ];
+  const W = widthOf("chart-hundred", 1000);
+  const perRow = W < 520 ? 2 : 4, panelW = W / perRow, cell = Math.min(14, (panelW - 30) / 10), gap = 3;
+  const panelH = 10 * (cell + gap) + 46;
+  const H = Math.ceil(items.length / perRow) * panelH;
+  const s = svg($("chart-hundred"), W, H);
+  items.forEach(([label, n, cls], k) => {
+    const share = Math.round(n / pop * 100);
+    const x0 = (k % perRow) * panelW, y0 = Math.floor(k / perRow) * panelH;
+    for (let i = 0; i < 100; i++) {
+      const cx = x0 + (i % 10) * (cell + gap) + cell / 2, cy = y0 + Math.floor(i / 10) * (cell + gap) + cell / 2;
+      el("circle", { cx, cy, r: cell / 2, class: i < share ? cls : "f-grey" }, s);
+    }
+    text(s, x0, y0 + 10 * (cell + gap) + 16, share + " in 100", { class: cls === "f-signal" ? "t-signal" : "t-ink", style: "font-weight:500" });
+    text(s, x0, y0 + 10 * (cell + gap) + 30, label, {});
+  });
+}
+
+/* Ledger table */
+function ledgerTable() {
+  const c = DATA.casualties, i = DATA.iran;
+  const r = (v, to) => num(Math.round(v / to) * to);
+  const rows = [
+    ["Deaths from the cold, winter 2022–23", r(c.cold.deaths.central, 100), r(c.cold.deaths.low, 10) + "–" + r(c.cold.deaths.high, 100), "dead (estimated)"],
+    ["Life expectancy lost to lower income", r(c.income_lifetimes.central, 1), r(c.income_lifetimes.low, 1) + "–" + r(c.income_lifetimes.high, 1), "lifetimes, equivalent"],
+    ["Healthy years lost to worry and hardship", r(c.wound_lifetimes.central, 10), r(c.wound_lifetimes.low, 10) + "–" + r(c.wound_lifetimes.high, 10), "lifetimes, equivalent"],
+    ["<strong>All lives</strong>", "<strong>" + r(c.total_lives.central, 50) + "</strong>", r(c.total_lives.low, 10) + "–" + r(c.total_lives.high, 100), "dead + equivalents"],
+    ["Seriously wounded", people(c.serious_wounded), "", "people"],
+    ["Light wounds", (c.light_wounded / 1e6).toFixed(1) + " million", "", "wounds; many people more than once"],
+    ["Waking lifetimes spent following the war", r(c.attention_lifetimes, 10), "assumed minutes", "time, not health"],
+  ];
+  $("ledger-rows").innerHTML = rows.map(([what, a, b, kind]) =>
+    `<tr><td>${what}</td><td class="num"><strong>${a}</strong></td><td class="num">${b}</td><td>${kind}</td></tr>`).join("");
+  $("ledger-iran").textContent = `${eur(i.householdGross)} per household, about ${i.lifetimes} lifetimes of life expectancy, and the winter has not started.`;
+}
+
+/* Epilogue: lowest against highest income */
+function justice() {
+  const u = DATA.ukraine, f = DATA.facts;
+  const rows = [
+    ["Took no holiday (2023)", f.holidays.lowestQuartileNoHoliday, f.holidays.highestQuartileNoHoliday, "%"],
+    ["Worried about money", f.moneyWorries.lowestIncome, f.moneyWorries.highestIncome, "%"],
+    ["Income lost to the war before support", u.grossPct[0], u.grossPct[4], "%"],
+  ];
+  const W = widthOf("chart-justice", 720), rowH = 58, T = 20, H = T + rows.length * rowH + 20;
+  const s = svg($("chart-justice"), W, H);
+  const L = 34, R = narrow(W) ? 60 : 130;
+  const x = (v) => L + (W - L - R) * v / 42;
+  rows.forEach(([label, lo, hi, unit], k) => {
+    const y = T + k * rowH + 26;
+    text(s, 0, y - 14, label, { class: "t-ink" });
+    el("line", { x1: x(0), x2: x(42), y1: y, y2: y, class: "s-rule" }, s);
+    el("line", { x1: x(hi), x2: x(lo), y1: y, y2: y, class: "s-ink", "stroke-width": 2 }, s);
+    el("circle", { cx: x(hi), cy: y, r: 6, class: "f-ink" }, s);
+    el("circle", { cx: x(lo), cy: y, r: 7, class: "f-signal" }, s);
+    text(s, x(lo) + 10, y + 4, (lo % 1 ? lo.toFixed(1) : lo) + unit + (k === 0 && !narrow(W) ? " lowest income" : ""), { class: "t-signal" });
+    text(s, x(hi) - 10, y + 4, (hi % 1 ? hi.toFixed(1) : hi) + unit + (k === 0 && !narrow(W) ? " highest" : ""), { "text-anchor": "end" });
+  });
+  text(s, 0, H - 2, narrow(W) ? "Black: highest income. Red: lowest." : "Black: highest income group. Red: lowest. Groups are quarters for holidays, fifths otherwise.", {});
 }
 
 fillText();
-ledger();
+ledgerTable();
 seismograph();
 phantom();
 thermometer();
@@ -775,6 +1064,12 @@ waterline();
 dial();
 umbrella();
 attention();
+seriousChart();
+deathsChart();
+yldChart();
+wall();
+hundred();
+justice();
 
 let resizeTimer, lastWidth = window.innerWidth;
 window.addEventListener("resize", () => {
@@ -783,6 +1078,7 @@ window.addEventListener("resize", () => {
   clearTimeout(resizeTimer);
   resizeTimer = setTimeout(() => {
     seismograph(); phantom(); thermometer(); holidays(); nerves(); waterline(); umbrella();
+    seriousChart(); deathsChart(); yldChart(); wall(); hundred(); justice();
     $("receipt").innerHTML = ""; receipt();
     $("causal").dispatchEvent(new Event("input")); $("intense").dispatchEvent(new Event("input"));
   }, 150);
