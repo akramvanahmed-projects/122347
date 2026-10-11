@@ -199,6 +199,9 @@ table.methods td.refs a, .reflist a { color: var(--ink-2); }
 .sw.life { background: var(--signal); }
 .sw.time { background: var(--ink); }
 
+.hero.hero-title { padding-block: 40px 8px; border-bottom: none; }
+.tally.top { padding-block: 24px 64px; }
+
 @media (max-width: 760px) {
   .tally .index, .tally .body { grid-column: 1 / -1; }
   .hero .figures.five { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -233,8 +236,26 @@ table.methods td.refs a, .reflist a { color: var(--ink-2); }
     </blockquote>
   </section>
 
-  <section class="hero" aria-labelledby="title">
+  <section class="hero hero-title">
     <h1 id="title">Are there human casualties in the Netherlands from the wars in Ukraine and Iran?</h1>
+  </section>
+
+  <section class="tally top" id="tally" aria-labelledby="tally-title">
+    <div class="index"><span class="label">The running count</span></div>
+    <div class="body">
+      <h2 id="tally-title">Yes. Here is the count, step by step.</h2>
+      <p class="tally-lede">Follow the line from top to bottom. Each stop is one way the war hurt people in the Netherlands, with what it added and the total so far. The line turns red and thickens once lives are lost.</p>
+      <dl class="key">
+        <div><dt><span class="sw light"></span>Light wound</dt><dd>Life got harder for a while: a cold home, worry, no holiday.</dd></div>
+        <div><dt><span class="sw serious"></span>Serious wound</dt><dd>Real hardship: needing a food bank, or losing income with no support.</dd></div>
+        <div><dt><span class="sw life"></span>Life lost</dt><dd>A death, or the same number of years of life spread thinly over many people.</dd></div>
+        <div><dt><span class="sw time"></span>Waking lifetime</dt><dd>82 years of waking hours, spent following the war instead of living.</dd></div>
+      </dl>
+      <figure class="chart" id="chart-tally" aria-label="Winding line through each casualty chapter with the running totals"></figure>
+    </div>
+  </section>
+
+  <section class="hero" aria-label="Summary figures">
     <p class="answer">No bombs fell here. But a war two thousand kilometres away reached every kitchen, meter cupboard and holiday plan in the country. Counted the way an army counts its losses, the Russia–Ukraine war left the Netherlands with <em id="hero-dead"></em> dead from the cold, <em id="hero-serious"></em> seriously wounded, a light wound on almost everyone, and <em id="hero-hours-att"></em> waking lifetimes spent watching it happen.</p>
     <p class="answer small">This is how we counted, chapter by chapter, with every source and every assumption in view.</p>
     <div class="figures five">
@@ -255,22 +276,8 @@ table.methods td.refs a, .reflist a { color: var(--ink-2); }
 
   <section class="part summary-head" id="summary" aria-label="Executive summary">
     <span class="label">Executive summary</span>
-    <h2>The count in three pages</h2>
-    <p>The running total, the ledger and what it means. Everything after this is the evidence, chapter by chapter.</p>
-  </section>
-  <section class="tally" id="tally" aria-labelledby="tally-title">
-    <div class="index"><span class="label">The running count</span></div>
-    <div class="body">
-      <h2 id="tally-title">Chapter by chapter, the count adds up.</h2>
-      <p class="tally-lede">Follow the line from top to bottom. Each stop is one way the war hurt people in the Netherlands, with what it added and the total so far. The line turns red and thickens once lives are lost.</p>
-      <dl class="key">
-        <div><dt><span class="sw light"></span>Light wound</dt><dd>Life got harder for a while: a cold home, worry, no holiday.</dd></div>
-        <div><dt><span class="sw serious"></span>Serious wound</dt><dd>Real hardship: needing a food bank, or losing income with no support.</dd></div>
-        <div><dt><span class="sw life"></span>Life lost</dt><dd>A death, or the same number of years of life spread thinly over many people.</dd></div>
-        <div><dt><span class="sw time"></span>Waking lifetime</dt><dd>82 years of waking hours, spent following the war instead of living.</dd></div>
-      </dl>
-      <figure class="chart" id="chart-tally" aria-label="Winding line through each casualty chapter with the running totals"></figure>
-    </div>
+    <h2>The count in two pages</h2>
+    <p>The ledger and what it means. Everything after this is the evidence, chapter by chapter.</p>
   </section>
   <section class="ledger" id="ledger" aria-labelledby="ledger-title">
     <div class="index"><span class="label">The casualty ledger</span></div>
