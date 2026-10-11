@@ -50,3 +50,13 @@ Each figure started from the question of what the data feels like, then took the
 4. **What drove it.** Bold: a relay, energy handing over to food, as stacked monthly bars with only food in red (chosen). Moderate: two lines crossing in January 2023. Conservative: annual totals by category.
 5. **Human cost.** Bold: one dot per 82-year lifetime, red for lost, open for prevented by support, the same dot size for both wars (chosen). Moderate: a range bar per war. Conservative: point estimates with error bars.
 6. **Support.** Bold: energy poverty with the "would have been" share hatched above the bars during the support years, beside the break-even curve (chosen). Moderate: a single line with the support period shaded. Conservative: a table.
+
+## Review of the October 2026 additions
+
+The story page and the "Beyond the household budget" section widen the project from a price model to a social account. That makes it more interesting and more exposed.
+
+- **Attention is the largest number in the project and rests on the softest input.** The share of adults who followed and worried is measured (87% and 90%, I&O for NOS). The minutes per day are assumed (15 then 5). The result scales one-for-one with them, so 1,180 waking lifetimes could as easily be 400 or 3,000. The page makes the assumption adjustable rather than hiding it, which is the right call, but no headline should quote the number without the dial next to it.
+- **Waking lifetimes and health lifetimes are not the same unit.** Putting them on one axis invites the reader to add them. The page states that time spent following a war is not lost the way a life is. A stricter version would value attention in euros using a wage rate, which is how time-use economics normally prices it.
+- **The death figure is presented without attribution, deliberately.** November 2022's 1,400 excess deaths are shown because readers will ask, and labelled "can't tell" because CBS attributes 2022 excess mortality mainly to flu and covid. A proper study would regress weekly excess deaths on indoor temperature or gas use, controlling for flu and covid incidence. That is the most valuable extension left.
+- **Several facts come from news reports of CBS releases rather than StatLine tables** (gas use, holidays, consumer confidence, money worries). They are traceable to CBS, but the confidence and gas series should be pulled from StatLine by the pipeline so they refresh with the rest.
+- **Verdicts are judgement.** The "Can we blame the war?" scale is the author's reading of the evidence, stated per chapter with its reason. It is a communication device, not a statistical test.

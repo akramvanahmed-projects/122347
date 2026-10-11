@@ -60,8 +60,6 @@ results = run_all(cfg, inputs, method=method, energy_weight=energy_weight, surve
 lives = human_cost(cfg, inputs, results)
 
 st.title("Are there human casualties in the Netherlands from the wars in Ukraine and Iran?")
-st.markdown("<div dir='rtl' style='font-size:1.1rem;color:#555'>"
-            "هل يوجد ضحايا بشرية في هولندا بسبب الحرب في أوكرانيا والآن في إيران؟</div>", unsafe_allow_html=True)
 st.caption(f"Prices to {inputs['prices'].index.max()}. Excess cost of food, home energy and motor fuel "
            "against a no-war path. Life-years are an equivalence derived from the income–longevity gradient.")
 

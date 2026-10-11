@@ -2,7 +2,9 @@
 
 The Russia–Ukraine war cost Dutch households €15.5 billion in excess spending on food, home energy and motor fuel between March 2022 and December 2023. Support returned €5.9 billion. After support, the middle three income fifths lost between 1.5% and 1.7% of their disposable income, and the richest fifth 1.1%. The poorest fifth came out 1.9% ahead, but only on average and only if enough of them claimed the energietoeslag. Translated into life expectancy, the net loss equals about 113 full lifetimes (range 45 to 226). The Iran war has so far cost €78 per household and the equivalent of 3 lifetimes. Its price shock has reached the petrol pump but not, as of August 2026, the gas meter.
 
-These numbers come from a deliberately narrow definition of "war cost", and most of this report is about why it is narrow.
+These numbers come from a deliberately narrow definition of "war cost", and most of this report is about why it is narrow. The second half widens the lens to what money does not capture: the heating turned down, the holiday not taken, the record low in consumer confidence, and the attention the war absorbed. Measured in waking time rather than health, that attention is the largest toll of all: on transparent but assumed inputs, about 1,200 waking lifetimes for the Ukraine war's first year.
+
+A companion story page presents the same results visually: `docs/index.html` in the repository.
 
 ## What is measured
 
@@ -38,7 +40,22 @@ First, the gradient is cross-sectional and mostly not causal. Illness lowers inc
 
 The result for Ukraine, after support, is 9,259 life-years and 19,606 healthy life-years across 18 million people. That works out to 0.19 days of life per resident. Divided by life expectancy, it equals 113 full lifetimes. Without support it would have been 185 (figure 5). For Iran so far: 3.
 
-These are equivalences, not deaths. Nobody in this model dies. The figure says that a loss of life expectancy spread thinly over everyone adds up to the same total as about 113 complete lives. There is also serious evidence pointing the other way. In US state-level data, mortality falls during recessions (Ruhm, 2000), because people drive less, drink less and work less dangerously. A price shock is not a recession, but the sign of the short-run effect is not settled. The most direct mortality channel, cold homes during the winter of 2022–23, is not modelled here at all [citation needed for Dutch estimates].
+These are equivalences, not deaths. Nobody in this model dies. The figure says that a loss of life expectancy spread thinly over everyone adds up to the same total as about 113 complete lives. There is also serious evidence pointing the other way. In US state-level data, mortality falls during recessions (Ruhm, 2000), because people drive less, drink less and work less dangerously. A price shock is not a recession, but the sign of the short-run effect is not settled. The most direct mortality channel, cold homes during the winter of 2022–23, is not modelled here at all. The next section explains why.
+
+
+## Beyond the household budget
+
+Money is the part of a war shock that statistics capture best. The rest has to be assembled from scattered sources, and for most of it the honest answer to "was this the war?" is "partly" or "we cannot tell". Each item below says which.
+
+**The cold.** Dutch households burned about a quarter less gas in 2022 than in 2021, and total national use fell to 31 billion cubic metres, the lowest since 1972. Corrected for a mild winter, use was still 15% lower, and CBS names price as the main driver (CBS via NOS, 2023). Seven in ten households with a gas boiler set the thermostat to 19 °C instead of 21 (Milieu Centraal), and smart-thermostat data put the average living room at 18 °C that winter (tado; both via Wynia's Week, 2023). Whether the cold killed anyone is the open question of this project. In November 2022 about 1,400 more people died than expected, 10% above the norm, half of them in vulnerable groups such as nursing-home residents (CBS via ANP, December 2022). CBS attributes most of 2022's excess mortality to flu and covid-19 (CBS via ANP, January 2023), and no Dutch study separates out cold homes. The gas cut is clearly war-driven. The deaths cannot be assigned. *Verdict: can't tell.*
+
+**The kitchen.** Food is the channel that stayed. It cost the average household €1,073 over 22 months and was still 14% above its no-war path at the end of 2023. Food banks served almost 200,000 people in 2022; by 2025 that had fallen to just over 155,000 and was rising again (Voedselbanken Nederland via NOS, 2026). Energy, fertiliser and grain push food prices up, but so did wages, retail margins and avian flu in the same period, so the food figure is an upper bound on the war's share. *Verdict: partly.*
+
+**The holiday.** In 2023, 19.2% of people aged 15 and over took no holiday, against 18.5% in 2019. Of those who stayed home, 27.6% said they could not afford it. The gap by income is wide: 38% of the lowest-income quarter took no holiday, against 8% of the highest (CBS, 2024). Covid emptied travel in 2020 and the recovery hides any war effect in 2022. For Iran the link is direct: in April 2026 KLM scrapped 160 flights over the May holiday as kerosene prices rose (NL Times, 2026). *Verdict: can't tell for 2022, yes for 2026.*
+
+**The nerves.** Consumer confidence fell to −59 in September and October 2022, the lowest since CBS began the series in 1986, against a twenty-year average of about −10 (CBS, 2022). In the same month Nibud reported that one in three households could barely make ends meet and that calls to its helpline ran 1.5 to 2 times above normal (Nibud via NL Times, 2022). The share of people worried about their finances rose from 23% in 2021 to almost 30%, and about 40% among the lowest earners (CBS via ANP, 2023). After the Iran strikes, confidence dropped from −24 in February 2026 to −46 in May (CBS, 2026). The timing matches both wars, but CBS does not attribute the drops to a cause. *Verdict: partly.*
+
+**The attention.** In the first week of March 2022, 87% of Dutch adults followed the war, 90% were worried about it, and 44% feared a nuclear attack (I&O Research for NOS, n = 2,132). The eight o'clock news drew 2.3 million viewers on 7 March (TV Gids). No one has measured how many minutes the country spent following, discussing and worrying about the war, so we assume it: 15 extra minutes a day per follower for the first three months and 5 a day for the rest of the year. Applied to about 12.4 million adult followers, that is 565 million hours. Divided by a waking lifetime (82 years of 16 waking hours, about 479,000 hours), it equals about 1,180 waking lifetimes, ten times the health-based estimate above. The minutes are the weakest input in this report, and the story page lets the reader change them. Time spent understanding a war is not lost in the way a life is; much of it was civic attention, and some turned into donations and housing for refugees. Government time is not counted because neither cabinet nor parliament publishes hours by topic; the Speaker of the House described 2022 only as a year of "many debates" on Ukraine (Tweede Kamer, 2022). *Verdict: yes for the cause, assumed for the size.*
 
 ## How much the answer depends on our choices
 
@@ -59,7 +76,7 @@ The pre-trend counterfactual looks like the more data-driven option and is the w
 
 ## Limitations
 
-The spending weights are from 2020, a lockdown year. Swapping in 2015 moves the results by about 0.1 percentage points, but neither year reflects how households cut gas use by roughly a fifth in 2022 [citation needed]. That makes our cash losses an upper bound, since we price the pre-crisis basket.
+The spending weights are from 2020, a lockdown year. Swapping in 2015 moves the results by about 0.1 percentage points, but neither year reflects how households cut gas use by about a quarter in 2022 (CBS via NOS, 2023). That makes our cash losses an upper bound, since we price the pre-crisis basket.
 
 Quintile averages hide everything inside the quintile. A renter in a poorly insulated flat on a variable contract and a homeowner with solar panels can share a fifth. The budget survey is the only source that links spending to income, and CBS publishes it by fifth, not by household.
 
@@ -77,5 +94,21 @@ The CBS research series was transcribed from a CBS article, not downloaded from 
 - Eurostat. HICP, ECOICOP version 2, monthly data (`prc_hicp_minr`).
 - SZW (2024, 10 June). Beslisnota bij Monitor uitvoering energietoeslag, meting 2 (Bureau Bartels). https://berthub.eu/tkconv/getraw/2024D26690
 - NL Times (2026, 31 March). High energy & fuel prices push Dutch inflation to 2.7% in March. https://nltimes.nl/node/87720
+- CBS via NOS (2023, 13 February). Korter douchen en verwarming uit: laagste gasverbruik in 50 jaar. https://nos.nl/l/2463617
+- CBS via ANP (2022, 9 December). CBS: afgelopen maand 10 procent meer sterfgevallen dan verwacht. https://nieuws.nl/algemeen/cbs-afgelopen-maand-10-procent-meer-sterfgevallen-dan-verwacht
+- CBS via ANP (2023, 25 January). Nog steeds veel oversterfte in 2022, vooral door griep en covid. https://nieuws.nl/algemeen/nog-steeds-veel-oversterfte-in-2022-vooral-door-griep-en-covid
+- CBS (2022). Consumentenvertrouwen verandert niet. https://www.cbs.nl/nl-nl/nieuws/2022/42/consumentenvertrouwen-verandert-niet
+- CBS (2026). Consumentenvertrouwen daalt verder in mei. https://www.cbs.nl/nl-nl/nieuws/2026/21/consumentenvertrouwen-daalt-verder-in-mei
+- CBS (2024). 1 op de 5 Nederlanders ging in 2023 niet op vakantie. https://www.cbs.nl/nl-nl/nieuws/2024/28/1-op-de-5-nederlanders-ging-in-2023-niet-op-vakantie
+- CBS via ANP (2023, 8 June). Steeds meer Nederlanders maken zich zorgen over hun financiële situatie. https://www.hartvannederland.nl/algemeen-nieuws/artikelen/steeds-meer-nederlanders-maken-zich-zorgen-over-hun-financiele-situatie
+- I&O Research for NOS (2022, 8 March), via Binnenlands Bestuur. Nederlanders maken zich grote zorgen om oorlog Oekraïne. https://www.binnenlandsbestuur.nl/bestuur-en-organisatie/io-research/nederlanders-maken-zich-grote-zorgen-om-oorlog-oekraine
+- NCTV (2022, 14 March). Flitspeiling Oekraïne 2.
+- Nibud via NL Times (2022, 15 September). Netherlands heading for debt crisis, budget institute warns. https://nltimes.nl/2022/09/15/netherlands-heading-debt-crisis-budget-institute-warns
+- NL Times (2026, 16 April). KLM scraps 160 flights in key holiday amid soaring fuel prices. https://nltimes.nl/2026/04/16/klm-scraps-160-flights-key-holiday-amid-soaring-fuel-prices-middle-east-tension
+- Tweede Kamer (2022). Kamervoorzitter: '2022 was jaar van grote gebeurtenissen en emoties'. https://www.tweedekamer.nl/nieuws/kamernieuws/kamervoorzitter-2022-was-jaar-van-grote-gebeurtenissen-en-emoties
+- TV Gids (2022, 8 March). Kijkcijfers: Giro555, Oekraïne-journaals. https://www.tvgids.nl/nieuws/televisie/de-tv-van-gisteren-kijkcijfers-giro555-oekraine-journaals-hunted-into-the-wild
+- Voedselbanken Nederland via NOS (2026, 2 June). Na daling nu weer meer mensen naar voedselbank. https://nos.nl/l/2616784
+- Wynia's Week (2023, 1 April). Nederlandse huizen zijn een stuk killer geworden (Milieu Centraal, tado). https://www.wyniasweek.nl/nederlandse-huizen-zijn-een-stuk-killer-geworden/
+- CPB via NOS (2026, 16 April). CPB: huishoudens gaan erop achteruit door oorlog Midden-Oosten. https://nos.nl/l/2610684
 - Chetty, R. et al. (2016). The association between income and life expectancy in the United States, 2001–2014. *JAMA* 315(16).
 - Ruhm, C. J. (2000). Are recessions good for your health? *Quarterly Journal of Economics* 115(2).
