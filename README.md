@@ -6,7 +6,7 @@ No bombs fell on the Netherlands, but both wars reached Dutch kitchens and meter
 
 ![Support erased the poorest fifth's war loss. Everyone else still paid.](figures/01_bleeding_income.png)
 
-The poorest fifth lost 3.7% of its income before support and ended up 1.9% ahead after it. That result holds only if at least 32% of those households claimed the €1,300 energietoeslag in both years. Everyone above them paid between 1.1% and 1.7% of income. Measured against spending rather than income, the shock was close to flat: every fifth lost between 2.7% and 3.1% of what it spent. Most of the apparent regressivity comes from the bottom fifth spending a third more than its registered income.
+The poorest fifth lost 3.7% of its income before support and ended up 1.9% ahead after it, assuming 55% of those households claimed the €1,300 energietoeslag in both years. Below 32% take-up they would still have lost. Everyone above them paid between 1.1% and 1.7% of income. Measured against spending rather than income, the shock was close to flat: every fifth lost between 2.7% and 3.1% of what it spent. Most of the apparent regressivity comes from the bottom fifth spending a third more than its registered income.
 
 Turned into life expectancy with the Dutch income–longevity gradient, the Ukraine shock cost the equivalent of 113 full 82-year lifetimes after support (plausible range 45 to 226), and support prevented about 72 more. That is 0.19 days per resident. Six months into the Iran war the bill is €78 per household, almost all of it motor fuel, and the life-years equivalent is 3. Household energy prices have not moved yet.
 
