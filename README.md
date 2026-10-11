@@ -2,6 +2,8 @@
 
 <div dir="rtl">هل يوجد ضحايا بشرية في هولندا بسبب الحرب في أوكرانيا والآن في إيران؟</div>
 
+**Live dashboard:** https://122347-f4egxbgtuuazk7ywmu563y.streamlit.app/
+
 No bombs fell on the Netherlands, but both wars reached Dutch kitchens and meter cupboards. Between March 2022 and December 2023, the Russia–Ukraine price shock cost the average household about €1,900 in excess spending on food, home energy and motor fuel. That is €15.5 billion nationally. Government support returned €5.9 billion of it, and it did not land evenly.
 
 ![Support erased the poorest fifth's war loss. Everyone else still paid.](figures/01_bleeding_income.png)
