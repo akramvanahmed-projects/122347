@@ -123,7 +123,7 @@ def cover_html(numbers: dict) -> str:
     <div><b>{c['serious_wounded'] / 1000:,.0f}k</b><span>seriously wounded: food aid, or no support for the poorest</span></div>
     <div><b>≈{r(c['attention_lifetimes'], 10)}</b><span>waking lifetimes spent following the war (assumed minutes)</span></div>
   </div>
-  <div class="foot">war-casualties-nl · github.com/akramvanahmed-projects/war-casualties-nl · Data: CBS and Eurostat (CC BY 4.0). Model estimates, not official statistics.</div>
+  <div class="foot">war-casualties-nl · github.com/akramvanahmed-projects/war-casualties-nl · Data: CBS and Eurostat (CC BY 4.0).<br>Independent analysis, not affiliated with CBS, Eurostat or any government body. Model estimates, not official statistics and not advice; provided as is, without warranty.<br>Made with the assistance of Claude, an AI model by Anthropic. See the disclaimer at the end of the report.</div>
 </section>
 <section class="summary">
   <h2>Key findings</h2>

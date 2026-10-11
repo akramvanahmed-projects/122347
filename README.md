@@ -1,6 +1,6 @@
 # Are there human casualties in the Netherlands from the wars in Ukraine and Iran?
 
-**Read the story:** [interactive data story](https://htmlpreview.github.io/?https://github.com/akramvanahmed-projects/war-casualties-nl/blob/main/docs/index.html) · **Working paper:** [PDF](reports/working_paper.pdf) · **Explore the model:** [live dashboard](https://122347-f4egxbgtuuazk7ywmu563y.streamlit.app/)
+**Read the story:** [interactive data story](https://htmlpreview.github.io/?https://github.com/akramvanahmed-projects/war-casualties-nl/blob/main/docs/index.html) · **Working paper:** [PDF](reports/working_paper.pdf) · **Live app (story and model explorer):** [Streamlit](https://122347-f4egxbgtuuazk7ywmu563y.streamlit.app/)
 
 No bombs fell on the Netherlands, but both wars reached Dutch kitchens and meter cupboards. Between March 2022 and December 2023, the Russia–Ukraine price shock cost the average household about €1,900 in excess spending on food, home energy and motor fuel. That is €15.5 billion nationally. Government support returned €5.9 billion of it, and it did not land evenly.
 
@@ -45,3 +45,9 @@ tests/                   pytest
 ## Data and licence
 
 Code is MIT-licensed (see `LICENSE`). Data comes from Eurostat (HICP, `prc_hicp_minr`) and Statistics Netherlands (StatLine tables 85420NED, 85419NED and 83932NED, plus published figures on energy poverty and life expectancy), all reused under CC BY 4.0. Source: CBS and Eurostat. The results are this project's own modelling, not official statistics.
+
+## Disclaimer
+
+This is an independent, non-commercial analysis. It is not affiliated with, endorsed by or produced on behalf of Statistics Netherlands (CBS), Eurostat, the CPB, any ministry, news organisation or other source cited here; names are used only to identify sources. The casualty figures are model estimates built from published data and stated assumptions. They are not official statistics, not a count of identified deaths or injuries, and do not describe any individual; quote them only with their ranges. Nothing here is medical, financial, legal or policy advice. The material is provided "as is", without warranty of any kind, and to the fullest extent permitted by law the authors accept no liability for any loss arising from its use. CBS and Eurostat data are reused under CC BY 4.0; other sources remain the property of their owners, and short quotations are used for commentary.
+
+**AI assistance.** This project was made with the help of Claude, an AI model developed by Anthropic, which assisted with research, data analysis, code, charts and writing. Figures were checked against the cited sources, but errors are possible; please report them through the issue tracker.

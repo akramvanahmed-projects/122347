@@ -113,6 +113,12 @@ Income is registered disposable income, and pensions, wages and benefits were pa
 
 The CBS research series was transcribed from a CBS article, not downloaded from StatLine. It was checked against the inflation rates printed alongside it, but should be re-verified before anyone cites a single month.
 
+## Disclaimer and AI assistance
+
+This is an independent, non-commercial analysis. It is not affiliated with, endorsed by or produced on behalf of Statistics Netherlands (CBS), Eurostat, the CPB, any ministry, news organisation or other source cited here; names are used only to identify sources. The casualty figures are model estimates built from published data and stated assumptions. They are not official statistics, not a count of identified deaths or injuries, and do not describe any individual; quote them only with their ranges. Nothing here is medical, financial, legal or policy advice. The material is provided "as is", without warranty of any kind, and to the fullest extent permitted by law the authors accept no liability for any loss arising from its use. CBS and Eurostat data are reused under CC BY 4.0; other sources remain the property of their owners, and short quotations are used for commentary.
+
+**AI assistance.** This project was made with the help of Claude, an AI model developed by Anthropic, which assisted with research, data analysis, code, charts and writing. Figures were checked against the cited sources, but errors are possible; please report them through the issue tracker.
+
 ## References
 
 - CBS (2022). Uitwerking van energiemaatregelen in de CPI. https://www.cbs.nl/nl-nl/achtergrond/2022/48/uitwerking-van-energiemaatregelen-in-de-cpi
